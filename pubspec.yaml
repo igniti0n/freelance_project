@@ -23,6 +23,7 @@ environment:
 dependencies:
   get: 3.21.3
   lottie: ^0.7.0+1
+  font_awesome_flutter: ^8.10.1
   flutter:
     sdk: flutter
   dio:
