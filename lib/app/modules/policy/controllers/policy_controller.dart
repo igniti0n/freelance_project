@@ -1,10 +1,9 @@
 import 'package:get/get.dart';
 
-class SignUpController extends GetxController {
-  //TODO: Implement SignUpController
+class PolicyController extends GetxController {
+  //TODO: Implement PolicyController
   
   final count = 0.obs;
-  final value = "Select Gender".obs;
 
   @override
   void onInit() {}

@@ -3,7 +3,6 @@ part of 'app_pages.dart';
 
 abstract class Routes{
   static const HOME = '/home';
-  static const SIGIN_IN = '/sigin-in';
   static const SPLASH = '/splash';
   static const SIGN_IN = '/sign-in';
   static const SIGN_UP = '/sign-up';
@@ -19,4 +18,5 @@ abstract class Routes{
   static const PROFILE = '/profile';
   static const CHANGE_PASSWORD = '/change-password';
   static const WITHDRAWAL = '/withdrawal';
+  static const POLICY = '/policy';
 }

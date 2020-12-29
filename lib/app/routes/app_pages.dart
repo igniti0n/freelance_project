@@ -1,3 +1,5 @@
+import 'package:test_project_one/app/modules/policy/views/policy_view.dart';
+import 'package:test_project_one/app/modules/policy/bindings/policy_binding.dart';
 import 'package:test_project_one/app/modules/withdrawal/views/withdrawal_view.dart';
 import 'package:test_project_one/app/modules/withdrawal/bindings/withdrawal_binding.dart';
 import 'package:test_project_one/app/modules/change_password/views/change_password_view.dart';
@@ -26,8 +28,6 @@ import 'package:test_project_one/app/modules/sign_up/views/sign_up_view.dart';
 import 'package:test_project_one/app/modules/sign_up/bindings/sign_up_binding.dart';
 import 'package:test_project_one/app/modules/sign_in/views/sign_in_view.dart';
 import 'package:test_project_one/app/modules/sign_in/bindings/sign_in_binding.dart';
-import 'package:test_project_one/app/modules/sigin_in/views/sigin_in_view.dart';
-import 'package:test_project_one/app/modules/sigin_in/bindings/sigin_in_binding.dart';
 import 'package:test_project_one/app/modules/home/views/home_view.dart';
 import 'package:test_project_one/app/modules/home/bindings/home_binding.dart';
 import 'package:get/get.dart';
@@ -48,11 +48,7 @@ static const INITIAL = Routes.SPLASH;
       name: Routes.SPLASH, 
       page:()=> SplashScreen(), 
     ),
-    GetPage(
-      name: Routes.SIGIN_IN, 
-      page:()=> SiginInView(), 
-      binding: SiginInBinding(),
-    ),
+    
     GetPage(
       name: Routes.SIGN_IN, 
       page:()=> SignInView(), 
@@ -122,6 +118,11 @@ static const INITIAL = Routes.SPLASH;
       name: Routes.WITHDRAWAL, 
       page:()=> WithdrawalView(), 
       binding: WithdrawalBinding(),
+    ),
+    GetPage(
+      name: Routes.POLICY, 
+      page:()=> PolicyView(), 
+      binding: PolicyBinding(),
     ),
   ];
 }
