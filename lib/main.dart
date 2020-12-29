@@ -15,6 +15,7 @@ void main() async{
 
   runApp(
     GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Application",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,

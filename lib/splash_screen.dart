@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 3), () {
+    Timer(Duration(seconds: 10), () {
       Navigator.pushReplacementNamed(context, "/home");
     });
   }
@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Container(
       color: Colors.white,
       child: Lottie.asset(
-          "assets/lottie.json"),
+          "assets/lottie/lottie.json"),
     );
   }
 }
