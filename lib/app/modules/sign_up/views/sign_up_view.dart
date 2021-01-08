@@ -11,7 +11,6 @@ import 'package:test_project_one/app/widgets/text_fields.dart';
 class SignUpView extends GetView<SignUpController> {
   final _formKey = GlobalKey<FormState>();
   SignUpController _signUpController = Get.find();
- 
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,7 @@ class SignUpView extends GetView<SignUpController> {
                 height: 20,
               ),
               textField(
-                signup: true,
+                  signup: true,
                   name: "First Name",
                   placeholder: "Dike",
                   keyboardType: TextInputType.name,
@@ -39,7 +38,7 @@ class SignUpView extends GetView<SignUpController> {
                     }
                   }),
               textField(
-                signup: true,
+                  signup: true,
                   name: "Last Name",
                   placeholder: "John",
                   keyboardType: TextInputType.name,
@@ -49,7 +48,7 @@ class SignUpView extends GetView<SignUpController> {
                     }
                   }),
               textField(
-                signup: true,
+                  signup: true,
                   name: "Gender",
                   placeholder: "John",
                   keyboardType: TextInputType.name,
@@ -82,10 +81,13 @@ class SignUpView extends GetView<SignUpController> {
                         },
                         items: ["Male", "Female"],
                       ),
-                                        ],
+                    ],
                   )),
-             SizedBox(height: 20,),
-                      textField(signup: true,
+              SizedBox(
+                height: 20,
+              ),
+              textField(
+                  signup: true,
                   name: "Date of Birth",
                   placeholder: "2020-11-22",
                   keyboardType: TextInputType.name,
@@ -94,8 +96,7 @@ class SignUpView extends GetView<SignUpController> {
                       return "Fill Field";
                     }
                   }),
-
-                  Padding(
+              Padding(
                   padding: const EdgeInsets.only(left: 17.0, right: 17.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,10 +120,13 @@ class SignUpView extends GetView<SignUpController> {
                         },
                         items: ["Christianity", "Islamic"],
                       ),
-                                        ],
+                    ],
                   )),
-                    SizedBox(height: 20,),
-                    textField(signup: true,
+              SizedBox(
+                height: 20,
+              ),
+              textField(
+                  signup: true,
                   name: "Highest Education Level",
                   placeholder: "BSc. Computer Science",
                   keyboardType: TextInputType.name,
@@ -131,13 +135,18 @@ class SignUpView extends GetView<SignUpController> {
                       return "Fill Field";
                     }
                   }),
-                  SizedBox(height: 30,),
-                  display_button(name: "Login", function: (){
-                 if (_formKey.currentState.validate()) {
-         
-        }
-              }),
-               SizedBox(
+              SizedBox(
+                height: 30,
+              ),
+              display_button(
+                  name: "Next",
+                  function: () {
+                    Get.toNamed(Routes.SIGN_UP_INTEREST);
+                    //          if (_formKey.currentState.validate()) {
+
+                    // }
+                  }),
+              SizedBox(
                 height: 50,
               ),
               Center(
@@ -153,7 +162,9 @@ class SignUpView extends GetView<SignUpController> {
                       fontSize: 13),
                 ),
               )),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),

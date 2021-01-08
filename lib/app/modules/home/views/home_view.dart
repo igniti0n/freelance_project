@@ -6,9 +6,11 @@ import 'package:test_project_one/app/modules/more/views/more_view.dart';
 import 'package:test_project_one/app/modules/my_ads/views/my_ads_view.dart';
 import 'package:test_project_one/app/modules/stats/views/stats_view.dart';
 import 'package:test_project_one/app/modules/wallet/views/wallet_view.dart';
+import 'package:test_project_one/app/widgets/ads_card.dart';
 import 'package:test_project_one/app/widgets/colours.dart';
 
 import 'package:test_project_one/app/widgets/footer.dart';
+import 'package:test_project_one/app/widgets/header.dart';
 
 class HomeView extends GetView<HomeController> {
   RxInt activeIndex = 0.obs;
@@ -38,13 +40,12 @@ class HomeView extends GetView<HomeController> {
           notchedShape: CircularNotchedRectangle(),
           items: [
             FABBottomAppBarItem(iconData: Icons.home, text: "Home"),
+            FABBottomAppBarItem(iconData: Icons.campaign, text: "My Ads"),
             FABBottomAppBarItem(
-                iconData: Icons.campaign, text: "My Ads"),
-            FABBottomAppBarItem(iconData: Icons.account_balance_wallet, text: "Wallet"),
+                iconData: Icons.account_balance_wallet, text: "Wallet"),
+            FABBottomAppBarItem(iconData: Icons.bar_chart, text: "Stat"),
             FABBottomAppBarItem(
-                iconData: Icons.bar_chart,
-                text: "Stat"),
-            FABBottomAppBarItem(iconData: FaIcon(FontAwesomeIcons.thLarge).icon, text: "More"),
+                iconData: FaIcon(FontAwesomeIcons.thLarge).icon, text: "More"),
           ],
         ));
   }
@@ -58,6 +59,29 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          header,
+          SizedBox(height: 10),
+          Padding(
+            padding: EdgeInsets.only(left: 20, right: 20),
+            child: Text(
+              "Here are all available Adds",
+              style: TextStyle(
+                  fontFamily: "Gilroy-Light",
+                  fontSize: 22,
+                  color: Colors.black),
+            ),
+          ),
+          Expanded(child: ListView.builder(
+            itemBuilder: (context, index) {
+            return show_card(report: false);
+          }))
+        ],
+      ),
+    );
   }
 }
