@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
 
 class SignUpInterestController extends GetxController {
-  //TODO: Implement SignUpInterestController
+  //TODO: Implement SignUpController
   
   final count = 0.obs;
+  final value = "Select Gender".obs;
 
   @override
   void onInit() {}

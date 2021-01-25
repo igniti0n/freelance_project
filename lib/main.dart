@@ -12,7 +12,6 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   prefs =await SharedPreferences.getInstance();
 
-  Get.put(Webservice());
 
   runApp(
     GetMaterialApp(

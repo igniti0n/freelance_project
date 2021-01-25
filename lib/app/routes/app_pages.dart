@@ -1,7 +1,6 @@
-import 'package:test_project_one/app/modules/sign_up_media_accounts/views/sign_up_media_accounts_view.dart';
-import 'package:test_project_one/app/modules/sign_up_media_accounts/bindings/sign_up_media_accounts_binding.dart';
-import 'package:test_project_one/app/modules/sign_up_2/views/sign_up_2_view.dart';
-import 'package:test_project_one/app/modules/sign_up_2/bindings/sign_up_2_binding.dart';
+import 'package:test_project_one/app/modules/sign_up/views/sign_up_2_view.dart';
+import 'package:test_project_one/app/modules/sign_up/views/sign_up_interest_view.dart';
+import 'package:test_project_one/app/modules/sign_up/views/sign_up_media_accounts_view.dart';
 import 'package:test_project_one/app/modules/policy/views/policy_view.dart';
 import 'package:test_project_one/app/modules/policy/bindings/policy_binding.dart';
 import 'package:test_project_one/app/modules/withdrawal/views/withdrawal_view.dart';
@@ -26,8 +25,6 @@ import 'package:test_project_one/app/modules/my_ads/views/my_ads_view.dart';
 import 'package:test_project_one/app/modules/my_ads/bindings/my_ads_binding.dart';
 import 'package:test_project_one/app/modules/ads_details/views/ads_details_view.dart';
 import 'package:test_project_one/app/modules/ads_details/bindings/ads_details_binding.dart';
-import 'package:test_project_one/app/modules/sign_up_interest/views/sign_up_interest_view.dart';
-import 'package:test_project_one/app/modules/sign_up_interest/bindings/sign_up_interest_binding.dart';
 import 'package:test_project_one/app/modules/sign_up/views/sign_up_view.dart';
 import 'package:test_project_one/app/modules/sign_up/bindings/sign_up_binding.dart';
 import 'package:test_project_one/app/modules/sign_in/views/sign_in_view.dart';
@@ -40,7 +37,7 @@ part 'app_routes.dart';
 
 class AppPages {
   
-static const INITIAL = Routes.HOME;
+static const INITIAL = Routes.SPLASH;
 
   static final routes = [
     GetPage(
@@ -64,9 +61,8 @@ static const INITIAL = Routes.HOME;
       binding: SignUpBinding(),
     ),
     GetPage(
-      name: Routes.SIGN_UP_INTEREST, 
-      page:()=> SignUpInterestView(), 
-      binding: SignUpInterestBinding(),
+      name: Routes.SIGN_UP_2, 
+      page:()=> SignUp2View(), 
     ),
     GetPage(
       name: Routes.ADS_DETAILS, 
@@ -129,14 +125,14 @@ static const INITIAL = Routes.HOME;
       binding: PolicyBinding(),
     ),
     GetPage(
-      name: Routes.SIGN_UP_2, 
-      page:()=> SignUp2View(), 
-      binding: SignUp2Binding(),
+      name: Routes.SIGN_UP_INTEREST, 
+      page:()=> SignUpInterestView(), 
+      
     ),
     GetPage(
       name: Routes.SIGN_UP_MEDIA_ACCOUNTS, 
       page:()=> SignUpMediaAccountsView(), 
-      binding: SignUpMediaAccountsBinding(),
+      
     ),
   ];
 }

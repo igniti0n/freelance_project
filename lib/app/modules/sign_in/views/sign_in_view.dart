@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:test_project_one/app/modules/sign_in/controllers/sign_in_controller.dart';
+import 'package:test_project_one/app/modules/sign_in/provider/sign_in.dart';
 import 'package:test_project_one/app/routes/app_pages.dart';
 import 'package:test_project_one/app/widgets/button-widget.dart';
 import 'package:test_project_one/app/widgets/colours.dart';
@@ -12,13 +12,16 @@ import 'package:test_project_one/app/widgets/text_fields.dart';
 
 class SignInView extends GetView<SignInController> {
   final _formKey = GlobalKey<FormState>();
-  SignInController _signInController = Get.find();
+
+  final focus = FocusScope.of(Get.context);
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: WillPopScope(
         onWillPop: () {
-          show_exit_Dialog();
+          showExitDialog();
         },
         child: SingleChildScrollView(
           child: Column(
@@ -53,6 +56,7 @@ class SignInView extends GetView<SignInController> {
                     children: [
                       textField(
                           name: "Email",
+                          controller: emailController,
                           placeholder: "amazing@specialmansolution.com",
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) {
@@ -66,6 +70,7 @@ class SignInView extends GetView<SignInController> {
                           },
                           password: false),
                       textField(
+                          controller: passwordController,
                           name: "Password",
                           placeholder: "************",
                           password: true,
@@ -80,11 +85,15 @@ class SignInView extends GetView<SignInController> {
                       ),
                     ],
                   )),
-              display_button(name: "Login", function: (){
-                 if (_formKey.currentState.validate()) {
-          _signInController.login();
-        }
-              }),
+              display_button(
+                  name: "Login",
+                  function: () {
+                    if (_formKey.currentState.validate()) {
+                      controller.login(
+                          email: emailController.text,
+                          password: passwordController.text);
+                    }
+                  }),
               SizedBox(
                 height: 50,
               ),
@@ -101,7 +110,9 @@ class SignInView extends GetView<SignInController> {
                       fontSize: 13),
                 ),
               )),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),

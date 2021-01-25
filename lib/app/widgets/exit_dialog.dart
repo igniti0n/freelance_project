@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import 'colours.dart';
 
-show_exit_Dialog() {
+showExitDialog() {
     return Get.defaultDialog(
         title: "Exit!!!!",
         content: Text("Do you want to exist Gidi?"),

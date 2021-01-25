@@ -1,7 +1,8 @@
 import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart'; 
-import 'package:test_project_one/app/modules/sign_up_interest/controllers/sign_up_interest_controller.dart';
+import 'package:get/get.dart';
+import 'package:test_project_one/app/modules/sign_up/controllers/signUpInterest.dart'; 
+
 import 'package:test_project_one/app/routes/app_pages.dart';
 import 'package:test_project_one/app/widgets/alert_dialog.dart';
 import 'package:test_project_one/app/widgets/button-widget.dart';

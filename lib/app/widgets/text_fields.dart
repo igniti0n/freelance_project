@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'colours.dart';
 //Define your text fields here
 
 textField({String name, String placeholder, var keyboardType, 
 Function validator,bool signup,
+TextEditingController controller,
+
 bool password=false}) {
 
   return Padding(
@@ -22,6 +25,8 @@ bool password=false}) {
         ),
         Container(
           child: TextFormField(
+            controller: controller,
+         
             validator: (value) => validator(value),
             obscureText: password,
             keyboardType: keyboardType,

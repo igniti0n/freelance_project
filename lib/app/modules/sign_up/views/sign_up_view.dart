@@ -1,7 +1,10 @@
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:test_project_one/app/modules/sign_up/controllers/signUPMedia.dart';
 import 'package:test_project_one/app/modules/sign_up/controllers/sign_up_controller.dart';
+import 'package:test_project_one/app/modules/sign_up/views/sign_up_2_view.dart';
 import 'package:test_project_one/app/routes/app_pages.dart';
 import 'package:test_project_one/app/widgets/button-widget.dart';
 import 'package:test_project_one/app/widgets/colours.dart';
@@ -10,12 +13,18 @@ import 'package:test_project_one/app/widgets/text_fields.dart';
 
 class SignUpView extends GetView<SignUpController> {
   final _formKey = GlobalKey<FormState>();
-  SignUpController _signUpController = Get.find();
-
+SignUpController _controller = Get.put(SignUpController());
+ 
+  TextEditingController firstname = new TextEditingController();
+  TextEditingController lastname = new TextEditingController();
+  String gender;
+  TextEditingController dOB = new TextEditingController();
+  String religion ;
+  TextEditingController levelOfEducation = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () => show_exit_Dialog(),
+      onWillPop: () => showExitDialog(),
       child: Scaffold(
           body: SingleChildScrollView(
         child: Form(
@@ -29,6 +38,7 @@ class SignUpView extends GetView<SignUpController> {
               ),
               textField(
                   signup: true,
+                  controller: firstname,
                   name: "First Name",
                   placeholder: "Dike",
                   keyboardType: TextInputType.name,
@@ -39,6 +49,7 @@ class SignUpView extends GetView<SignUpController> {
                   }),
               textField(
                   signup: true,
+                  controller: lastname,
                   name: "Last Name",
                   placeholder: "John",
                   keyboardType: TextInputType.name,
@@ -47,7 +58,6 @@ class SignUpView extends GetView<SignUpController> {
                       return "Fill Field";
                     }
                   }),
-              
               Padding(
                   padding: const EdgeInsets.only(left: 17.0, right: 17.0),
                   child: Column(
@@ -65,6 +75,10 @@ class SignUpView extends GetView<SignUpController> {
                       ),
                       DropdownSearch(
                         mode: Mode.MENU,
+                         onChanged: (value){
+                           _controller.gender.value = value;
+                        },
+                        
                         validator: (value) {
                           if (value.toString().isEmpty) {
                             return "Set Gender";
@@ -79,6 +93,7 @@ class SignUpView extends GetView<SignUpController> {
               ),
               textField(
                   signup: true,
+                  controller: dOB,
                   name: "Date of Birth",
                   placeholder: "2020-11-22",
                   keyboardType: TextInputType.name,
@@ -104,6 +119,10 @@ class SignUpView extends GetView<SignUpController> {
                       ),
                       DropdownSearch(
                         mode: Mode.MENU,
+                        onChanged: (value){
+                           _controller.religion.value = value;
+                        },
+                        
                         validator: (value) {
                           if (value.toString().isEmpty) {
                             return "Set Religion";
@@ -118,6 +137,7 @@ class SignUpView extends GetView<SignUpController> {
               ),
               textField(
                   signup: true,
+                  controller: levelOfEducation,
                   name: "Highest Education Level",
                   placeholder: "BSc. Computer Science",
                   keyboardType: TextInputType.name,
@@ -132,10 +152,16 @@ class SignUpView extends GetView<SignUpController> {
               display_button(
                   name: "Next",
                   function: () {
-                    Get.toNamed(Routes.SIGN_UP_2);
-                    //          if (_formKey.currentState.validate()) {
-
-                    // }
+                    if (_formKey.currentState.validate()) {
+                      Get.to(SignUp2View(
+                        firstName: firstname.text,
+                        lastname: lastname.text,
+                        gender: _controller.gender.value,
+                        dOB: dOB.text,
+                        religion: _controller.religion.value,
+                        levelOfEducation: levelOfEducation.text,
+                      ));
+                    }
                   }),
               SizedBox(
                 height: 50,

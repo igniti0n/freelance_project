@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
 
 class SignUp2Controller extends GetxController {
-  //TODO: Implement SignUp2Controller
-  
-  final count = 0.obs;
+  //TODO: Implement SignUpController
+
+  final country = "".obs;
+  final value = "Select Gender".obs;
 
   @override
   void onInit() {}
@@ -13,6 +14,4 @@ class SignUp2Controller extends GetxController {
 
   @override
   void onClose() {}
-
-  void increment() => count.value++;
 }
