@@ -47,16 +47,7 @@ class SignUpView extends GetView<SignUpController> {
                       return "Fill Field";
                     }
                   }),
-              textField(
-                  signup: true,
-                  name: "Gender",
-                  placeholder: "John",
-                  keyboardType: TextInputType.name,
-                  validator: (value) {
-                    if (value.toString().isEmpty) {
-                      return "Fill Field";
-                    }
-                  }),
+              
               Padding(
                   padding: const EdgeInsets.only(left: 17.0, right: 17.0),
                   child: Column(
@@ -141,7 +132,7 @@ class SignUpView extends GetView<SignUpController> {
               display_button(
                   name: "Next",
                   function: () {
-                    Get.toNamed(Routes.SIGN_UP_INTEREST);
+                    Get.toNamed(Routes.SIGN_UP_2);
                     //          if (_formKey.currentState.validate()) {
 
                     // }

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35">
+  <g id="Group_3194" data-name="Group 3194" transform="translate(-15 -583)">
+    <g id="Ellipse_494" data-name="Ellipse 494" transform="translate(15 583)" fill="#500a84" stroke="#fff" stroke-width="2">
+      <circle cx="17.5" cy="17.5" r="17.5" stroke="none"/>
+      <circle cx="17.5" cy="17.5" r="16.5" fill="none"/>
+    </g>
+    <g id="Icon_feather-clock" data-name="Icon feather-clock" transform="translate(25.827 594.292)">
+      <path id="Path_33" data-name="Path 33" d="M15.448,9.224A6.224,6.224,0,1,1,9.224,3,6.224,6.224,0,0,1,15.448,9.224Z" transform="translate(-3 -3)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <path id="Path_34" data-name="Path 34" d="M18,9v3.734l2.49,1.245" transform="translate(-11.776 -6.51)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>

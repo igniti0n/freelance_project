@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="353" height="14" viewBox="0 0 353 14">
+  <g id="Group_3207" data-name="Group 3207" transform="translate(-30 -407.381)">
+    <rect id="Rectangle_2578" data-name="Rectangle 2578" width="14" height="8" rx="2" transform="translate(30 411)" fill="#faab3f"/>
+    <rect id="Rectangle_2579" data-name="Rectangle 2579" width="14" height="8" rx="2" transform="translate(152 411)" fill="red"/>
+    <rect id="Rectangle_2580" data-name="Rectangle 2580" width="14" height="8" rx="2" transform="translate(275 411)" fill="#4099ff"/>
+    <text id="Available_Ads" data-name="Available Ads" transform="translate(50 418.381)" fill="#282828" font-size="10" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Available Ads</tspan></text>
+    <text id="Completed_Ads" data-name="Completed Ads" transform="translate(172 418.381)" fill="#282828" font-size="10" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Completed Ads</tspan></text>
+    <text id="Avg_Completed_Ads" data-name="Avg Completed Ads" transform="translate(295 418.381)" fill="#282828" font-size="10" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Avg Completed Ads</tspan></text>
+  </g>
+</svg>

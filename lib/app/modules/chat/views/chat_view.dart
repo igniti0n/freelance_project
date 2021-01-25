@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:test_project_one/app/modules/chat/controllers/chat_controller.dart';
 import 'package:test_project_one/app/routes/app_pages.dart';
@@ -209,21 +210,21 @@ class ChatView extends GetView<ChatController> {
             width: Get.width,
             decoration: BoxDecoration(
                 color: Colors.white,
-                boxShadow: [BoxShadow(offset: Offset(0, -5),
-                blurRadius: 10,
+                boxShadow: [BoxShadow(offset: Offset(0, -1),
+                blurRadius: 5,
                 color: Colors.grey)]),
             child: Row(
               children: [
                 SizedBox(
                   width: 20,
                 ),
-                Image.asset("assets/images/attachment.png"),
+                SvgPicture.asset("assets/svg/attach.svg"),
                 SizedBox(
                   width: 20,
                 ),
                 Container(
                   height: 47,
-                  width: 290,
+                  width: Get.width *0.7,
                   decoration: BoxDecoration(
                       color: Color(0xffF5F5F5),
                       border: Border.all(color: Color(0xffDEDEDE)),
@@ -238,7 +239,7 @@ class ChatView extends GetView<ChatController> {
                             color: Color(0xffA4A4A4))),
                   ),
                 ),
-                Image.asset("assets/images/send.png"),
+                 SvgPicture.asset("assets/svg/send.svg", height: 32, width: 32,),
               ],
             ),
           )

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:test_project_one/app/modules/ads_details/controllers/ads_details_controller.dart';
 import 'package:test_project_one/app/widgets/button-widget.dart';
@@ -52,7 +53,7 @@ class AdsDetailsView extends GetView<AdsDetailsController> {
               padding: const EdgeInsets.only(left: 20),
               child: Row(
                 children: [
-                  Image.asset("assets/images/facebook.png"),
+                  SvgPicture.asset("assets/svg/small_facebook.svg"),
                   SizedBox(
                     width: 5,
                   ),
@@ -66,7 +67,7 @@ class AdsDetailsView extends GetView<AdsDetailsController> {
                   SizedBox(
                     width: 20,
                   ),
-                  Image.asset("assets/images/instagram.png"),
+                  SvgPicture.asset("assets/svg/small_instagram.svg"),
                   SizedBox(
                     width: 5,
                   ),
@@ -80,7 +81,7 @@ class AdsDetailsView extends GetView<AdsDetailsController> {
                   SizedBox(
                     width: 20,
                   ),
-                  Image.asset("assets/images/youtube.png"),
+                  SvgPicture.asset("assets/svg/small_youtube.svg"),
                   SizedBox(
                     width: 5,
                   ),
@@ -94,7 +95,7 @@ class AdsDetailsView extends GetView<AdsDetailsController> {
                   SizedBox(
                     width: 20,
                   ),
-                  Image.asset("assets/images/twitter.png"),
+                  SvgPicture.asset("assets/svg/small_twitter.svg"),
                   SizedBox(
                     width: 5,
                   ),
@@ -126,7 +127,7 @@ class AdsDetailsView extends GetView<AdsDetailsController> {
               padding: const EdgeInsets.only(left: 20),
               child: Row(
                 children: [
-                  Image.asset("assets/images/duration.png"),
+                  SvgPicture.asset("assets/svg/duration.svg"),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -159,7 +160,7 @@ class AdsDetailsView extends GetView<AdsDetailsController> {
                   SizedBox(
                     width: 10,
                   ),
-                  Image.asset("assets/images/ads_type.png"),
+                 SvgPicture.asset("assets/svg/anouncement.svg"),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(

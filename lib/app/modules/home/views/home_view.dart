@@ -60,27 +60,30 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          header,
-          SizedBox(height: 10),
-          Padding(
-            padding: EdgeInsets.only(left: 20, right: 20),
-            child: Text(
-              "Here are all available Adds",
-              style: TextStyle(
-                  fontFamily: "Gilroy-Light",
-                  fontSize: 22,
-                  color: Colors.black),
+      appBar: header,
+      body: Container(
+        color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 5,
             ),
-          ),
-          Expanded(child: ListView.builder(
-            itemBuilder: (context, index) {
-            return show_card(report: false);
-          }))
-        ],
+            Padding(
+              padding: EdgeInsets.only(left: 20, right: 20),
+              child: Text(
+                "Available ads",
+                style: TextStyle(
+                    fontFamily: "Gilroy-Light",
+                    fontSize: 22,
+                    color: Colors.black),
+              ),
+            ),
+            Expanded(child: ListView.builder(itemBuilder: (context, index) {
+              return show_card(report: false);
+            }))
+          ],
+        ),
       ),
     );
   }

@@ -29,7 +29,7 @@ bool password=false}) {
             
                 hintText: placeholder,
                 helperStyle: TextStyle(color:signup==true? colour_black1: colour_text_field_border),
-                hintStyle: TextStyle(color: signup==true? colour_black1: colour_text_field_border),
+                hintStyle: TextStyle(color: signup==true? Colors.grey: colour_text_field_border),
                 labelStyle: TextStyle(color:signup==true? colour_black1: colour_text_field_border),
                 // enabledBorder: OutlineInputBorder(
                 //     borderSide: BorderSide(color: colour_text_field_border)),

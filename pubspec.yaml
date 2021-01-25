@@ -31,6 +31,9 @@ dependencies:
   shared_preferences:
   # smart_select: ^4.3.2
   chips_choice: ^2.0.1
+  flutter_svg: ^0.18.0
+  syncfusion_flutter_charts: ^18.4.34
+  bezier_chart: ^1.0.17+1
 
   dropdown_search:
   # The following adds the Cupertino Icons font to your application.

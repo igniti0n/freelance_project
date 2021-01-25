@@ -17,7 +17,7 @@ void main() async{
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Application",
+      title: "Gidi ads",
       theme: ThemeData(primaryColor: colour_login_container,
      
       ),

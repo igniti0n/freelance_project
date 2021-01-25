@@ -19,4 +19,6 @@ abstract class Routes{
   static const CHANGE_PASSWORD = '/change-password';
   static const WITHDRAWAL = '/withdrawal';
   static const POLICY = '/policy';
+  static const SIGN_UP_2 = '/sign-up-2';
+  static const SIGN_UP_MEDIA_ACCOUNTS = '/sign-up-media-accounts';
 }

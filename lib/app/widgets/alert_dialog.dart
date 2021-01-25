@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'colours.dart';
@@ -6,9 +7,8 @@ import 'colours.dart';
 show_dialog(
     {BuildContext context,
     String heading,
-    String left_text,
+    
     String right_text,
-    Function left_text_fn,
     Function right_text_fn,
     Widget widget}) {
   showDialog(
@@ -17,7 +17,7 @@ show_dialog(
       builder: (context) {
         return Container(
           height: 320,
-          width: 369,
+          width: Get.width,
           child: AlertDialog(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -29,11 +29,13 @@ show_dialog(
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
+                    
                     heading,
                     style: GoogleFonts.telex(
-                        fontSize: 23,
+                        fontSize: 18,
                         fontWeight: FontWeight.normal,
                         color: colour_alert_dialog),
+                        textAlign: TextAlign.center,
                   ),
                 ),
                 Container(
@@ -49,48 +51,34 @@ show_dialog(
                 SizedBox(
                   height: 20,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
+               
+                     
                       SizedBox(
-                        width: 140,
+                        
                         height: 55,
-                        child: RaisedButton(
-                          onPressed:()=> left_text_fn(),
-                          color: colour_border,
-                          textColor: Color(0xff010101),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(34)),
-                          child: Text(left_text,
-                              style: TextStyle(
-                                  fontFamily: "Gilroy",
-                                  fontSize: 20,
-                                  color: Color(0xff010101))),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 140,
-                        height: 55,
-                        child: RaisedButton(
-                          onPressed:()=> right_text_fn(),
-                          color: colour_black1,
-                          textColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(34)),
-                          child: Text(
-                            right_text,
-                            style: TextStyle(
-                                fontFamily: "Gilroy",
-                                fontSize: 20,
-                                color: Colors.white),
+                        child: Center(
+                          child: Container(
+                            width: 100,
+                            child: RaisedButton(
+                              onPressed:()=> right_text_fn(),
+                              color: colour_black1,
+                              textColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(34)),
+                              child: Center(
+                                child: Text(
+                                  right_text,
+                                  style: TextStyle(
+                                      fontFamily: "Gilroy",
+                                      fontSize: 15,
+                                      color: Colors.white),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
-                      )
-                    ],
-                  ),
-                ),
+                      ),
+                   
                 SizedBox(
                   height: 20,
                 ),

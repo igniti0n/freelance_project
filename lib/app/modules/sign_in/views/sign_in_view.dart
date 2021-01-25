@@ -100,7 +100,8 @@ class SignInView extends GetView<SignInController> {
                       color: colour_login_container,
                       fontSize: 13),
                 ),
-              ))
+              )),
+              SizedBox(height: 20,),
             ],
           ),
         ),

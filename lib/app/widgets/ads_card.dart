@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:test_project_one/app/routes/app_pages.dart';
 
@@ -7,8 +8,9 @@ import 'colours.dart';
 show_card({bool report}) {
   return Column(
     children: [
+      
       Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.only(left: 5, right: 5, bottom: 15, top: 10),
         child: Container(
           
           height: 298,
@@ -17,7 +19,7 @@ show_card({bool report}) {
             boxShadow: [
               BoxShadow(
                 color: Color(0xff939393),
-                blurRadius: 30,
+                blurRadius: 10,
                 offset: Offset(0, 5)
               )
             ],
@@ -30,6 +32,7 @@ show_card({bool report}) {
                 width: 8,
                 color: colour_yellow,
               ),
+              
               Container(
                 height: 298,
                 width: 350,
@@ -59,7 +62,7 @@ show_card({bool report}) {
                       ),
                       Row(
                         children: [
-                          Image.asset("assets/images/facebook.png"),
+                         SvgPicture.asset("assets/svg/small_facebook.svg"),
                           SizedBox(
                             width: 5,
                           ),
@@ -73,7 +76,7 @@ show_card({bool report}) {
                           SizedBox(
                             width: 20,
                           ),
-                          Image.asset("assets/images/instagram.png"),
+                          SvgPicture.asset("assets/svg/small_instagram.svg"),
                           SizedBox(
                             width: 5,
                           ),
@@ -87,7 +90,7 @@ show_card({bool report}) {
                           SizedBox(
                             width: 20,
                           ),
-                          Image.asset("assets/images/youtube.png"),
+                          SvgPicture.asset("assets/svg/small_youtube.svg"),
                           SizedBox(
                             width: 5,
                           ),
@@ -101,7 +104,7 @@ show_card({bool report}) {
                           SizedBox(
                             width: 20,
                           ),
-                          Image.asset("assets/images/twitter.png"),
+                          SvgPicture.asset("assets/svg/small_twitter.svg"),
                           SizedBox(
                             width: 5,
                           ),
@@ -134,7 +137,7 @@ show_card({bool report}) {
                       ),
                       Row(
                         children: [
-                          Image.asset("assets/images/time.png"),
+                          SvgPicture.asset("assets/svg/small-clock.svg"),
                           SizedBox(
                             width: 10,
                           ),
@@ -151,7 +154,7 @@ show_card({bool report}) {
                           SizedBox(
                             width: 50,
                           ),
-                          Image.asset("assets/images/speaker.png"),
+                          SvgPicture.asset("assets/svg/small_speaker.svg"),
                           Text("  Image",
                               style: TextStyle(
                                   fontFamily: "Gilroy-Regular",
@@ -163,8 +166,27 @@ show_card({bool report}) {
                         height: 20,
                       ),
                       Row(
+                       
+                        
                         children: [
-                          Image.asset("assets/images/social.png"),
+
+                          Stack(
+                            overflow: Overflow.visible,
+                            children: [
+                            SvgPicture.asset("assets/svg/facebook.svg"),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 60),
+                              child: SvgPicture.asset("assets/svg/twitter.svg"),
+                            ),
+                            Padding(
+                               padding: const EdgeInsets.only(left: 30),
+                              child: SvgPicture.asset("assets/svg/instagram.svg"),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 90),
+                              child: SvgPicture.asset("assets/svg/youtube.svg"),
+                            ),
+                          ],),
                           SizedBox(
                             width: 20,
                           ),

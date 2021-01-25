@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35">
+  <g id="Group_3205" data-name="Group 3205" transform="translate(-130 -365)">
+    <g id="Group_3201" data-name="Group 3201">
+      <g id="Ellipse_7" data-name="Ellipse 7" transform="translate(130 365)" fill="red" stroke="#fff" stroke-width="2">
+        <circle cx="17.5" cy="17.5" r="17.5" stroke="none"/>
+        <circle cx="17.5" cy="17.5" r="16.5" fill="none"/>
+      </g>
+    </g>
+    <path id="Icon_awesome-youtube" data-name="Icon awesome-youtube" d="M18.224,6.43a2.2,2.2,0,0,0-1.551-1.561A52.086,52.086,0,0,0,9.82,4.5a52.086,52.086,0,0,0-6.853.369A2.2,2.2,0,0,0,1.417,6.43a23.121,23.121,0,0,0-.367,4.249,23.121,23.121,0,0,0,.367,4.249,2.171,2.171,0,0,0,1.551,1.536,52.086,52.086,0,0,0,6.853.369,52.086,52.086,0,0,0,6.853-.369,2.171,2.171,0,0,0,1.551-1.536,23.121,23.121,0,0,0,.367-4.249,23.121,23.121,0,0,0-.367-4.249Zm-10.2,6.857V8.071l4.584,2.608L8.026,13.287Z" transform="translate(138.157 372.167)" fill="#fff"/>
+  </g>
+</svg>

@@ -32,6 +32,7 @@ class SignUpInterestView extends GetView<SignUpInterestController> {
     return Scaffold(
         body: SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.asset("assets/images/interest_list.png"),
           ChipsChoice<String>.multiple(
@@ -68,19 +69,19 @@ class SignUpInterestView extends GetView<SignUpInterestController> {
           SizedBox(
             height: 30,
           ),
+
           display_button(
               name: "Finish",
               function: () {
+    
                 show_dialog(
                     context: context,
                     heading: "Account Pending Approval",
-                    left_text: "Home",
+                    
                     right_text: "Academy",
-                    left_text_fn: () {
-                      Get.offAllNamed(Routes.HOME);
-                    },
+                   
                     right_text_fn: () {
-                      Get.back();
+                      Get.toNamed(Routes.HOME);
                     },
                     widget: Padding(
                       padding: const EdgeInsets.only(left: 20, right: 20),
@@ -93,7 +94,8 @@ class SignUpInterestView extends GetView<SignUpInterestController> {
                             color: Colors.black),
                       ),
                     ));
-              })
+              }),
+              SizedBox(height: 20,),
         ],
       ),
     ));
