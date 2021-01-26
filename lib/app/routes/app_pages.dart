@@ -1,3 +1,5 @@
+import 'package:test_project_one/app/modules/forgotPassword/bindings/forgot_password_binding.dart';
+import 'package:test_project_one/app/modules/forgotPassword/views/forgot_password_view.dart';
 import 'package:test_project_one/app/modules/sign_up/views/sign_up_2_view.dart';
 import 'package:test_project_one/app/modules/sign_up/views/sign_up_interest_view.dart';
 import 'package:test_project_one/app/modules/sign_up/views/sign_up_media_accounts_view.dart';
@@ -133,6 +135,12 @@ static const INITIAL = Routes.SPLASH;
       name: Routes.SIGN_UP_MEDIA_ACCOUNTS, 
       page:()=> SignUpMediaAccountsView(), 
       
+    ),
+    
+    GetPage(
+      name: Routes.FORGOT_PASSWORD, 
+      page:()=> ForgotPasswordView(), 
+      binding: ForgotPasswordBinding(),
     ),
   ];
 }

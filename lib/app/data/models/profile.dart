@@ -1,65 +1,41 @@
+// To parse this JSON data, do
+//
+//     final profileModel = profileModelFromJson(jsonString);
+
 import 'dart:convert';
 
-LoginModel loginModelFromJson(String str) => LoginModel.fromJson(json.decode(str));
+ProfileModel profileModelFromJson(String str) => ProfileModel.fromJson(json.decode(str));
 
-String loginModelToJson(LoginModel data) => json.encode(data.toJson());
+String profileModelToJson(ProfileModel data) => json.encode(data.toJson());
 
-class LoginModel {
-    LoginModel({
+class ProfileModel {
+    ProfileModel({
         this.statusCode,
-        this.message,
-        this.token,
-        this.user,
+        this.data,
         this.request,
     });
 
     int statusCode;
-    String message;
-    String token;
-    UserLogin user;
+    List<User> data;
     Request request;
 
-    factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
+    factory ProfileModel.fromJson(Map<String, dynamic> json) => ProfileModel(
         statusCode: json["status_code"],
-        message: json["message"],
-        token: json["token"],
-        user: UserLogin.fromJson(json["user"]),
+        data: List<User>.from(json["data"].map((x) => User.fromJson(x))),
         request: Request.fromJson(json["request"]),
     );
 
     Map<String, dynamic> toJson() => {
         "status_code": statusCode,
-        "message": message,
-        "token": token,
-        "user": user.toJson(),
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
         "request": request.toJson(),
     };
 }
 
-class Request {
-    Request({
-        this.email,
-        this.password,
-    });
-
-    String email;
-    String password;
-
-    factory Request.fromJson(Map<String, dynamic> json) => Request(
-        email: json["email"],
-        password: json["password"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "email": email,
-        "password": password,
-    };
-}
-
-class UserLogin {
-    UserLogin({
-        this.role,
+class User {
+    User({
         this.id,
+        this.role,
         this.firstname,
         this.lastname,
         this.gender,
@@ -71,8 +47,6 @@ class UserLogin {
         this.email,
         this.password,
         this.phone,
-        this.accountName,
-        this.accountNumber,
         this.facebook,
         this.twitter,
         this.instagram,
@@ -80,14 +54,15 @@ class UserLogin {
         this.createdAt,
         this.updatedAt,
         this.v,
+        this.bank,
     });
 
-    String role;
     String id;
+    String role;
     String firstname;
     String lastname;
     String gender;
-    String dateOfBirth;
+    DateTime dateOfBirth;
     String religion;
     String levelOfEducation;
     String country;
@@ -95,8 +70,6 @@ class UserLogin {
     String email;
     String password;
     String phone;
-    String accountName;
-    String accountNumber;
     String facebook;
     String twitter;
     String instagram;
@@ -104,14 +77,15 @@ class UserLogin {
     DateTime createdAt;
     DateTime updatedAt;
     int v;
+    List<dynamic> bank;
 
-    factory UserLogin.fromJson(Map<String, dynamic> json) => UserLogin(
-        role: json["role"],
+    factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["_id"],
+        role: json["role"],
         firstname: json["firstname"],
         lastname: json["lastname"],
         gender: json["gender"],
-        dateOfBirth: json["date_of_birth"],
+        dateOfBirth: DateTime.parse(json["date_of_birth"]),
         religion: json["religion"],
         levelOfEducation: json["level_of_education"],
         country: json["country"],
@@ -119,8 +93,6 @@ class UserLogin {
         email: json["email"],
         password: json["password"],
         phone: json["phone"],
-        accountName: json["account_name"],
-        accountNumber: json["account_number"],
         facebook: json["facebook"],
         twitter: json["twitter"],
         instagram: json["instagram"],
@@ -128,15 +100,16 @@ class UserLogin {
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],
+        bank: List<dynamic>.from(json["Bank"].map((x) => x)),
     );
 
     Map<String, dynamic> toJson() => {
-        "role": role,
         "_id": id,
+        "role": role,
         "firstname": firstname,
         "lastname": lastname,
         "gender": gender,
-        "date_of_birth": dateOfBirth,
+        "date_of_birth": "${dateOfBirth.year.toString().padLeft(4, '0')}-${dateOfBirth.month.toString().padLeft(2, '0')}-${dateOfBirth.day.toString().padLeft(2, '0')}",
         "religion": religion,
         "level_of_education": levelOfEducation,
         "country": country,
@@ -144,8 +117,6 @@ class UserLogin {
         "email": email,
         "password": password,
         "phone": phone,
-        "account_name": accountName,
-        "account_number": accountNumber,
         "facebook": facebook,
         "twitter": twitter,
         "instagram": instagram,
@@ -153,5 +124,16 @@ class UserLogin {
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
         "__v": v,
+        "Bank": List<dynamic>.from(bank.map((x) => x)),
+    };
+}
+
+class Request {
+    Request();
+
+    factory Request.fromJson(Map<String, dynamic> json) => Request(
+    );
+
+    Map<String, dynamic> toJson() => {
     };
 }

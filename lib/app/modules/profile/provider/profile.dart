@@ -4,24 +4,52 @@ import 'package:progress_dialog/progress_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test_project_one/app/data/API/api_calls.dart';
 import 'package:test_project_one/app/data/models/login.dart';
-import 'package:test_project_one/app/data/models/register.dart';
+import 'package:test_project_one/app/data/models/profile.dart';
 import 'package:test_project_one/app/routes/app_pages.dart';
-import 'package:test_project_one/app/widgets/alert_dialog.dart';
 import 'package:test_project_one/app/widgets/colours.dart';
 
-class RegisterProvider extends GetConnect {
-  Future<RegisterModel> register({
-    String firtname,
+class ProfileProvider extends GetConnect {
+  Future<List<dynamic>> getProfile() async {
+    final pref = await SharedPreferences.getInstance();
+
+    String url = BASEURL + PROFILE;
+    String token = pref.get("token");
+    var response = await get(url, headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer $token"
+    });
+    if (response.hasError) {
+      // Get.snackbar(
+      //   "Error",
+      //   response.body["message"],
+      //   duration: Duration(milliseconds: 5000),
+      //   backgroundColor: colour_time,
+      //   colorText: Colors.white,
+      // );
+      return Future.error(response.statusCode);
+    } else {
+      var res = response.body["data"];
+      // final result = ProfileModel.fromJson(res);
+      //  Get.snackbar(
+      //   "Successful",
+      //   LoginModel().message,
+      //   duration: Duration(milliseconds: 5000),
+      //   backgroundColor: colour_time,
+      //   colorText: Colors.white,
+      // );
+
+      return res;
+    }
+  }
+
+  Future<List<dynamic>> updateProfile({
+    String firstname,
     String lastname,
-    String gender,
-    String phone,
-    String date_of_birth,
+   String phone,
     String religion,
-    String level_of_education,
+    String education,
     String country,
     String address,
-    String email,
-    String password,
     String facebook,
     String twitter,
     String instagram,
@@ -44,63 +72,48 @@ class RegisterProvider extends GetConnect {
         ),
         message: 'Please wait...');
     pr.show();
-    String url = BASEURL + REGISTER;
     Map body = {
-      "firstname": firtname,
+      "firstname": firstname,
       "lastname": lastname,
-      "gender": gender,
-      "date_of_birth": date_of_birth,
-      "religion": religion,
-      "level_of_education": level_of_education,
-      "country_id": country,
-      "address": address,
-      "email": email,
-      "password": password,
       "phone": phone,
+      "religion": religion,
+      "level_of_education": education,
+      "country": country,
+      "address": address,
       "facebook": facebook,
       "twitter": twitter,
       "instagram": instagram,
-      "youtube": youtube
+      "youtube": youtube,
     };
-    var response = await post(url, body, headers: {
+    String url = BASEURL + PROFILE;
+    String token = pref.get("token");
+    var response = await put(url, body, headers: {
       "Content-Type": "application/json",
+      "Authorization": "Bearer $token"
     });
-    var r = response.body;
     if (response.hasError) {
-      pr.hide();
+       pr.hide();
       Get.snackbar(
         "Error",
-        response.body["message"],
+       "Error Occured",
         duration: Duration(milliseconds: 5000),
         backgroundColor: colour_time,
         colorText: Colors.white,
       );
       return Future.error(response.statusCode);
     } else {
-      pref.setString("token", RegisterModel().token);
-      String token = pref.get("token");
-      print(token);
-
-      var res = response.body;
-      final result = RegisterModel.fromJson(res);
+      pr.hide();
+      var res = response.body["data"];
+      final result = ProfileModel.fromJson(res);
       Get.snackbar(
         "Successful",
-       res["message"],
+        LoginModel().message,
         duration: Duration(milliseconds: 5000),
         backgroundColor: colour_time,
         colorText: Colors.white,
       );
-      Future.delayed(Duration(milliseconds: 3000), () {
-        show_dialog(
-            context: context,
-            heading: "Account Pending Approval",
-            right_text: "Academy",
-            widget: Text("Go to the Academy"),
-            right_text_fn: () {
-              Get.offAllNamed(Routes.HOME);
-            });
-      });
-      return result;
+
+      return res;
     }
   }
 }

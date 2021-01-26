@@ -63,7 +63,7 @@ class SignUpMediaController extends GetxController with StateMixin {
         "Success",
         value.message==null?"Success":value.message,
         duration: Duration(milliseconds: 5000),
-        backgroundColor: colour_border,
+        backgroundColor: colour_time,
         colorText: Colors.white,
       );
       }, onError: (err) {

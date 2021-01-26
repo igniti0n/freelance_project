@@ -9,10 +9,8 @@ class MoreView extends GetView<MoreController> {
   Widget build(BuildContext context) {
     return Scaffold(
      appBar: header,
-      body: Column(
-        children: [
-          
-          Padding(
+      body: 
+            Padding(
             padding: const EdgeInsets.only(top: 40, right: 20, left: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,8 +83,9 @@ class MoreView extends GetView<MoreController> {
               ],
             ),
           ),
-        ],
-      ),
+        
+      
+     
     );
   }
 }

@@ -80,11 +80,29 @@ class SignInView extends GetView<SignInController> {
                             }
                           },
                           keyboardType: TextInputType.visiblePassword),
+
+                           Row(children: [
+                    Spacer(),
+                    GestureDetector(
+                onTap: () {
+                  Get.offAllNamed(Routes.FORGOT_PASSWORD);
+                },
+                child: Text(
+                  "Forgot Password",
+                  style: TextStyle(
+                      fontFamily: "Gilroy",
+                      color: colour_login_container,
+                      fontSize: 13),
+                ),
+              ),
+              SizedBox(width: 16,)
+                  ],),
                       SizedBox(
                         height: 50,
                       ),
                     ],
                   )),
+                  
               display_button(
                   name: "Login",
                   function: () {
@@ -94,6 +112,7 @@ class SignInView extends GetView<SignInController> {
                           password: passwordController.text);
                     }
                   }),
+                 
               SizedBox(
                 height: 50,
               ),

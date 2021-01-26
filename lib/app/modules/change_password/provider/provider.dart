@@ -7,8 +7,8 @@ import 'package:test_project_one/app/data/models/login.dart';
 import 'package:test_project_one/app/routes/app_pages.dart';
 import 'package:test_project_one/app/widgets/colours.dart';
 
-class LoginProvider extends GetConnect {
-  Future<LoginModel> login({String email, password}) async {
+class ChangePasswordProvider extends GetConnect {
+  Future<Map<String, dynamic>>changePassword({String oldPassword, newPassword}) async {
     final pref = await SharedPreferences.getInstance();
     ProgressDialog pr;
     BuildContext context = Get.context;
@@ -26,10 +26,13 @@ class LoginProvider extends GetConnect {
         ),
         message: 'Please wait...');
     pr.show();
-    String url = BASEURL + LOGIN;
-    Map body = {"email": email, "password": password};
+
+    String token = pref.get("token");
+    String url = BASEURL + CHANGEPASSWORD;
+    Map body = {"oldpassword": oldPassword, "newpassword": newPassword};
     var response = await post(url, body, headers: {
       "Content-Type": "application/json",
+      "Authorization": "Bearer $token"
     });
     if (response.hasError) {
       pr.hide();
@@ -42,23 +45,22 @@ class LoginProvider extends GetConnect {
       );
       return Future.error(response.statusCode);
     } else {
-      pref.setString("token",response.body["token"]);
+      pr.hide();
+      pref.setString("token", response.body["token"]);
       String token = pref.get("token");
       print(token);
-     
+
       var res = response.body;
-      final result = LoginModel.fromJson(res);
-       Get.snackbar(
+
+      Get.snackbar(
         "Successful",
         LoginModel().message,
         duration: Duration(milliseconds: 5000),
         backgroundColor: colour_time,
         colorText: Colors.white,
       );
-      Future.delayed(Duration(milliseconds: 3000), () {
-        Get.offAllNamed(Routes.HOME);
-      });
-      return result;
+
+      return res;
     }
   }
 }

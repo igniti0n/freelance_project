@@ -21,4 +21,6 @@ abstract class Routes{
   static const POLICY = '/policy';
   static const SIGN_UP_2 = '/sign-up-2';
   static const SIGN_UP_MEDIA_ACCOUNTS = '/sign-up-media-accounts';
+  static const FORGOT_PASSWORD = '/forgot-password';
+  static const FORGOT_PASSWORD2 = '/forgot-password2';
 }

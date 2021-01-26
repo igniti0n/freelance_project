@@ -7,7 +7,7 @@ import 'colours.dart';
 textField({String name, String placeholder, var keyboardType, 
 Function validator,bool signup,
 TextEditingController controller,
-
+bool readonly=false,
 bool password=false}) {
 
   return Padding(
@@ -26,7 +26,7 @@ bool password=false}) {
         Container(
           child: TextFormField(
             controller: controller,
-         
+          readOnly: readonly,
             validator: (value) => validator(value),
             obscureText: password,
             keyboardType: keyboardType,
