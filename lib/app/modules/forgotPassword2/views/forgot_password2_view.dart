@@ -70,19 +70,7 @@ class ForgotPasswordView2 extends GetView<ForgotPasswordController2> {
               SizedBox(
                 height: 80,
               ),
-              Center(
-                  child: GestureDetector(
-                onTap: () {
-                  Get.offAllNamed(Routes.SIGN_IN);
-                },
-                child: Text(
-                  "Create Account",
-                  style: TextStyle(
-                      fontFamily: "Gilroy",
-                      color: colour_login_container,
-                      fontSize: 13),
-                ),
-              )),
+             
             ],
           ),
         ),

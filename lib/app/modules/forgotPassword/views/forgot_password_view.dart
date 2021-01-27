@@ -55,7 +55,7 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                   Get.offAllNamed(Routes.SIGN_IN);
                 },
                 child: Text(
-                  "Create Account",
+                  "Login",
                   style: TextStyle(
                       fontFamily: "Gilroy",
                       color: colour_login_container,
