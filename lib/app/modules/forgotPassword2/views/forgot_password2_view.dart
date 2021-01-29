@@ -12,9 +12,13 @@ class ForgotPasswordView2 extends GetView<ForgotPasswordController2> {
   TextEditingController newPassword = new TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final data;
+  ForgotPasswordController2 _controller2 = Get.put(ForgotPasswordController2());
   ForgotPasswordView2({this.data});
+  TextEditingController emailController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    emailController.text = data;
     return Scaffold(
       body: SingleChildScrollView(
         child: Form(
@@ -26,14 +30,17 @@ class ForgotPasswordView2 extends GetView<ForgotPasswordController2> {
                 height: 50,
               ),
               textField(
-                  
                   name: "Email",
                   placeholder: data,
+                  controller: emailController,
                   password: false,
                   readonly: true,
-                  
+                  validator: (value) {
+                    if (value.toString().isEmpty) {
+                      return "Fill this field";
+                    }
+                  },
                   keyboardType: TextInputType.emailAddress),
-             
               textField(
                   controller: resetCode,
                   name: "Reset Code",
@@ -45,8 +52,7 @@ class ForgotPasswordView2 extends GetView<ForgotPasswordController2> {
                     }
                   },
                   keyboardType: TextInputType.emailAddress),
-                  
-                  textField(
+              textField(
                   controller: newPassword,
                   name: "New Password",
                   placeholder: "*********",
@@ -61,16 +67,15 @@ class ForgotPasswordView2 extends GetView<ForgotPasswordController2> {
                   name: "Reset",
                   function: () {
                     if (_formKey.currentState.validate()) {
-                      print("hell");
-                      Get.toNamed(Routes.FORGOT_PASSWORD2
-                        // ForgotPasswordView2(data: emailController.text)
-                        );
+                      _controller2.changePassword(
+                          email: emailController.text,
+                          token: resetCode.text,
+                          newwPassword: newPassword.text);
                     }
                   }),
               SizedBox(
                 height: 80,
               ),
-             
             ],
           ),
         ),

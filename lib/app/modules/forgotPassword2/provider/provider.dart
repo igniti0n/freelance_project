@@ -7,10 +7,9 @@ import 'package:test_project_one/app/data/models/login.dart';
 import 'package:test_project_one/app/routes/app_pages.dart';
 import 'package:test_project_one/app/widgets/colours.dart';
 
-class LoginProvider extends GetConnect {
-  Future<LoginModel> login({String email, password}) async {
-    final pref = await SharedPreferences.getInstance();
-    LoginModel loginModel = LoginModel();
+class ForgotPasswordProvider extends GetConnect {
+  Future<Map<String, dynamic>> retrievePassword(
+      {String email, String token, String newPassword}) async {
     ProgressDialog pr;
     BuildContext context = Get.context;
     pr = new ProgressDialog(
@@ -27,8 +26,9 @@ class LoginProvider extends GetConnect {
         ),
         message: 'Please wait...');
     pr.show();
-    String url = BASEURL + LOGIN;
-    Map body = {"email": email, "password": password};
+
+    String url = BASEURL + NEWPASSWORD;
+    Map body = {"email": email, "token": token, "password": newPassword};
     var response = await post(url, body, headers: {
       "Content-Type": "application/json",
     });
@@ -43,27 +43,24 @@ class LoginProvider extends GetConnect {
       );
       return Future.error(response.statusCode);
     } else {
-      pref.setString("token", response.body["token"]);
-      pref.setString("firstname", response.body["user"]["firstname"]);
-      pref.setString("lastname", response.body["user"]["lastname"]);
-      pref.setString("image", response.body["user"]["image"]);
-      String token = pref.get("token");
-      print(token);
+     
 
       var res = response.body;
-      
-      final result = LoginModel.fromJson(res);
+
       Get.snackbar(
         "Successful",
-        LoginModel().message,
+        res["message"],
         duration: Duration(milliseconds: 5000),
         backgroundColor: colour_time,
         colorText: Colors.white,
       );
-      Future.delayed(Duration(milliseconds: 3000), () {
-        Get.offAllNamed(Routes.HOME);
+      Future.delayed(
+          Duration(
+            milliseconds: 3000,
+          ), () {
+        Get.offAllNamed(Routes.SIGN_IN);
       });
-      return result;
+      return res;
     }
   }
 }

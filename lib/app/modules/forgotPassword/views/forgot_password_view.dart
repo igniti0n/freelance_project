@@ -41,9 +41,7 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                   name: "Reset",
                   function: () {
                     if (_formKey.currentState.validate()) {
-                      Get.to(ForgotPasswordView2(
-                        data: emailController.text,
-                      ));
+                      controller.forgotPassword(email: emailController.text);
                     }
                   }),
               SizedBox(

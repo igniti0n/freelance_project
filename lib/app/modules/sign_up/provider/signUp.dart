@@ -78,6 +78,10 @@ class RegisterProvider extends GetConnect {
       return Future.error(response.statusCode);
     } else {
       pref.setString("token", RegisterModel().token);
+       pref.setString("firstname",response.body["user"]["firstname"]);
+      pref.setString("lastname",response.body["user"]["lastname"]);
+      pref.setString("image",response.body["user"]["image"]);
+     
       String token = pref.get("token");
       print(token);
 

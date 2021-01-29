@@ -4,13 +4,13 @@ import 'package:progress_dialog/progress_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test_project_one/app/data/API/api_calls.dart';
 import 'package:test_project_one/app/data/models/login.dart';
+import 'package:test_project_one/app/modules/forgotPassword2/views/forgot_password2_view.dart';
 import 'package:test_project_one/app/routes/app_pages.dart';
 import 'package:test_project_one/app/widgets/colours.dart';
 
-class LoginProvider extends GetConnect {
-  Future<LoginModel> login({String email, password}) async {
+class ForgotPasswordRequestProvider extends GetConnect {
+  Future<Map<String, dynamic>> changePassword({String email}) async {
     final pref = await SharedPreferences.getInstance();
-    LoginModel loginModel = LoginModel();
     ProgressDialog pr;
     BuildContext context = Get.context;
     pr = new ProgressDialog(
@@ -27,8 +27,11 @@ class LoginProvider extends GetConnect {
         ),
         message: 'Please wait...');
     pr.show();
-    String url = BASEURL + LOGIN;
-    Map body = {"email": email, "password": password};
+
+    String url = BASEURL + FORGOTPASSWORDREQUEST;
+    Map body = {
+      "email": email,
+    };
     var response = await post(url, body, headers: {
       "Content-Type": "application/json",
     });
@@ -43,27 +46,19 @@ class LoginProvider extends GetConnect {
       );
       return Future.error(response.statusCode);
     } else {
-      pref.setString("token", response.body["token"]);
-      pref.setString("firstname", response.body["user"]["firstname"]);
-      pref.setString("lastname", response.body["user"]["lastname"]);
-      pref.setString("image", response.body["user"]["image"]);
-      String token = pref.get("token");
-      print(token);
-
       var res = response.body;
-      
-      final result = LoginModel.fromJson(res);
+
       Get.snackbar(
         "Successful",
-        LoginModel().message,
+        res["message"],
         duration: Duration(milliseconds: 5000),
         backgroundColor: colour_time,
         colorText: Colors.white,
       );
-      Future.delayed(Duration(milliseconds: 3000), () {
-        Get.offAllNamed(Routes.HOME);
-      });
-      return result;
+      Get.offAll(ForgotPasswordView2(
+        data: email,
+      ));
+      return res;
     }
   }
 }

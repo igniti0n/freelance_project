@@ -6,3 +6,5 @@ const String REGISTER = "/users";
 const String PROFILE = "/users/profile";
 const String CHANGEPASSWORD = "/users/change-password";
 const String BANK = "/bank";
+const String FORGOTPASSWORDREQUEST = "/users/reset-password";
+const String NEWPASSWORD = "/users/new-password";
