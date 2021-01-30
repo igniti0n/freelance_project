@@ -90,14 +90,13 @@ class SignUpMediaAccountsView extends GetView<SignUpMediaController> {
                   controller: youtube,
                   keyboardType: TextInputType.name,
                   validator: (value) {
-                    if (value.toString().isEmpty) {
-                      return "Fill Field";
-                    }
+                   
+                   
                   }),
               display_button(
                   name: "Next",
                   function: () {
-                    if (_formKey.currentState.validate()) {
+                   
                       mediaController.register(
                         firtname: firstName,
                         lastname: lastname,
@@ -115,7 +114,7 @@ class SignUpMediaAccountsView extends GetView<SignUpMediaController> {
                         instagram: instagram.text,
                         youtube: youtube.text
                       );
-                    }
+                    
                   }),
               SizedBox(
                 height: 20,

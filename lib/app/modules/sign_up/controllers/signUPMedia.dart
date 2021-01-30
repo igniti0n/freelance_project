@@ -41,7 +41,7 @@ class SignUpMediaController extends GetxController with StateMixin {
     }) {
       RegisterProvider()
           .register(
-        firtname: firtname,
+        firstname: firtname,
         lastname: lastname,
         gender: gender,
         phone: phone,
@@ -59,13 +59,7 @@ class SignUpMediaController extends GetxController with StateMixin {
       )
           .then((value) {
         change(value, status: RxStatus.success());
-         Get.snackbar(
-        "Success",
-        value.message==null?"Success":value.message,
-        duration: Duration(milliseconds: 5000),
-        backgroundColor: colour_time,
-        colorText: Colors.white,
-      );
+        
       }, onError: (err) {
         change(null, status: RxStatus.error());
       });

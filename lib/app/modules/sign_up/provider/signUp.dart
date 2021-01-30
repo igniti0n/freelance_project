@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test_project_one/app/data/API/api_calls.dart';
+import 'package:test_project_one/app/data/models/country.dart';
 import 'package:test_project_one/app/data/models/login.dart';
 import 'package:test_project_one/app/data/models/register.dart';
 import 'package:test_project_one/app/routes/app_pages.dart';
@@ -11,7 +12,7 @@ import 'package:test_project_one/app/widgets/colours.dart';
 
 class RegisterProvider extends GetConnect {
   Future<RegisterModel> register({
-    String firtname,
+    String firstname,
     String lastname,
     String gender,
     String phone,
@@ -46,7 +47,7 @@ class RegisterProvider extends GetConnect {
     pr.show();
     String url = BASEURL + REGISTER;
     Map body = {
-      "firstname": firtname,
+      "firstname": firstname,
       "lastname": lastname,
       "gender": gender,
       "date_of_birth": date_of_birth,
@@ -62,10 +63,8 @@ class RegisterProvider extends GetConnect {
       "instagram": instagram,
       "youtube": youtube
     };
-    var response = await post(url, body, headers: {
-      "Content-Type": "application/json",
-    });
-    var r = response.body;
+    final response =
+        await post(url, body, headers: {"Content-Type": "application/json"});
     if (response.hasError) {
       pr.hide();
       Get.snackbar(
@@ -77,24 +76,24 @@ class RegisterProvider extends GetConnect {
       );
       return Future.error(response.statusCode);
     } else {
-      pref.setString("token", RegisterModel().token);
-       pref.setString("firstname",response.body["user"]["firstname"]);
-      pref.setString("lastname",response.body["user"]["lastname"]);
-      pref.setString("image",response.body["user"]["image"]);
-     
-      String token = pref.get("token");
-      print(token);
+      pref.setString("token", response.body["token"]);
+      // pref.setString("firstname", response.body["user"]["firstname"]);
+      // pref.setString("lastname", response.body["user"]["lastname"]);
+      // pref.setString("image", response.body["user"]["image"]);
+
+      // String token = pref.get("token");
+      // print(token);
 
       var res = response.body;
       final result = RegisterModel.fromJson(res);
       Get.snackbar(
         "Successful",
-       res["message"],
+        res["message"],
         duration: Duration(milliseconds: 5000),
         backgroundColor: colour_time,
         colorText: Colors.white,
       );
-      Future.delayed(Duration(milliseconds: 3000), () {
+      Future.delayed(Duration(milliseconds: 1000), () {
         show_dialog(
             context: context,
             heading: "Account Pending Approval",
@@ -104,7 +103,44 @@ class RegisterProvider extends GetConnect {
               Get.offAllNamed(Routes.HOME);
             });
       });
+      pr.hide();
       return result;
+    }
+  }
+
+  Future<dynamic> getCountries() async {
+    String url = BASEURL + COUNTRIES;
+
+    var response = await get(url, headers: {
+      "Content-Type": "application/json",
+    });
+    if (response.hasError) {
+      Get.snackbar(
+        "Country List Error",
+        response.body["message"],
+        duration: Duration(milliseconds: 5000),
+        backgroundColor: colour_time,
+        colorText: Colors.white,
+      );
+      return Future.error(response.statusCode);
+    } else {
+      final list = <Country>[];
+
+      var res = response.body["data"];
+      for (var rec in res) {
+        // Global.countries.add(
+        list.add(Country(
+          id: rec["_id"],
+          code2: rec["code2"],
+          code3: rec["code3"],
+          name: rec["name"],
+          capital: rec["capital"],
+          region: rec["region"],
+          subregion: rec["subregion"],
+          states: rec["states"],
+        ));
+      }
+      return list;
     }
   }
 }

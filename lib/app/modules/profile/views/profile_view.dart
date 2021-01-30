@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:io';
 
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -7,12 +7,12 @@ import 'package:test_project_one/app/modules/profile/controllers/profile_control
 import 'package:test_project_one/app/routes/app_pages.dart';
 import 'package:test_project_one/app/widgets/button-widget.dart';
 import 'package:test_project_one/app/widgets/text_fields.dart';
-
+import 'package:image_picker/image_picker.dart';
 class ProfileView extends GetView<ProfileController> {
   TextEditingController firstname = new TextEditingController();
   TextEditingController lastname = new TextEditingController();
   TextEditingController phone = new TextEditingController();
-
+ File file;
   String religion;
   TextEditingController education = new TextEditingController();
   TextEditingController country = new TextEditingController();
@@ -48,7 +48,11 @@ class ProfileView extends GetView<ProfileController> {
                       Image.asset("assets/images/pic1.png"),
                       Padding(
                         padding: const EdgeInsets.only(top: 70),
-                        child: Image.asset("assets/images/mask.png"),
+                        child: GestureDetector(
+                          onTap: (){
+
+                          },
+                          child: Image.asset("assets/images/mask.png")),
                       ),
                       SizedBox(
                         height: 10,
@@ -96,210 +100,263 @@ class ProfileView extends GetView<ProfileController> {
                                   return "Fill Field";
                                 }
                               }),
-                          Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 17.0, right: 17.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 17.0, right: 17.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Religion",
-                                            style: TextStyle(
-                                                fontFamily: "Gilroy",
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          DropdownSearch(
-                                            mode: Mode.MENU,
-                                            onChanged: (value) {
-                                              religion = value;
-                                            },
-                                            label: data == null
-                                                ? "Christianity"
-                                                : data[0]["religion"],
-                                            validator: (value) {
-                                              if (value.toString().isEmpty) {
-                                                return "Set Religion";
-                                              }
-                                            },
-                                            items: ["Christianity", "Islamic"],
-                                          ),
-                                        ],
-                                      )),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  textField(
-                                      signup: true,
-                                      controller: education,
-                                      name: "Highest Education Level",
-                                      placeholder: data == null
-                                          ? "BSc. Computer Science"
-                                          : data[0]["level_of_education"],
-                                      keyboardType: TextInputType.name,
-                                      validator: (value) {
-                                        if (value.toString().isEmpty) {
-                                          return "Fill Field";
-                                        }
-                                      }),
-                                  Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 17.0, right: 17.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Country",
-                                            style: TextStyle(
-                                                fontFamily: "Gilroy",
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          DropdownSearch(
-                                            mode: Mode.MENU,
-                                            label: data == null
-                                                ? "Nigeria"
-                                                : data[0]["country"],
-                                            validator: (value) {
-                                              if (value.toString().isEmpty) {
-                                                return "Set Religion";
-                                              }
-                                            },
-                                            items: ["Nigeria", "Ghana"],
-                                          ),
-                                        ],
-                                      )),
-                                  textField(
-                                      signup: true,
-                                      controller: address,
-                                      name: "Address",
-                                      placeholder: data == null
-                                          ? "12 Ezekiel Street"
-                                          : data[0]["address"],
-                                      keyboardType: TextInputType.name,
-                                      validator: (value) {
-                                        if (value.toString().isEmpty) {
-                                          return "Fill Field";
-                                        }
-                                      }),
-                                  Center(
-                                    child: Text(
-                                      "Social Media Accounts",
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 17.0, right: 17.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Religion",
+                                        style: TextStyle(
+                                            fontFamily: "Gilroy",
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      DropdownSearch(
+                                        mode: Mode.MENU,
+                                        onChanged: (value) {
+                                          religion = value;
+                                        },
+                                        label: data == null
+                                            ? "Christianity"
+                                            : data[0]["religion"],
+                                        validator: (value) {
+                                          if (value.toString().isEmpty) {
+                                            return "Set Religion";
+                                          }
+                                          return null;
+                                        },
+                                        items: ["Christianity", "Islamic"],
+                                      ),
+                                    ],
+                                  )),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              textField(
+                                  signup: true,
+                                  controller: education,
+                                  name: "Highest Education Level",
+                                  placeholder: data == null
+                                      ? "BSc. Computer Science"
+                                      : data[0]["level_of_education"],
+                                  keyboardType: TextInputType.name,
+                                  validator: (value) {
+                                    if (value.toString().isEmpty) {
+                                      return "Fill Field";
+                                    }
+                                  }),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 17, right: 17, bottom: 17),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Country",
                                       style: TextStyle(
-                                          fontFamily: "Gilroy-Regular",
-                                          fontSize: 18,
-                                          color: Color(0xff282828)),
+                                          fontFamily: "Gilroy",
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(
-                                      signup: true,
-                                      controller: facebook,
-                                      name: "Facebook",
-                                      placeholder: data[0]["facebook"] == null
-                                          ? "Facebook"
-                                          : data[0]["facebook"],
-                                      keyboardType: TextInputType.name,
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    DropdownSearch(
+                                      mode: Mode.MENU,
+                                      label: data == null
+                                          ? "Nigeria"
+                                          : data[0]["country"],
                                       validator: (value) {
                                         if (value.toString().isEmpty) {
-                                          return "Fill Field";
+                                          return "Set Religion";
                                         }
-                                      }),
-                                  textField(
-                                      signup: true,
-                                      name: "Twitter",
-                                      controller: twitter,
-                                      placeholder: data[0]["twitter"] == null
-                                          ? "Please Enter Here"
-                                          : data[0]["twitter"],
-                                      keyboardType: TextInputType.name,
-                                      validator: (value) {
-                                        if (value.toString().isEmpty) {
-                                          return "Fill Field";
-                                        }
-                                      }),
-                                  textField(
-                                      signup: true,
-                                      controller: instagram,
-                                      name: "Instagram",
-                                      placeholder: data[0]["instagram"] == null
-                                          ? "Please Enter Here"
-                                          : data[0]["instagram"],
-                                      keyboardType: TextInputType.name,
-                                      validator: (value) {
-                                        if (value.toString().isEmpty) {
-                                          return "Fill Field";
-                                        }
-                                      }),
-                                  textField(
-                                      signup: true,
-                                      name: "Youtube",
-                                      controller: youtube,
-                                      placeholder: data[0]["youtube"] == null
-                                          ? "Please Enter Here"
-                                          : data[0]["youtube"],
-                                      keyboardType: TextInputType.name,
-                                      validator: (value) {
-                                        if (value.toString().isEmpty) {
-                                          return "Fill Field";
-                                        }
-                                      }),
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  display_button(
-                                      name: "Update",
-                                      function: () {
-                                        controller.updateProfile(
-                                          firstname: firstname.text ??
-                                              data[0]["firstname"],
-                                          lastname: lastname.text ??
-                                              data[0]["lastname"],
-                                          phone: phone.text ?? data[0]["phone"],
-                                          religion:
-                                              religion ?? data[0]["religion"],
-                                          education: education.text ??
-                                              data[0]["level_of_education"],
-                                          country: country.text ??
-                                              data[0]["country"],
-                                          address: address.text ??
-                                              data[0]["address"],
-                                          facebook: facebook.text ??
-                                              data[0]["facebook"],
-                                          twitter: twitter.text ??
-                                              data[0]["twitter"],
-                                          instagram: instagram.text ??
-                                              data[0]["instagram"],
-                                          youtube: youtube.text ??
-                                              data[0]["youtube"],
-                                        );
-                                      }),
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                ],
-                              ))
+                                        return null;
+                                      },
+                                      items: ["Nigeria", "Ghana"],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              textField(
+                                  signup: true,
+                                  controller: address,
+                                  name: "Address",
+                                  placeholder: data == null
+                                      ? "12 Ezekiel Street"
+                                      : data[0]["address"],
+                                  keyboardType: TextInputType.name,
+                                  validator: (value) {
+                                    if (value.toString().isEmpty) {
+                                      return "Fill Field";
+                                    }
+                                  }),
+                              Center(
+                                child: Text(
+                                  "Social Media Accounts",
+                                  style: TextStyle(
+                                      fontFamily: "Gilroy-Regular",
+                                      fontSize: 18,
+                                      color: Color(0xff282828)),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              textField(
+                                  signup: true,
+                                  controller: facebook,
+                                  name: "Facebook",
+                                  placeholder: data[0]["facebook"] == null
+                                      ? "Facebook"
+                                      : data[0]["facebook"],
+                                  keyboardType: TextInputType.name,
+                                  validator: (value) {
+                                    if (value.toString().isEmpty) {
+                                      return "Fill Field";
+                                    }
+                                  }),
+                              textField(
+                                  signup: true,
+                                  name: "Twitter",
+                                  controller: twitter,
+                                  placeholder: data[0]["twitter"] == null
+                                      ? "Please Enter Here"
+                                      : data[0]["twitter"],
+                                  keyboardType: TextInputType.name,
+                                  validator: (value) {
+                                    if (value.toString().isEmpty) {
+                                      return "Fill Field";
+                                    }
+                                  }),
+                              textField(
+                                  signup: true,
+                                  controller: instagram,
+                                  name: "Instagram",
+                                  placeholder: data[0]["instagram"] == null
+                                      ? "Please Enter Here"
+                                      : data[0]["instagram"],
+                                  keyboardType: TextInputType.name,
+                                  validator: (value) {
+                                    if (value.toString().isEmpty) {
+                                      return "Fill Field";
+                                    }
+                                  }),
+                              textField(
+                                  signup: true,
+                                  name: "Youtube",
+                                  controller: youtube,
+                                  placeholder: data[0]["youtube"] == null
+                                      ? "Please Enter Here"
+                                      : data[0]["youtube"],
+                                  keyboardType: TextInputType.name,
+                                  validator: (value) {
+                                    if (value.toString().isEmpty) {
+                                      return "Fill Field";
+                                    }
+                                  }),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              display_button(
+                                  name: "Update",
+                                  function: () {
+                                    controller.updateProfile(
+                                      firstname: firstname.text ??
+                                          data[0]["firstname"],
+                                      lastname:
+                                          lastname.text ?? data[0]["lastname"],
+                                      phone: phone.text ?? data[0]["phone"],
+                                      religion: religion ?? data[0]["religion"],
+                                      education: education.text ??
+                                          data[0]["level_of_education"],
+                                      country:
+                                          country.text ?? data[0]["country"],
+                                      address:
+                                          address.text ?? data[0]["address"],
+                                      facebook:
+                                          facebook.text ?? data[0]["facebook"],
+                                      twitter:
+                                          twitter.text ?? data[0]["twitter"],
+                                      instagram: instagram.text ??
+                                          data[0]["instagram"],
+                                      youtube:
+                                          youtube.text ?? data[0]["youtube"],
+                                    );
+                                  }),
+                              SizedBox(
+                                height: 30,
+                              ),
+                            ],
+                          )
                         ]),
                   )
                 ]))));
+  }
+  uploadImage() async {
+    Get.defaultDialog(
+        title: "Choose from",
+        content: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GestureDetector(
+                onTap: () async {
+                  final _imageFile1 =
+                      await ImagePicker().getImage(source: ImageSource.camera);
+                  file = File(_imageFile1.path);
+                  // ProfileProvider().postImage(file);
+                  // listMediaFile.add(file);
+                  // print(listMediaFile.length);
+                  Get.back();
+                },
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.camera,
+                      color: Color(0xff9D6DFC),
+                    ),
+                    Text("Camera")
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () async {
+                  final _imageFile1 =
+                      await ImagePicker().getImage(source: ImageSource.gallery);
+                  file = File(_imageFile1.path);
+                  // ProfileProvider().postImage(file);
+                  // listMediaFile.add(file);
+                  // print(listMediaFile.length);
+                  Get.back();
+                },
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.picture_in_picture_sharp,
+                      color: Color(0xffF45B3D),
+                    ),
+                    Text(
+                      "Gallery",
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ));
+
+    // controller.count.value ++;
   }
 }

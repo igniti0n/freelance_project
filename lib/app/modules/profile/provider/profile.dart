@@ -1,3 +1,5 @@
+
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -5,7 +7,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test_project_one/app/data/API/api_calls.dart';
 import 'package:test_project_one/app/data/models/login.dart';
 import 'package:test_project_one/app/data/models/profile.dart';
-import 'package:test_project_one/app/routes/app_pages.dart';
 import 'package:test_project_one/app/widgets/colours.dart';
 
 class ProfileProvider extends GetConnect {
@@ -45,7 +46,7 @@ class ProfileProvider extends GetConnect {
   Future<List<dynamic>> updateProfile({
     String firstname,
     String lastname,
-   String phone,
+    String phone,
     String religion,
     String education,
     String country,
@@ -92,10 +93,10 @@ class ProfileProvider extends GetConnect {
       "Authorization": "Bearer $token"
     });
     if (response.hasError) {
-       pr.hide();
+      pr.hide();
       Get.snackbar(
         "Error",
-       "Error Occured",
+        "Error Occured",
         duration: Duration(milliseconds: 5000),
         backgroundColor: colour_time,
         colorText: Colors.white,
@@ -116,4 +117,61 @@ class ProfileProvider extends GetConnect {
       return res;
     }
   }
+
+  // Future<String> updatePhoto({File image}) async {
+     
+  //   final pref = await SharedPreferences.getInstance();
+  //   ProgressDialog pr;
+  //   BuildContext context = Get.context;
+  //   pr = new ProgressDialog(
+  //     context,
+  //     showLogs: true,
+  //     isDismissible: false,
+  //   );
+  //   pr.style(
+  //       progressWidget: Container(
+  //         width: 50,
+  //         child: Center(
+  //           child: CircularProgressIndicator(),
+  //         ),
+  //       ),
+  //       message: 'Please wait...');
+  //   pr.show();
+
+  //   //  final multiPartRequst = MultipartFile(
+  //   //   image.path.toString(),
+  //   //   filename: image.path.split("/").last,
+  //   // );
+  //   // final formdata = FormData({"file": multiPartRequst});
+  //   String url = BASEURL + PROFILE;
+  //   String token = pref.get("token");
+  //   var response = await put(url, formdata?, headers: {
+  //     "Content-Type": "application/json",
+  //     "Authorization": "Bearer $token"
+  //   });
+  //   if (response.hasError) {
+  //     pr.hide();
+  //     Get.snackbar(
+  //       "Error",
+  //       "Error Occured",
+  //       duration: Duration(milliseconds: 5000),
+  //       backgroundColor: colour_time,
+  //       colorText: Colors.white,
+  //     );
+  //     return Future.error(response.statusCode);
+  //   } else {
+  //     pr.hide();
+  //     var res = response.body["data"];
+  //     final result = ProfileModel.fromJson(res);
+  //     Get.snackbar(
+  //       "Successful",
+  //       LoginModel().message,
+  //       duration: Duration(milliseconds: 5000),
+  //       backgroundColor: colour_time,
+  //       colorText: Colors.white,
+  //     );
+
+  //     return res;
+  //   }
+  // }
 }

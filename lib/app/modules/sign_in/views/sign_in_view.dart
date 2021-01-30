@@ -57,7 +57,7 @@ class SignInView extends GetView<SignInController> {
                       textField(
                           name: "Email",
                           controller: emailController,
-                          placeholder: "amazing@specialmansolution.com",
+                          placeholder: "Email here",
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             if (value.toString().isEmpty) {
@@ -72,7 +72,7 @@ class SignInView extends GetView<SignInController> {
                       textField(
                           controller: passwordController,
                           name: "Password",
-                          placeholder: "************",
+                          placeholder: "Password Here",
                           password: true,
                           validator: (value) {
                             if (value.toString().isEmpty) {
@@ -91,7 +91,7 @@ class SignInView extends GetView<SignInController> {
                   "Forgot Password",
                   style: TextStyle(
                       fontFamily: "Gilroy",
-                      color: colour_login_container,
+                      color: Colors.black,
                       fontSize: 13),
                 ),
               ),
@@ -125,7 +125,7 @@ class SignInView extends GetView<SignInController> {
                   "Create Account",
                   style: TextStyle(
                       fontFamily: "Gilroy",
-                      color: colour_login_container,
+                      color: Colors.black,
                       fontSize: 13),
                 ),
               )),

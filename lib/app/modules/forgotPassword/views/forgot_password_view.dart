@@ -26,7 +26,7 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
               textField(
                   controller: emailController,
                   name: "Email",
-                  placeholder: "Email here",
+                  placeholder: "Email Here",
                   password: false,
                   validator: (value) {
                     if (value.toString().isEmpty) {
@@ -45,7 +45,7 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                     }
                   }),
               SizedBox(
-                height: 80,
+                height: 30,
               ),
               Center(
                   child: GestureDetector(
@@ -56,10 +56,11 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                   "Login",
                   style: TextStyle(
                       fontFamily: "Gilroy",
-                      color: colour_login_container,
+                      color: Colors.black,
                       fontSize: 13),
                 ),
               )),
+              SizedBox(height: 20,)
             ],
           ),
         ),

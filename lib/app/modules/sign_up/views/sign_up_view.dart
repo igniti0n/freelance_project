@@ -13,16 +13,19 @@ import 'package:test_project_one/app/widgets/text_fields.dart';
 
 class SignUpView extends GetView<SignUpController> {
   final _formKey = GlobalKey<FormState>();
-SignUpController _controller = Get.put(SignUpController());
- 
+  SignUpController _controller = Get.put(SignUpController());
+
   TextEditingController firstname = new TextEditingController();
   TextEditingController lastname = new TextEditingController();
   String gender;
-  TextEditingController dOB = new TextEditingController();
-  String religion ;
+  String religion;
+
+  // String date = "${controller.currentDate.value.toIso8601String()}";
   TextEditingController levelOfEducation = new TextEditingController();
   @override
   Widget build(BuildContext context) {
+    TextEditingController dOB ;
+
     return WillPopScope(
       onWillPop: () => showExitDialog(),
       child: Scaffold(
@@ -40,7 +43,7 @@ SignUpController _controller = Get.put(SignUpController());
                   signup: true,
                   controller: firstname,
                   name: "First Name",
-                  placeholder: "Dike",
+                  placeholder: "Jide",
                   keyboardType: TextInputType.name,
                   validator: (value) {
                     if (value.toString().isEmpty) {
@@ -51,7 +54,7 @@ SignUpController _controller = Get.put(SignUpController());
                   signup: true,
                   controller: lastname,
                   name: "Last Name",
-                  placeholder: "John",
+                  placeholder: "Afam",
                   keyboardType: TextInputType.name,
                   validator: (value) {
                     if (value.toString().isEmpty) {
@@ -74,15 +77,17 @@ SignUpController _controller = Get.put(SignUpController());
                         height: 10,
                       ),
                       DropdownSearch(
+                        label: "Male",
+                        maxHeight: 100,
                         mode: Mode.MENU,
-                         onChanged: (value){
-                           _controller.gender.value = value;
+                        onChanged: (value) {
+                          _controller.gender.value = value;
                         },
-                        
                         validator: (value) {
                           if (value.toString().isEmpty) {
                             return "Set Gender";
                           }
+                          return null;
                         },
                         items: ["Male", "Female"],
                       ),
@@ -91,17 +96,59 @@ SignUpController _controller = Get.put(SignUpController());
               SizedBox(
                 height: 20,
               ),
-              textField(
-                  signup: true,
-                  controller: dOB,
-                  name: "Date of Birth",
-                  placeholder: "2020-11-22",
-                  keyboardType: TextInputType.name,
-                  validator: (value) {
-                    if (value.toString().isEmpty) {
-                      return "Fill Field";
-                    }
-                  }),
+              Padding(
+                padding: const EdgeInsets.only(left: 17.0, right: 17.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Date of Birth",
+                      style: TextStyle(
+                          fontFamily: "Gilroy",
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: Colors.grey)),
+                        height: 60,
+                        width: Get.width,
+                        child: Center(
+                          child: Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Obx(() => TextFormField(
+                                    controller: dOB = TextEditingController(
+                                        text: controller.dOB.value
+                                            .toString()
+                                            .substring(0, 10)),
+                                    decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        suffixIcon: GestureDetector(
+                                            onTap: () {
+                                              _controller
+                                                  .selectDate(Get.context);
+                                            },
+                                            child: Icon(Icons
+                                                .calendar_today_outlined))),
+                                    readOnly: true,
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return "Can't be empty";
+                                      }
+                                      return null;
+                                    },
+                                  ))),
+                        )),
+                    SizedBox(
+                      height: 20,
+                    )
+                  ],
+                ),
+              ),
               Padding(
                   padding: const EdgeInsets.only(left: 17.0, right: 17.0),
                   child: Column(
@@ -118,15 +165,17 @@ SignUpController _controller = Get.put(SignUpController());
                         height: 10,
                       ),
                       DropdownSearch(
+                        maxHeight: 100,
+                        label: "Christianity",
                         mode: Mode.MENU,
-                        onChanged: (value){
-                           _controller.religion.value = value;
+                        onChanged: (value) {
+                          _controller.religion.value = value;
                         },
-                        
                         validator: (value) {
                           if (value.toString().isEmpty) {
                             return "Set Religion";
                           }
+                          return null;
                         },
                         items: ["Christianity", "Islamic"],
                       ),
