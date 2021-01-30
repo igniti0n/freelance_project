@@ -10,7 +10,7 @@ import 'package:test_project_one/app/widgets/colours.dart';
 class LoginProvider extends GetConnect {
   Future<LoginModel> login({String email, password}) async {
     final pref = await SharedPreferences.getInstance();
-    LoginModel loginModel = LoginModel();
+
     ProgressDialog pr;
     BuildContext context = Get.context;
     pr = new ProgressDialog(
@@ -51,8 +51,16 @@ class LoginProvider extends GetConnect {
       print(token);
 
       var res = response.body;
-      
-      final result = LoginModel.fromJson(res);
+
+      // final result = LoginModel.fromJson(res);
+      LoginModel loginModel = new LoginModel(
+          message: res["message"],
+          statusCode: res["status_code"],
+          user: res["user"],
+          request: res["request"],
+          token: res["token"]);
+
+      print(loginModel.user);
       Get.snackbar(
         "Successful",
         LoginModel().message,
@@ -63,7 +71,7 @@ class LoginProvider extends GetConnect {
       Future.delayed(Duration(milliseconds: 3000), () {
         Get.offAllNamed(Routes.HOME);
       });
-      return result;
+      return loginModel;
     }
   }
 }
