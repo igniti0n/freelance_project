@@ -63,6 +63,7 @@ class MoreView extends GetView<MoreController> {
             GestureDetector(
                 onTap: () async {
                   final prefs = await SharedPreferences.getInstance();
+                  prefs.clear();
                  
 
                   Get.offAllNamed(Routes.SIGN_IN);
