@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:test_project_one/app/data/models/homeAds.dart';
 import 'package:test_project_one/app/modules/ads_details/controllers/ads_details_controller.dart';
-import 'package:test_project_one/app/widgets/button-widget.dart';
+import 'package:test_project_one/app/widgets/button_widget.dart';
 import 'package:test_project_one/app/widgets/colours.dart';
+import 'package:intl/intl.dart';
+import 'package:test_project_one/app/widgets/constants.dart';
+import 'package:test_project_one/app/widgets/error_page.dart';
+import 'package:test_project_one/app/widgets/progress_dialog.dart';
+import 'package:flutter/services.dart';
+import 'package:test_project_one/app/widgets/social_media_icon_widget.dart';
 
 class AdsDetailsView extends GetView<AdsDetailsController> {
   @override
@@ -13,293 +20,303 @@ class AdsDetailsView extends GetView<AdsDetailsController> {
         backgroundColor: Colors.white,
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Stack(
-                children: [
-                  Image.asset("assets/images/banner.png"),
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Text(
-                      "12 Dec, 2020",
-                      style: TextStyle(
-                          fontFamily: "Gilroy-Regular",
-                          fontSize: 14,
-                          color: Colors.white),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 40, right: 20, left: 20),
-                    child: Text(
-                      "Robotic analyzer launched",
-                      style: TextStyle(
-                          fontFamily: "Gilroy",
-                          fontSize: 22,
-                          color: Colors.white),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 40,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: Row(
-                children: [
-                  SvgPicture.asset("assets/svg/small_facebook.svg"),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    "300",
+      body: controller.obx(
+        (state) => _buildDetailView(context),
+        onLoading: Loader(),
+        onError: (error) {
+          return ErrorView(
+            errorMsg: error,
+            onTapReload: () {
+              controller.getAdDetail();
+            },
+          );
+        },
+      ),
+    );
+  }
+
+  _buildDetailView(BuildContext context) {
+    final DateTime now = controller.adsDetailModel.createdAt;
+    DateFormat formatter = DateFormat('dd LLL, yyyy');
+    final String formatted = formatter.format(now);
+
+    final DateTime deadline = controller.adsDetailModel.deadline;
+    formatter = DateFormat('yyyy-MM-dd');
+    final String deadlineFormatter = formatter.format(deadline);
+
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Stack(
+              children: [
+                Image.asset("assets/images/banner.png"),
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Text(
+                    formatted,
                     style: TextStyle(
-                        fontFamily: "Gilroy",
-                        fontSize: 12,
-                        color: colour_facebook),
+                        fontFamily: "Gilroy-Regular",
+                        fontSize: 14,
+                        color: Colors.white),
                   ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  SvgPicture.asset("assets/svg/small_instagram.svg"),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    "300",
-                    style: TextStyle(
-                        fontFamily: "Gilroy",
-                        fontSize: 12,
-                        color: colour_instagram),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  SvgPicture.asset("assets/svg/small_youtube.svg"),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    "300",
-                    style: TextStyle(
-                        fontFamily: "Gilroy",
-                        fontSize: 12,
-                        color: colour_youtube),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  SvgPicture.asset("assets/svg/small_twitter.svg"),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    "300",
-                    style: TextStyle(
-                        fontFamily: "Gilroy",
-                        fontSize: 12,
-                        color: colour_twitter),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Container(
-                height: 240,
-                width: 388,
-                child: Text(
-                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
-                  textAlign: TextAlign.justify,
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 40, right: 20, left: 20),
+                  child: Text(
+                    controller.adsDetailModel.title,
+                    style: TextStyle(
+                        fontFamily: "Gilroy",
+                        fontSize: 22,
+                        color: Colors.white),
+                  ),
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: _buildSocialMediaIconWithCount(controller.adsDetailModel),
+          ),
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: Container(
+              child: Text(
+                controller.adsDetailModel.description,
+                textAlign: TextAlign.justify,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: Row(
-                children: [
-                  SvgPicture.asset("assets/svg/duration.svg"),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 16, right: 12),
+            child: Row(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width / 1.7,
+                  child: Row(
+                    children: [
+                      SvgPicture.asset("assets/svg/duration.svg"),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Deadline",
+                              style: TextStyle(
+                                  color: Color(0xff500A84),
+                                  fontFamily: "Gilroy",
+                                  fontSize: 14),
+                            ),
+                            Container(
+                              width: 150,
+                              child: RichText(
+                                maxLines: 2,
+                                text: TextSpan(
+                                    text: 'To be completed in',
+                                    style: TextStyle(
+                                        fontFamily: "Gilroy-Regular",
+                                        fontSize: 12,
+                                        color: Color(0xff949494)),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text: " " + deadlineFormatter,
+                                        style: TextStyle(
+                                            fontFamily: "Gilroy-Regular",
+                                            fontSize: 12,
+                                            color: colour_time),
+                                      )
+                                    ]),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Row(
+                    children: [
+                      SvgPicture.asset("assets/svg/anouncement.svg"),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Ads Type",
+                                style: TextStyle(
+                                    color: colour_yellow,
+                                    fontFamily: "Gilroy",
+                                    fontSize: 14),
+                              ),
+                              Text(controller.adsDetailModel.adsType,
+                                  style: TextStyle(
+                                      fontFamily: "Gilroy-Regular",
+                                      fontSize: 12,
+                                      color: colour_time)),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          (!controller.adsDetailModel.resources.isNull &&
+                  controller.adsDetailModel.resources.length > 0)
+              ? Container(
+                  color: Color(0xffF9F9F9),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: 24, bottom: 10, left: 10, right: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Deadline",
-                          style: TextStyle(
-                              color: Color(0xff500A84),
-                              fontFamily: "Gilroy",
-                              fontSize: 14),
-                        ),
                         Row(
                           children: [
-                            Text("To be completed in",
-                                style: TextStyle(
-                                    fontFamily: "Gilroy-Regular",
-                                    fontSize: 12,
-                                    color: Color(0xff949494))),
-                            Text(" 10 Days",
-                                style: TextStyle(
-                                    fontFamily: "Gilroy-Regular",
-                                    fontSize: 12,
-                                    color: colour_time)),
+                            Icon(
+                              Icons.download_outlined,
+                              color: colour_yellow,
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              "Downloads",
+                              style: TextStyle(
+                                  fontFamily: "Gilroy",
+                                  fontSize: 16,
+                                  color: colour_yellow),
+                            )
                           ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 36),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: List.generate(
+                                  controller.adsDetailModel.resources.length,
+                                  (index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(top: 16),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              controller.adsDetailModel
+                                                  .resources[index].title,
+                                              style: TextStyle(
+                                                  color: Color(0xff282828),
+                                                  fontFamily: "Gilroy-Medium",
+                                                  fontSize: 14,
+                                                  decoration:
+                                                      TextDecoration.underline),
+                                            ),
+                                            Text(
+                                              controller.adsDetailModel
+                                                  .resources[index].url,
+                                              style: TextStyle(
+                                                  color: colour_twitter,
+                                                  fontFamily: "Gilroy-Medium",
+                                                  fontSize: 14,
+                                                  decoration:
+                                                      TextDecoration.underline),
+                                              maxLines: 2,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      IconButton(
+                                        icon: Icon(Icons.copy_outlined),
+                                        onPressed: () {
+                                          Clipboard.setData(new ClipboardData(
+                                              text: controller.adsDetailModel
+                                                  .resources[index].url));
+                                          Get.snackbar(
+                                            Strings.SUCCESS,
+                                            'URL copied to Clipboard',
+                                            duration:
+                                                Duration(milliseconds: 1000),
+                                            backgroundColor: colour_time,
+                                            colorText: Colors.white,
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              })),
                         )
                       ],
                     ),
                   ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                 SvgPicture.asset("assets/svg/anouncement.svg"),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Ads Type",
-                          style: TextStyle(
-                              color: colour_yellow,
-                              fontFamily: "Gilroy",
-                              fontSize: 14),
-                        ),
-                        Text("Image",
-                            style: TextStyle(
-                                fontFamily: "Gilroy-Regular",
-                                fontSize: 12,
-                                color: colour_time)),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                )
+              : Container(),
+          SizedBox(
+            height: 20,
+          ),
+          Center(
+              child: Text(
+            "G" + controller.adsDetailModel.amount,
+            style: TextStyle(
+                fontFamily: "Gilroy-Medium", fontSize: 26, color: Colors.black),
+          )),
+          SizedBox(
+            height: 16,
+          ),
+          controller.isMyAds
+              ? Container()
+              : buttonWidget(
+                  name: "Accept",
+                  onTap: () {
+                    controller.acceptAds();
+                  }),
+          SizedBox(
+            height: 20,
+          )
+        ],
+      ),
+    );
+  }
+
+  _buildSocialMediaIconWithCount(AdsDetailModel adsDetailModel) {
+    List<SocialMediaCardModel> listWidgets =
+        createSocialMediaList(adsDetailModel);
+    return Row(
+      children: List.generate(listWidgets.length, (index) {
+        return Row(
+          children: [
+            SvgPicture.asset("assets/svg/small_" + listWidgets[index].iconName),
+            SizedBox(
+              width: 5,
+            ),
+            Text(
+              adsDetailModel.facebookTarget.toString(),
+              style: TextStyle(
+                  fontFamily: "Gilroy", fontSize: 12, color: colour_facebook),
             ),
             SizedBox(
-              height: 40,
+              width: 20,
             ),
-            Container(
-              height: 176,
-              width: 414,
-              color: Color(0xffF9F9F9),
-              child: Padding(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.download_outlined,
-                          color: colour_yellow,
-                        ),
-                        SizedBox(
-                          width: 16,
-                        ),
-                        Text(
-                          "Downloads",
-                          style: TextStyle(
-                              fontFamily: "Gilroy",
-                              fontSize: 16,
-                              color: colour_yellow),
-                        )
-                      ],
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 36),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Banner 1024*1024",
-                                    style: TextStyle(
-                                        color: Color(0xff282828),
-                                        fontFamily: "Gilroy-Medium",
-                                        fontSize: 14,
-                                        decoration: TextDecoration.underline),
-                                  ),
-                                  Text(
-                                    "https://web.whatsapp.com/",
-                                    style: TextStyle(
-                                        color: colour_twitter,
-                                        fontFamily: "Gilroy-Medium",
-                                        fontSize: 14,
-                                        decoration: TextDecoration.underline),
-                                  ),
-                                ],
-                              ),
-                              Icon(Icons.copy_outlined)
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Banner 1024*1024",
-                                    style: TextStyle(
-                                        color: Color(0xff282828),
-                                        fontFamily: "Gilroy-Medium",
-                                        fontSize: 14,
-                                        decoration: TextDecoration.underline),
-                                  ),
-                                  Text(
-                                    "https://web.whatsapp.com/",
-                                    style: TextStyle(
-                                        color: colour_twitter,
-                                        fontFamily: "Gilroy-Medium",
-                                        fontSize: 14,
-                                        decoration: TextDecoration.underline),
-                                  ),
-                                ],
-                              ),
-                              Icon(Icons.copy_outlined)
-                            ],
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Center(
-                child: Text(
-              "G3,500",
-              style: TextStyle(
-                  fontFamily: "Gilroy-Medium",
-                  fontSize: 26,
-                  color: Colors.black),
-            )),
-            SizedBox(height: 10,),
-            display_button(name: "Accept"),
-            SizedBox(height: 20,)
           ],
-        ),
-      ),
+        );
+      }),
     );
   }
 }

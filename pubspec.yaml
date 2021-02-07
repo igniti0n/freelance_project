@@ -46,6 +46,8 @@ dependencies:
   flutter_launcher_icons: "^0.8.0"
   searchable_dropdown:
   image_picker: ^0.6.7+21
+  data_connection_checker: ^0.3.4
+  file_picker: ^2.1.6
 
 dev_dependencies:
   flutter_test:

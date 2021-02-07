@@ -1,14 +1,14 @@
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:test_project_one/app/data/API/api_calls.dart';
+import 'package:test_project_one/app/data/models/homeAds.dart';
+import 'package:test_project_one/app/modules/home/provider/home_provider.dart';
 
-class HomeController extends GetxController {
-  final count = 0.obs;
-  String firstname;
+class HomeController extends GetxController with StateMixin<HomeAdsModel> {
+  var adsList = List<AdsDetailModel>();
+
   @override
   void onInit() {
+    loadAds();
     super.onInit();
-    getName();
   }
 
   @override
@@ -19,10 +19,16 @@ class HomeController extends GetxController {
   @override
   void onClose() {}
 
-  void increment() => count.value++;
-   getName() async {
-    final pref = await SharedPreferences.getInstance();
-    firstname = pref.getString("firstname");
-    return firstname;
+  loadAds() async {
+    try {
+      change(null, status: RxStatus.loading());
+      HomeProvider _homeProvider = HomeProvider();
+      HomeAdsModel _homeAdsModel = await _homeProvider.getAds();
+      adsList.clear();
+      adsList.addAll(_homeAdsModel.data);
+      change(_homeAdsModel, status: RxStatus.success());
+    } catch (onError) {
+      change(null, status: RxStatus.error(onError.message));
+    }
   }
 }

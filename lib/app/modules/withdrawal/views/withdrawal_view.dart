@@ -1,19 +1,17 @@
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:searchable_dropdown/searchable_dropdown.dart';
 import 'package:test_project_one/app/data/models/bankModel.dart';
 import 'package:test_project_one/app/modules/withdrawal/controllers/profileContoller.dart';
 import 'package:test_project_one/app/modules/withdrawal/controllers/withdrawal_controller.dart';
-import 'package:test_project_one/app/routes/app_pages.dart';
-import 'package:test_project_one/app/widgets/button-widget.dart';
+import 'package:test_project_one/app/widgets/button_widget.dart';
 import 'package:test_project_one/app/widgets/text_fields.dart';
 
 class WithdrawalView extends GetView<WithdrawalController> {
   WithdrawalController _controller = Get.put(WithdrawalController());
   WithdrawalController2 _controller2 = Get.put(WithdrawalController2());
   TextEditingController bank = new TextEditingController();
-  TextEditingController accountName ;
+  TextEditingController accountName;
   TextEditingController accountNumber;
   final _formKey = GlobalKey<FormState>();
   @override
@@ -25,9 +23,10 @@ class WithdrawalView extends GetView<WithdrawalController> {
           elevation: 0,
         ),
         body: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: _controller2.obx((profile)=> Column(
+            child: Form(
+          key: _formKey,
+          child: _controller2.obx(
+            (profile) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
@@ -111,7 +110,8 @@ class WithdrawalView extends GetView<WithdrawalController> {
                   height: 20,
                 ),
                 textField(
-                    controller: accountName=TextEditingController(text: profile[0]["account_name"].toString()),
+                    controller: accountName = TextEditingController(
+                        text: profile[0]["account_name"].toString()),
                     signup: true,
                     name: "Account Name",
                     // placeholder: "Please Enter Here",
@@ -126,7 +126,8 @@ class WithdrawalView extends GetView<WithdrawalController> {
                 ),
                 textField(
                     signup: true,
-                    controller: accountNumber=TextEditingController(text: profile[0]["account_number"].toString()),
+                    controller: accountNumber = TextEditingController(
+                        text: profile[0]["account_number"].toString()),
                     name: "Account Number",
                     // placeholder: "Please Enter Here",
                     keyboardType: TextInputType.number,
@@ -138,12 +139,10 @@ class WithdrawalView extends GetView<WithdrawalController> {
                 SizedBox(
                   height: 30,
                 ),
-                display_button(
+                buttonWidget(
                     name: "Update",
-                    function: () {
-                     if(_formKey.currentState.validate()){
-                       
-                     }
+                    onTap: () {
+                      if (_formKey.currentState.validate()) {}
                     })
               ],
             ),

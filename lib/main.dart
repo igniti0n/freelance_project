@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:test_project_one/app/data/API/api_calls.dart';
+import 'package:test_project_one/app/data/models/login.dart';
 import 'package:test_project_one/app/widgets/colours.dart';
 
 import 'app/routes/app_pages.dart';
 
-SharedPreferences prefs;
+LoginModel loginModel;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  prefs = await SharedPreferences.getInstance();
-  String token = prefs.getString("token");
+  loginModel = await LoginModel.fromPrefs();
 
   runApp(
     GetMaterialApp(
@@ -20,7 +18,7 @@ void main() async {
       theme: ThemeData(
         primaryColor: colour_login_container,
       ),
-      initialRoute: token==null?AppPages.INITIAL:Routes.HOME,
+      initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
     ),
   );

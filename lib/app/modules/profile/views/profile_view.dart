@@ -4,15 +4,15 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_project_one/app/modules/profile/controllers/profile_controller.dart';
-import 'package:test_project_one/app/routes/app_pages.dart';
-import 'package:test_project_one/app/widgets/button-widget.dart';
+import 'package:test_project_one/app/widgets/button_widget.dart';
 import 'package:test_project_one/app/widgets/text_fields.dart';
 import 'package:image_picker/image_picker.dart';
+
 class ProfileView extends GetView<ProfileController> {
   TextEditingController firstname = new TextEditingController();
   TextEditingController lastname = new TextEditingController();
   TextEditingController phone = new TextEditingController();
- File file;
+  File file;
   String religion;
   TextEditingController education = new TextEditingController();
   TextEditingController country = new TextEditingController();
@@ -49,10 +49,8 @@ class ProfileView extends GetView<ProfileController> {
                       Padding(
                         padding: const EdgeInsets.only(top: 70),
                         child: GestureDetector(
-                          onTap: (){
-
-                          },
-                          child: Image.asset("assets/images/mask.png")),
+                            onTap: () {},
+                            child: Image.asset("assets/images/mask.png")),
                       ),
                       SizedBox(
                         height: 10,
@@ -269,9 +267,9 @@ class ProfileView extends GetView<ProfileController> {
                               SizedBox(
                                 height: 30,
                               ),
-                              display_button(
+                              buttonWidget(
                                   name: "Update",
-                                  function: () {
+                                  onTap: () {
                                     controller.updateProfile(
                                       firstname: firstname.text ??
                                           data[0]["firstname"],
@@ -304,6 +302,7 @@ class ProfileView extends GetView<ProfileController> {
                   )
                 ]))));
   }
+
   uploadImage() async {
     Get.defaultDialog(
         title: "Choose from",

@@ -1,29 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:test_project_one/app/data/models/homeAds.dart';
 import 'package:test_project_one/app/routes/app_pages.dart';
-
+import 'package:intl/intl.dart';
 import 'colours.dart';
+import 'social_media_icon_widget.dart';
 
-show_card({bool report}) {
+showAdCard(
+    {AdsDetailModel adsDetailModel,
+    bool report,
+    Function(int index) onTabChangeIndex}) {
+  final DateTime now = adsDetailModel.deadline;
+  final DateFormat formatter = DateFormat('yyyy-MM-dd');
+  final String deadlineFormatter = formatter.format(now);
+
   return Column(
     children: [
-      
       Padding(
         padding: const EdgeInsets.only(left: 5, right: 5, bottom: 15, top: 10),
         child: Container(
-          
           height: 298,
           width: 380,
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Color(0xff939393),
-                blurRadius: 10,
-                offset: Offset(0, 5)
-              )
-            ],
-              color: Colors.white, borderRadius: BorderRadius.circular(10)),
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+                color: Color(0xff939393), blurRadius: 10, offset: Offset(0, 5))
+          ], color: Colors.white, borderRadius: BorderRadius.circular(10)),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -32,7 +34,6 @@ show_card({bool report}) {
                 width: 8,
                 color: colour_yellow,
               ),
-              
               Container(
                 height: 298,
                 width: 350,
@@ -42,7 +43,7 @@ show_card({bool report}) {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "G3,500",
+                        "G" + adsDetailModel.amount,
                         style: TextStyle(
                           fontFamily: "Gilroy-Medium",
                           fontSize: 14,
@@ -52,7 +53,7 @@ show_card({bool report}) {
                       SizedBox(
                         height: 15,
                       ),
-                      Text("Robotic analyzer launched",
+                      Text(adsDetailModel.title,
                           style: TextStyle(
                               fontFamily: "Gilroy",
                               fontSize: 20,
@@ -60,76 +61,19 @@ show_card({bool report}) {
                       SizedBox(
                         height: 10,
                       ),
-                      Row(
-                        children: [
-                         SvgPicture.asset("assets/svg/small_facebook.svg"),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            "300",
-                            style: TextStyle(
-                                fontFamily: "Gilroy",
-                                fontSize: 12,
-                                color: colour_facebook),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          SvgPicture.asset("assets/svg/small_instagram.svg"),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            "300",
-                            style: TextStyle(
-                                fontFamily: "Gilroy",
-                                fontSize: 12,
-                                color: colour_instagram),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          SvgPicture.asset("assets/svg/small_youtube.svg"),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            "300",
-                            style: TextStyle(
-                                fontFamily: "Gilroy",
-                                fontSize: 12,
-                                color: colour_youtube),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          SvgPicture.asset("assets/svg/small_twitter.svg"),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            "300",
-                            style: TextStyle(
-                                fontFamily: "Gilroy",
-                                fontSize: 12,
-                                color: colour_twitter),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                        ],
-                      ),
+                      _buildSocialMediaIconWithCount(adsDetailModel),
                       SizedBox(
                         height: 30,
                       ),
                       Center(
                         child: Text(
-                          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard...",
+                          adsDetailModel.description,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               fontFamily: "Gilroy-Regular",
                               fontSize: 12,
                               color: colour_alert_dialog),
+                          maxLines: 3,
                         ),
                       ),
                       SizedBox(
@@ -146,16 +90,14 @@ show_card({bool report}) {
                                   fontFamily: "Gilroy-Regular",
                                   fontSize: 12,
                                   color: Color(0xff949494))),
-                          Text(" 10 Days",
+                          Text(" " + deadlineFormatter,
                               style: TextStyle(
                                   fontFamily: "Gilroy-Regular",
                                   fontSize: 12,
                                   color: colour_time)),
-                          SizedBox(
-                            width: 50,
-                          ),
+                          Spacer(),
                           SvgPicture.asset("assets/svg/small_speaker.svg"),
-                          Text("  Image",
+                          Text(" " + adsDetailModel.adsType,
                               style: TextStyle(
                                   fontFamily: "Gilroy-Regular",
                                   fontSize: 12,
@@ -166,46 +108,37 @@ show_card({bool report}) {
                         height: 20,
                       ),
                       Row(
-                       
-                        
                         children: [
-
-                          Stack(
-                            overflow: Overflow.visible,
-                            children: [
-                            SvgPicture.asset("assets/svg/facebook.svg"),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 60),
-                              child: SvgPicture.asset("assets/svg/twitter.svg"),
-                            ),
-                            Padding(
-                               padding: const EdgeInsets.only(left: 30),
-                              child: SvgPicture.asset("assets/svg/instagram.svg"),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 90),
-                              child: SvgPicture.asset("assets/svg/youtube.svg"),
-                            ),
-                          ],),
-                          SizedBox(
-                            width: 20,
-                          ),
+                          _buildSocialMediaIcons(adsDetailModel),
+                          Spacer(),
                           Visibility(
                             visible: report,
-                                                      child: GestureDetector(
-                              onTap: () => Get.toNamed(Routes.PERFORMANCE_REPORT),
-                                    child: Text("Report",
+                            child: GestureDetector(
+                              onTap: () => Get.toNamed(
+                                  Routes.PERFORMANCE_LIST_REPORT,
+                                  arguments: adsDetailModel),
+                              child: Text("Report",
                                   style: TextStyle(
                                       fontFamily: "Gilroy-Medium",
                                       color: colour_yellow,
                                       fontSize: 14)),
                             ),
                           ),
-                           SizedBox(
-                            width: 30,
-                          ), GestureDetector(
-                            onTap: () => Get.toNamed(Routes.ADS_DETAILS),
-                                                      child: Text("View Details",
+                          SizedBox(
+                            width: 20,
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              var result = await Get.toNamed(Routes.ADS_DETAILS,
+                                  arguments: [
+                                    adsDetailModel,
+                                    report ? true : false,
+                                  ]);
+                              if (result) {
+                                onTabChangeIndex(1);
+                              }
+                            },
+                            child: Text("View Details",
                                 style: TextStyle(
                                     fontFamily: "Gilroy-Medium",
                                     color: colour_yellow,
@@ -221,7 +154,51 @@ show_card({bool report}) {
           ),
         ),
       ),
-     
     ],
   );
+}
+
+_buildSocialMediaIconWithCount(AdsDetailModel adsDetailModel) {
+  List<SocialMediaCardModel> listWidgets =
+      createSocialMediaList(adsDetailModel);
+  return Row(
+    children: List.generate(listWidgets.length, (index) {
+      return Row(
+        children: [
+          SvgPicture.asset("assets/svg/small_" + listWidgets[index].iconName),
+          SizedBox(
+            width: 5,
+          ),
+          Text(
+            adsDetailModel.facebookTarget.toString(),
+            style: TextStyle(
+                fontFamily: "Gilroy", fontSize: 12, color: colour_facebook),
+          ),
+          SizedBox(
+            width: 20,
+          ),
+        ],
+      );
+    }),
+  );
+}
+
+_buildSocialMediaIcons(AdsDetailModel adsDetailModel) {
+  List<SocialMediaCardModel> listWidgets =
+      createSocialMediaList(adsDetailModel);
+
+  return listWidgets.isEmpty
+      ? Container(
+          height: 36,
+        )
+      : Stack(
+          overflow: Overflow.visible,
+          children: List.generate(listWidgets.length, (index) {
+            return Padding(
+              padding: EdgeInsets.only(left: index * 30.0),
+              child:
+                  SvgPicture.asset("assets/svg/" + listWidgets[index].iconName),
+            );
+          }),
+        );
 }

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:test_project_one/app/modules/forgotPassword2/controllers/forgot_password2_controller.dart';
-import 'package:test_project_one/app/routes/app_pages.dart';
-import 'package:test_project_one/app/widgets/button-widget.dart';
-import 'package:test_project_one/app/widgets/colours.dart';
+import 'package:test_project_one/app/widgets/button_widget.dart';
 import 'package:test_project_one/app/widgets/text_fields.dart';
 
 class ForgotPasswordView2 extends GetView<ForgotPasswordController2> {
@@ -63,9 +61,9 @@ class ForgotPasswordView2 extends GetView<ForgotPasswordController2> {
                     }
                   },
                   keyboardType: TextInputType.emailAddress),
-              display_button(
+              buttonWidget(
                   name: "Reset",
-                  function: () {
+                  onTap: () {
                     if (_formKey.currentState.validate()) {
                       _controller2.changePassword(
                           email: emailController.text,

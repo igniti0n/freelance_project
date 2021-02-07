@@ -3,88 +3,146 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:test_project_one/app/modules/home/controllers/home_controller.dart';
 import 'package:test_project_one/app/modules/more/views/more_view.dart';
+import 'package:test_project_one/app/modules/my_ads/controllers/my_ads_controller.dart';
 import 'package:test_project_one/app/modules/my_ads/views/my_ads_view.dart';
 import 'package:test_project_one/app/modules/stats/views/stats_view.dart';
 import 'package:test_project_one/app/modules/wallet/views/wallet_view.dart';
 import 'package:test_project_one/app/widgets/ads_card.dart';
 import 'package:test_project_one/app/widgets/colours.dart';
+import 'package:test_project_one/app/widgets/constants.dart';
+import 'package:test_project_one/app/widgets/error_page.dart';
 
 import 'package:test_project_one/app/widgets/footer.dart';
 import 'package:test_project_one/app/widgets/header.dart';
+import 'package:test_project_one/app/widgets/progress_dialog.dart';
 
-class HomeView extends GetView<HomeController> {
+class HomeView extends StatefulWidget {
+  @override
+  _HomeViewState createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
   RxInt activeIndex = 0.obs;
+  final _tabBarState = new GlobalKey<FABBottomAppBarState>();
 
   void _onTap(int index) {
     activeIndex.value = index;
   }
 
-  List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
-    MyAdsView(),
-    WalletView(),
-    StatsView(),
-    MoreView(),
-  ];
+  List<Widget> _widgetOptions;
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Obx(() => Center(
-              child: _widgetOptions.elementAt(activeIndex.value),
-            )),
-        bottomNavigationBar: FABBottomAppBar(
-          onTabSelected: _onTap,
-          color: Colors.white,
-          selectedColor: colour_yellow,
-          notchedShape: CircularNotchedRectangle(),
-          items: [
-            FABBottomAppBarItem(iconData: Icons.home, text: "Home"),
-            FABBottomAppBarItem(iconData: Icons.campaign, text: "My Ads"),
-            FABBottomAppBarItem(
-                iconData: Icons.account_balance_wallet, text: "Wallet"),
-            FABBottomAppBarItem(iconData: Icons.bar_chart, text: "Stat"),
-            FABBottomAppBarItem(
-                iconData: FaIcon(FontAwesomeIcons.thLarge).icon, text: "More"),
-          ],
-        ));
+  void initState() {
+    _widgetOptions = <Widget>[
+      HomeScreen(
+        onChangeTabIndex: (index) {
+          _tabBarState.currentState.updateIndex(index);
+          final MyAdsController myAdsController = Get.find();
+          if (myAdsController != null) {
+            myAdsController.loadMyAds();
+          }
+        },
+      ),
+      MyAdsView(),
+      WalletView(),
+      StatsView(),
+      MoreView(),
+    ];
+    super.initState();
   }
-}
 
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: header,
-      body: Container(
+      body: Obx(() {
+        return Center(
+          child: _widgetOptions.elementAt(activeIndex.value),
+        );
+      }),
+      bottomNavigationBar: FABBottomAppBar(
+        key: _tabBarState,
+        onTabSelected: _onTap,
         color: Colors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 20, right: 20),
-              child: Text(
-                "Available ads",
-                style: TextStyle(
-                    fontFamily: "Gilroy-Light",
-                    fontSize: 22,
-                    color: Colors.black),
-              ),
-            ),
-            Expanded(child: ListView.builder(itemBuilder: (context, index) {
-              return show_card(report: false);
-            }))
-          ],
-        ),
+        selectedColor: colour_yellow,
+        selectedIndex: activeIndex.value,
+        notchedShape: CircularNotchedRectangle(),
+        items: [
+          FABBottomAppBarItem(iconData: Icons.home, text: "Home"),
+          FABBottomAppBarItem(iconData: Icons.campaign, text: "My Ads"),
+          FABBottomAppBarItem(
+              iconData: Icons.account_balance_wallet, text: "Wallet"),
+          FABBottomAppBarItem(iconData: Icons.bar_chart, text: "Stat"),
+          FABBottomAppBarItem(
+              iconData: FaIcon(FontAwesomeIcons.thLarge).icon, text: "More"),
+        ],
       ),
     );
+  }
+}
+
+class HomeScreen extends GetView<HomeController> {
+  final Function(int index) onChangeTabIndex;
+
+  HomeScreen({@required this.onChangeTabIndex});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: controller.obx(
+        (state) => _buildHomeView(),
+        onLoading: Loader(),
+        onError: (error) {
+          return ErrorView(
+            errorMsg: error,
+            onTapReload: () {
+              controller.loadAds();
+            },
+          );
+        },
+      ),
+    );
+  }
+
+  _buildHomeView() {
+    return controller.adsList.isNotEmpty
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 20, right: 20, top: 16),
+                child: Text(
+                  "Available ads",
+                  style: TextStyle(
+                      fontFamily: "Gilroy-Light",
+                      fontSize: 22,
+                      color: Colors.black),
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    return showAdCard(
+                        adsDetailModel: controller.adsList[index],
+                        report: false,
+                        onTabChangeIndex: (index) {
+                          onChangeTabIndex(index);
+                          controller.loadAds();
+                        });
+                  },
+                  itemCount: controller.adsList.length,
+                ),
+              )
+            ],
+          )
+        : Center(
+            child: Text(
+              Strings.NO_ADS_MSG,
+              style: TextStyle(
+                  fontFamily: "Gilroy-Light",
+                  fontSize: 22,
+                  color: Colors.black),
+            ),
+          );
   }
 }

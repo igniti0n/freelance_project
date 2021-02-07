@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_project_one/app/modules/sign_up/controllers/signUPMedia.dart';
-import 'package:test_project_one/app/routes/app_pages.dart';
-import 'package:test_project_one/app/widgets/button-widget.dart';
+import 'package:test_project_one/app/widgets/button_widget.dart';
 import 'package:test_project_one/app/widgets/text_fields.dart';
 
 class SignUpMediaAccountsView extends GetView<SignUpMediaController> {
@@ -37,7 +36,7 @@ class SignUpMediaAccountsView extends GetView<SignUpMediaController> {
   TextEditingController instagram = new TextEditingController();
   TextEditingController youtube = new TextEditingController();
   SignUpMediaController mediaController = Get.put(SignUpMediaController());
- 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,15 +88,11 @@ class SignUpMediaAccountsView extends GetView<SignUpMediaController> {
                   placeholder: "",
                   controller: youtube,
                   keyboardType: TextInputType.name,
-                  validator: (value) {
-                   
-                   
-                  }),
-              display_button(
+                  validator: (value) {}),
+              buttonWidget(
                   name: "Next",
-                  function: () {
-                   
-                      mediaController.register(
+                  onTap: () {
+                    mediaController.register(
                         firtname: firstName,
                         lastname: lastname,
                         gender: gender,
@@ -112,9 +107,7 @@ class SignUpMediaAccountsView extends GetView<SignUpMediaController> {
                         facebook: facebook.text,
                         twitter: twitter.text,
                         instagram: instagram.text,
-                        youtube: youtube.text
-                      );
-                    
+                        youtube: youtube.text);
                   }),
               SizedBox(
                 height: 20,

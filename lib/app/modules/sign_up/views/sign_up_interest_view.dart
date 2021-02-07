@@ -1,11 +1,11 @@
 import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:test_project_one/app/modules/sign_up/controllers/signUpInterest.dart'; 
+import 'package:test_project_one/app/modules/sign_up/controllers/signUpInterest.dart';
 
 import 'package:test_project_one/app/routes/app_pages.dart';
 import 'package:test_project_one/app/widgets/alert_dialog.dart';
-import 'package:test_project_one/app/widgets/button-widget.dart';
+import 'package:test_project_one/app/widgets/button_widget.dart';
 import 'package:test_project_one/app/widgets/colours.dart';
 
 class SignUpInterestView extends GetView<SignUpInterestController> {
@@ -70,17 +70,13 @@ class SignUpInterestView extends GetView<SignUpInterestController> {
           SizedBox(
             height: 30,
           ),
-
-          display_button(
+          buttonWidget(
               name: "Finish",
-              function: () {
-    
+              onTap: () {
                 show_dialog(
                     context: context,
                     heading: "Account Pending Approval",
-                    
                     right_text: "Academy",
-                   
                     right_text_fn: () {
                       Get.toNamed(Routes.HOME);
                     },
@@ -96,10 +92,11 @@ class SignUpInterestView extends GetView<SignUpInterestController> {
                       ),
                     ));
               }),
-              SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
         ],
       ),
     ));
   }
 }
-  

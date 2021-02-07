@@ -4,7 +4,7 @@ import 'package:searchable_dropdown/searchable_dropdown.dart';
 import 'package:test_project_one/app/data/models/country.dart';
 import 'package:test_project_one/app/modules/sign_up/controllers/signUP2.dart';
 import 'package:test_project_one/app/modules/sign_up/views/sign_up_media_accounts_view.dart';
-import 'package:test_project_one/app/widgets/button-widget.dart';
+import 'package:test_project_one/app/widgets/button_widget.dart';
 import 'package:test_project_one/app/widgets/text_fields.dart';
 
 class SignUp2View extends GetView<SignUp2Controller> {
@@ -131,7 +131,6 @@ class SignUp2View extends GetView<SignUp2Controller> {
                       return "Fill Field";
                     }
                   }),
-             
               textField(
                   signup: true,
                   name: "Phone",
@@ -152,7 +151,8 @@ class SignUp2View extends GetView<SignUp2Controller> {
                   validator: (value) {
                     if (value.toString().isEmpty) {
                       return "Fill Field";
-                    }if (!value.toString().isEmail) {
+                    }
+                    if (!value.toString().isEmail) {
                       return "Add a valid Email";
                     }
                   }),
@@ -168,9 +168,9 @@ class SignUp2View extends GetView<SignUp2Controller> {
                       return "Fill Field";
                     }
                   }),
-              display_button(
+              buttonWidget(
                   name: "Next",
-                  function: () {
+                  onTap: () {
                     if (_formKey.currentState.validate()) {
                       Get.to(SignUpMediaAccountsView(
                         address: address.text,

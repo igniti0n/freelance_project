@@ -3,10 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_project_one/app/modules/sign_in/controllers/sign_in_controller.dart';
-import 'package:test_project_one/app/modules/sign_in/provider/sign_in.dart';
 import 'package:test_project_one/app/routes/app_pages.dart';
-import 'package:test_project_one/app/widgets/button-widget.dart';
-import 'package:test_project_one/app/widgets/colours.dart';
+import 'package:test_project_one/app/widgets/button_widget.dart';
 import 'package:test_project_one/app/widgets/exit_dialog.dart';
 import 'package:test_project_one/app/widgets/text_fields.dart';
 
@@ -80,39 +78,40 @@ class SignInView extends GetView<SignInController> {
                             }
                           },
                           keyboardType: TextInputType.visiblePassword),
-
-                           Row(children: [
-                    Spacer(),
-                    GestureDetector(
-                onTap: () {
-                  Get.offAllNamed(Routes.FORGOT_PASSWORD);
-                },
-                child: Text(
-                  "Forgot Password",
-                  style: TextStyle(
-                      fontFamily: "Gilroy",
-                      color: Colors.black,
-                      fontSize: 13),
-                ),
-              ),
-              SizedBox(width: 16,)
-                  ],),
+                      Row(
+                        children: [
+                          Spacer(),
+                          GestureDetector(
+                            onTap: () {
+                              Get.offAllNamed(Routes.FORGOT_PASSWORD);
+                            },
+                            child: Text(
+                              "Forgot Password",
+                              style: TextStyle(
+                                  fontFamily: "Gilroy",
+                                  color: Colors.black,
+                                  fontSize: 13),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 16,
+                          )
+                        ],
+                      ),
                       SizedBox(
                         height: 50,
                       ),
                     ],
                   )),
-                  
-              display_button(
+              buttonWidget(
                   name: "Login",
-                  function: () {
+                  onTap: () {
                     if (_formKey.currentState.validate()) {
                       controller.login(
                           email: emailController.text,
                           password: passwordController.text);
                     }
                   }),
-                 
               SizedBox(
                 height: 50,
               ),
@@ -124,9 +123,7 @@ class SignInView extends GetView<SignInController> {
                 child: Text(
                   "Create Account",
                   style: TextStyle(
-                      fontFamily: "Gilroy",
-                      color: Colors.black,
-                      fontSize: 13),
+                      fontFamily: "Gilroy", color: Colors.black, fontSize: 13),
                 ),
               )),
               SizedBox(

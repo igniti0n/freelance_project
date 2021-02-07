@@ -13,7 +13,6 @@ class WalletView extends GetView<WalletController> {
         body: SingleChildScrollView(
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      header,
       Padding(
         padding: const EdgeInsets.all(10),
         child: Stack(
@@ -21,7 +20,7 @@ class WalletView extends GetView<WalletController> {
             Padding(
               padding: const EdgeInsets.all(10),
               child: GestureDetector(
-                  onTap: () => (){},
+                  onTap: () => () {},
                   child: Image.asset("assets/images/wallet.png")),
             ),
             Padding(

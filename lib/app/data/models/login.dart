@@ -1,111 +1,123 @@
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:test_project_one/app/data/API/api_calls.dart';
 
-LoginModel loginModelFromJson(String str) => LoginModel.fromJson(json.decode(str));
+LoginModel loginModelFromJson(String str) =>
+    LoginModel.fromJson(json.decode(str));
 
 String loginModelToJson(LoginModel data) => json.encode(data.toJson());
 
 class LoginModel {
-    LoginModel({
-        this.statusCode,
-        this.message,
-        this.token,
-        this.user,
-        this.request,
-    });
+  LoginModel({
+    this.statusCode,
+    this.message,
+    this.token,
+    this.user,
+    this.request,
+  });
 
-    int statusCode;
-    String message;
-    String token;
-    UserLogin user;
-    Request request;
+  int statusCode;
+  String message;
+  String token;
+  UserLogin user;
+  Request request;
 
-    factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
-        statusCode: json["status_code"],
-        message: json["message"],
-        token: json["token"],
-        user: UserLogin.fromJson(json["user"]),
-        request: Request.fromJson(json["request"]),
+  factory LoginModel.fromJson(Map<String, dynamic> json) {
+    return LoginModel(
+      statusCode: json["status_code"],
+      message: json["message"],
+      token: json["token"],
+      user: UserLogin.fromJson(json["user"]),
+      request: Request.fromJson(json["request"]),
     );
+  }
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "status_code": statusCode,
         "message": message,
         "token": token,
         "user": user.toJson(),
         "request": request.toJson(),
-    };
+      };
+
+  static Future<LoginModel> fromPrefs() async {
+    final pref = await SharedPreferences.getInstance();
+    String userData = pref.getString(kUserData);
+    if (userData == null) return null;
+    return loginModelFromJson(userData);
+  }
 }
 
 class Request {
-    Request({
-        this.email,
-        this.password,
-    });
+  Request({
+    this.email,
+    this.password,
+  });
 
-    String email;
-    String password;
+  String email;
+  String password;
 
-    factory Request.fromJson(Map<String, dynamic> json) => Request(
+  factory Request.fromJson(Map<String, dynamic> json) => Request(
         email: json["email"],
         password: json["password"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "email": email,
         "password": password,
-    };
+      };
 }
 
 class UserLogin {
-    UserLogin({
-        this.role,
-        this.id,
-        this.firstname,
-        this.lastname,
-        this.gender,
-        this.dateOfBirth,
-        this.religion,
-        this.levelOfEducation,
-        this.country,
-        this.address,
-        this.email,
-        this.password,
-        this.phone,
-        this.accountName,
-        this.accountNumber,
-        this.facebook,
-        this.twitter,
-        this.instagram,
-        this.youtube,
-        this.createdAt,
-        this.updatedAt,
-        this.v,
-    });
+  UserLogin({
+    this.role,
+    this.id,
+    this.firstname,
+    this.lastname,
+    this.gender,
+    this.dateOfBirth,
+    this.religion,
+    this.levelOfEducation,
+    this.country,
+    this.address,
+    this.email,
+    this.password,
+    this.phone,
+    this.accountName,
+    this.accountNumber,
+    this.facebook,
+    this.twitter,
+    this.instagram,
+    this.youtube,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
+  });
 
-    String role;
-    String id;
-    String firstname;
-    String lastname;
-    String gender;
-    String dateOfBirth;
-    String religion;
-    String levelOfEducation;
-    String country;
-    String address;
-    String email;
-    String password;
-    String phone;
-    String accountName;
-    String accountNumber;
-    String facebook;
-    String twitter;
-    String instagram;
-    String youtube;
-    DateTime createdAt;
-    DateTime updatedAt;
-    int v;
+  String role;
+  String id;
+  String firstname;
+  String lastname;
+  String gender;
+  String dateOfBirth;
+  String religion;
+  String levelOfEducation;
+  String country;
+  String address;
+  String email;
+  String password;
+  String phone;
+  String accountName;
+  String accountNumber;
+  String facebook;
+  String twitter;
+  String instagram;
+  String youtube;
+  DateTime createdAt;
+  DateTime updatedAt;
+  int v;
 
-    factory UserLogin.fromJson(Map<String, dynamic> json) => UserLogin(
+  factory UserLogin.fromJson(Map<String, dynamic> json) => UserLogin(
         role: json["role"],
         id: json["_id"],
         firstname: json["firstname"],
@@ -128,9 +140,9 @@ class UserLogin {
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "role": role,
         "_id": id,
         "firstname": firstname,
@@ -153,5 +165,5 @@ class UserLogin {
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
         "__v": v,
-    };
+      };
 }

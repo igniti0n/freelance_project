@@ -1,12 +1,10 @@
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:test_project_one/app/modules/sign_up/controllers/signUPMedia.dart';
 import 'package:test_project_one/app/modules/sign_up/controllers/sign_up_controller.dart';
 import 'package:test_project_one/app/modules/sign_up/views/sign_up_2_view.dart';
 import 'package:test_project_one/app/routes/app_pages.dart';
-import 'package:test_project_one/app/widgets/button-widget.dart';
+import 'package:test_project_one/app/widgets/button_widget.dart';
 import 'package:test_project_one/app/widgets/colours.dart';
 import 'package:test_project_one/app/widgets/exit_dialog.dart';
 import 'package:test_project_one/app/widgets/text_fields.dart';
@@ -24,7 +22,7 @@ class SignUpView extends GetView<SignUpController> {
   TextEditingController levelOfEducation = new TextEditingController();
   @override
   Widget build(BuildContext context) {
-    TextEditingController dOB ;
+    TextEditingController dOB;
 
     return WillPopScope(
       onWillPop: () => showExitDialog(),
@@ -198,9 +196,9 @@ class SignUpView extends GetView<SignUpController> {
               SizedBox(
                 height: 30,
               ),
-              display_button(
+              buttonWidget(
                   name: "Next",
-                  function: () {
+                  onTap: () {
                     if (_formKey.currentState.validate()) {
                       Get.to(SignUp2View(
                         firstName: firstname.text,

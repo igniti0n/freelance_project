@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_project_one/app/modules/change_password/controllers/change_password_controller.dart';
-import 'package:test_project_one/app/routes/app_pages.dart';
-import 'package:test_project_one/app/widgets/button-widget.dart';
+import 'package:test_project_one/app/widgets/button_widget.dart';
 import 'package:test_project_one/app/widgets/text_fields.dart';
 
 class ChangePasswordView extends GetView<ChangePasswordController> {
@@ -83,9 +82,9 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                       SizedBox(
                         height: 30,
                       ),
-                      display_button(
+                      buttonWidget(
                           name: "Update",
-                          function: () {
+                          onTap: () {
                             if (_formKey.currentState.validate()) {
                               controller.changePassword(
                                   oldPassword.text, repeatPassword.text);

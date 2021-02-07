@@ -3,13 +3,11 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test_project_one/app/modules/more/controllers/more_controller.dart';
 import 'package:test_project_one/app/routes/app_pages.dart';
-import 'package:test_project_one/app/widgets/header.dart';
 
 class MoreView extends GetView<MoreController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: header,
       body: Padding(
         padding: const EdgeInsets.only(top: 40, right: 20, left: 20),
         child: Column(
@@ -64,7 +62,6 @@ class MoreView extends GetView<MoreController> {
                 onTap: () async {
                   final prefs = await SharedPreferences.getInstance();
                   prefs.clear();
-                 
 
                   Get.offAllNamed(Routes.SIGN_IN);
                 },

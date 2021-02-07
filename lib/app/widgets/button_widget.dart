@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 
 import 'colours.dart';
 
- display_button({String name, Function function}) {
+buttonWidget({String name, Function onTap}) {
   return Padding(
     padding: const EdgeInsets.only(left: 20, right: 20),
     child: GestureDetector(
-      onTap: function,
+      onTap: onTap,
       child: Container(
         height: 55,
         decoration: BoxDecoration(

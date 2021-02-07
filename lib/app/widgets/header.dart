@@ -3,11 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:test_project_one/app/data/models/login.dart';
-import 'package:test_project_one/app/modules/home/controllers/home_controller.dart';
 import 'package:test_project_one/app/routes/app_pages.dart';
+import 'package:test_project_one/main.dart';
 
-HomeController home = Get.put(HomeController());
+// HomeController home = Get.put(HomeController());
 // String firstname = login.user.firstname;
 final header = AppBar(
   backgroundColor: Colors.white,
@@ -20,7 +19,7 @@ final header = AppBar(
         width: 14,
       ),
       Text(
-        "John",
+        loginModel.user.firstname,
         style: TextStyle(fontFamily: "Gilroy"),
       ),
     ],

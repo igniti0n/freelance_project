@@ -12,6 +12,7 @@ class FABBottomAppBarItem {
 
 class FABBottomAppBar extends StatefulWidget {
   FABBottomAppBar({
+    Key key,
     this.items,
     this.centerItemText,
     this.height: 60.0,
@@ -21,7 +22,8 @@ class FABBottomAppBar extends StatefulWidget {
     this.selectedColor,
     this.notchedShape,
     this.onTabSelected,
-  }) {
+    this.selectedIndex = 0,
+  }) : super(key: key) {
     assert(this.items.length == 5);
   }
   final List<FABBottomAppBarItem> items;
@@ -33,6 +35,7 @@ class FABBottomAppBar extends StatefulWidget {
   final Color selectedColor;
   final NotchedShape notchedShape;
   final ValueChanged<int> onTabSelected;
+  final int selectedIndex;
 
   @override
   State<StatefulWidget> createState() => FABBottomAppBarState();
@@ -41,11 +44,16 @@ class FABBottomAppBar extends StatefulWidget {
 class FABBottomAppBarState extends State<FABBottomAppBar> {
   int _selectedIndex = 0;
 
-  _updateIndex(int index) {
+  updateIndex(int index) {
     widget.onTabSelected(index);
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -54,7 +62,7 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
       return _buildTabItem(
         item: widget.items[index],
         index: index,
-        onPressed: _updateIndex,
+        onPressed: updateIndex,
       );
     });
     // items.insert(items.length >> 1, _buildMiddleTabItem());
@@ -64,21 +72,19 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
       child: Container(
         height: 72,
         decoration: BoxDecoration(
-          color:  colour_black1,
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(20),
-          topRight:  Radius.circular(20) ),
+          color: colour_black1,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20), topRight: Radius.circular(20)),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.max,
-         mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: items,
         ),
       ),
       color: Colors.white,
     );
   }
-
- 
 
   Widget _buildTabItem({
     FABBottomAppBarItem item,
@@ -101,7 +107,8 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
                   Icon(item.iconData, color: color, size: widget.iconSize),
                   Text(
                     item.text,
-                    style: TextStyle(color: color,fontSize: 12, fontFamily: "Roboto"),
+                    style: TextStyle(
+                        color: color, fontSize: 12, fontFamily: "Roboto"),
                   )
                 ],
               ),
