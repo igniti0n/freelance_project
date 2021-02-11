@@ -12,8 +12,8 @@ class SignInView extends GetView<SignInController> {
   final _formKey = GlobalKey<FormState>();
 
   final focus = FocusScope.of(Get.context);
-  TextEditingController emailController = new TextEditingController();
-  TextEditingController passwordController = new TextEditingController();
+  final TextEditingController emailController = new TextEditingController();
+  final TextEditingController passwordController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,60 +49,61 @@ class SignInView extends GetView<SignInController> {
                 height: 50,
               ),
               Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      textField(
-                          name: "Email",
-                          controller: emailController,
-                          placeholder: "Email here",
-                          keyboardType: TextInputType.emailAddress,
-                          validator: (value) {
-                            if (value.toString().isEmpty) {
-                              return "Fill this field";
-                            }
+                key: _formKey,
+                child: Column(
+                  children: [
+                    textField(
+                        name: "Email",
+                        controller: emailController,
+                        placeholder: "Email here",
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (value) {
+                          if (value.toString().isEmpty) {
+                            return "Fill this field";
+                          }
 
-                            if (!value.toString().isEmail) {
-                              return "Add a valid Email";
-                            }
+                          if (!value.toString().isEmail) {
+                            return "Add a valid Email";
+                          }
+                        },
+                        password: false),
+                    textField(
+                        controller: passwordController,
+                        name: "Password",
+                        placeholder: "Password Here",
+                        password: true,
+                        validator: (value) {
+                          if (value.toString().isEmpty) {
+                            return "Fill this field";
+                          }
+                        },
+                        keyboardType: TextInputType.visiblePassword),
+                    Row(
+                      children: [
+                        Spacer(),
+                        GestureDetector(
+                          onTap: () {
+                            Get.offAllNamed(Routes.FORGOT_PASSWORD);
                           },
-                          password: false),
-                      textField(
-                          controller: passwordController,
-                          name: "Password",
-                          placeholder: "Password Here",
-                          password: true,
-                          validator: (value) {
-                            if (value.toString().isEmpty) {
-                              return "Fill this field";
-                            }
-                          },
-                          keyboardType: TextInputType.visiblePassword),
-                      Row(
-                        children: [
-                          Spacer(),
-                          GestureDetector(
-                            onTap: () {
-                              Get.offAllNamed(Routes.FORGOT_PASSWORD);
-                            },
-                            child: Text(
-                              "Forgot Password",
-                              style: TextStyle(
-                                  fontFamily: "Gilroy",
-                                  color: Colors.black,
-                                  fontSize: 13),
-                            ),
+                          child: Text(
+                            "Forgot Password",
+                            style: TextStyle(
+                                fontFamily: "Gilroy",
+                                color: Colors.black,
+                                fontSize: 13),
                           ),
-                          SizedBox(
-                            width: 16,
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 50,
-                      ),
-                    ],
-                  )),
+                        ),
+                        SizedBox(
+                          width: 16,
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                  ],
+                ),
+              ),
               buttonWidget(
                   name: "Login",
                   onTap: () {

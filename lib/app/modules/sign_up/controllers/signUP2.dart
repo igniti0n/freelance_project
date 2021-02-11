@@ -7,8 +7,8 @@ class SignUp2Controller extends GetxController with StateMixin<List<Country>> {
 
   final country = "".obs;
   final countryID = "".obs;
-   List<Country> countries = [];
-  // final value = "Select Gender".obs;
+  List<Country> countries = [];
+
   void fetchCountry() async {
     try {
       final List<Country> list = await RegisterProvider().getCountries();
@@ -27,7 +27,9 @@ class SignUp2Controller extends GetxController with StateMixin<List<Country>> {
   }
 
   @override
-  void onReady() {}
+  void onReady() {
+    super.onReady();
+  }
 
   @override
   void onClose() {}

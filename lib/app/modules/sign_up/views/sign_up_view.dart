@@ -75,14 +75,17 @@ class SignUpView extends GetView<SignUpController> {
                         height: 10,
                       ),
                       DropdownSearch(
-                        label: "Male",
+                        label: _controller.gender.value.isEmpty
+                            ? null
+                            : _controller.gender.value,
+                        hint: 'Select Gender',
                         maxHeight: 100,
                         mode: Mode.MENU,
                         onChanged: (value) {
                           _controller.gender.value = value;
                         },
                         validator: (value) {
-                          if (value.toString().isEmpty) {
+                          if (value == null || value.isEmpty) {
                             return "Set Gender";
                           }
                           return null;
@@ -164,13 +167,16 @@ class SignUpView extends GetView<SignUpController> {
                       ),
                       DropdownSearch(
                         maxHeight: 100,
-                        label: "Christianity",
+                        hint: 'Select Religion',
+                        label: _controller.religion.value.isEmpty
+                            ? null
+                            : _controller.religion.value,
                         mode: Mode.MENU,
                         onChanged: (value) {
                           _controller.religion.value = value;
                         },
                         validator: (value) {
-                          if (value.toString().isEmpty) {
+                          if (value == null || value.isEmpty) {
                             return "Set Religion";
                           }
                           return null;

@@ -7,7 +7,6 @@ import 'colours.dart';
 show_dialog(
     {BuildContext context,
     String heading,
-    
     String right_text,
     Function right_text_fn,
     Widget widget}) {
@@ -29,13 +28,12 @@ show_dialog(
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    
                     heading,
                     style: GoogleFonts.telex(
                         fontSize: 18,
                         fontWeight: FontWeight.normal,
                         color: colour_alert_dialog),
-                        textAlign: TextAlign.center,
+                    textAlign: TextAlign.center,
                   ),
                 ),
                 Container(
@@ -51,34 +49,30 @@ show_dialog(
                 SizedBox(
                   height: 20,
                 ),
-               
-                     
-                      SizedBox(
-                        
-                        height: 55,
+                SizedBox(
+                  height: 55,
+                  child: Center(
+                    child: Container(
+                      width: 100,
+                      child: RaisedButton(
+                        onPressed: () => right_text_fn(),
+                        color: colour_black1,
+                        textColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(34)),
                         child: Center(
-                          child: Container(
-                            width: 100,
-                            child: RaisedButton(
-                              onPressed:()=> right_text_fn(),
-                              color: colour_black1,
-                              textColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(34)),
-                              child: Center(
-                                child: Text(
-                                  right_text,
-                                  style: TextStyle(
-                                      fontFamily: "Gilroy",
-                                      fontSize: 15,
-                                      color: Colors.white),
-                                ),
-                              ),
-                            ),
+                          child: Text(
+                            right_text,
+                            style: TextStyle(
+                                fontFamily: "Gilroy",
+                                fontSize: 15,
+                                color: Colors.white),
                           ),
                         ),
                       ),
-                   
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 20,
                 ),

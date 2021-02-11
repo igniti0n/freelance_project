@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:test_project_one/app/data/models/homeAds.dart';
@@ -15,146 +16,159 @@ showAdCard(
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
   final String deadlineFormatter = formatter.format(now);
 
-  return Column(
-    children: [
-      Padding(
-        padding: const EdgeInsets.only(left: 5, right: 5, bottom: 15, top: 10),
-        child: Container(
-          height: 298,
-          width: 380,
-          decoration: BoxDecoration(boxShadow: [
-            BoxShadow(
-                color: Color(0xff939393), blurRadius: 10, offset: Offset(0, 5))
-          ], color: Colors.white, borderRadius: BorderRadius.circular(10)),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 298,
-                width: 8,
+  return Padding(
+    padding: const EdgeInsets.only(left: 8, right: 8, bottom: 4, top: 12),
+    child: Card(
+      color: Colors.white,
+      elevation: 3.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: IntrinsicHeight(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+              width: 5,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8),
+                    bottomLeft: Radius.circular(8)),
                 color: colour_yellow,
               ),
-              Container(
-                height: 298,
-                width: 350,
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "G" + adsDetailModel.amount,
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "G" + adsDetailModel.amount,
+                      style: TextStyle(
+                        fontFamily: "Gilroy-Medium",
+                        fontSize: 14,
+                        color: colour_price,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(adsDetailModel.title,
                         style: TextStyle(
-                          fontFamily: "Gilroy-Medium",
-                          fontSize: 14,
-                          color: colour_price,
+                            fontFamily: "Gilroy",
+                            fontSize: 20,
+                            color: colour_ads_header)),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    _buildSocialMediaIconWithCount(adsDetailModel),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Center(
+                      child: Text(
+                        adsDetailModel.description,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontFamily: "Gilroy-Regular",
+                            fontSize: 12,
+                            color: colour_alert_dialog),
+                        maxLines: 3,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      children: [
+                        SvgPicture.asset("assets/svg/small-clock.svg"),
+                        SizedBox(
+                          width: 4,
                         ),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Text(adsDetailModel.title,
-                          style: TextStyle(
-                              fontFamily: "Gilroy",
-                              fontSize: 20,
-                              color: colour_ads_header)),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      _buildSocialMediaIconWithCount(adsDetailModel),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Center(
-                        child: Text(
-                          adsDetailModel.description,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontFamily: "Gilroy-Regular",
-                              fontSize: 12,
-                              color: colour_alert_dialog),
-                          maxLines: 3,
+                        Container(
+                          width: Get.width / 2.5,
+                          child: RichText(
+                            maxLines: 2,
+                            text: TextSpan(
+                                text: 'To be completed in',
+                                style: TextStyle(
+                                    fontFamily: "Gilroy-Regular",
+                                    fontSize: 12,
+                                    color: Color(0xff949494)),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: " " + deadlineFormatter,
+                                    style: TextStyle(
+                                        fontFamily: "Gilroy-Regular",
+                                        fontSize: 12,
+                                        color: colour_time),
+                                  )
+                                ]),
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Row(
-                        children: [
-                          SvgPicture.asset("assets/svg/small-clock.svg"),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text("To be completed in",
-                              style: TextStyle(
-                                  fontFamily: "Gilroy-Regular",
-                                  fontSize: 12,
-                                  color: Color(0xff949494))),
-                          Text(" " + deadlineFormatter,
-                              style: TextStyle(
-                                  fontFamily: "Gilroy-Regular",
-                                  fontSize: 12,
-                                  color: colour_time)),
-                          Spacer(),
-                          SvgPicture.asset("assets/svg/small_speaker.svg"),
-                          Text(" " + adsDetailModel.adsType,
-                              style: TextStyle(
-                                  fontFamily: "Gilroy-Regular",
-                                  fontSize: 12,
-                                  color: Color(0xff949494))),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        children: [
-                          _buildSocialMediaIcons(adsDetailModel),
-                          Spacer(),
-                          Visibility(
-                            visible: report,
-                            child: GestureDetector(
-                              onTap: () => Get.toNamed(
-                                  Routes.PERFORMANCE_LIST_REPORT,
-                                  arguments: adsDetailModel),
-                              child: Text("Report",
-                                  style: TextStyle(
-                                      fontFamily: "Gilroy-Medium",
-                                      color: colour_yellow,
-                                      fontSize: 14)),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          GestureDetector(
-                            onTap: () async {
-                              var result = await Get.toNamed(Routes.ADS_DETAILS,
-                                  arguments: [
-                                    adsDetailModel,
-                                    report ? true : false,
-                                  ]);
-                              if (result) {
-                                onTabChangeIndex(1);
-                              }
-                            },
-                            child: Text("View Details",
+                        Spacer(),
+                        SvgPicture.asset("assets/svg/small_speaker.svg"),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        Text(" " + adsDetailModel.adsType,
+                            style: TextStyle(
+                                fontFamily: "Gilroy-Regular",
+                                fontSize: 12,
+                                color: Color(0xff949494))),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        _buildSocialMediaIcons(adsDetailModel),
+                        Spacer(),
+                        Visibility(
+                          visible: report,
+                          child: GestureDetector(
+                            onTap: () => Get.toNamed(
+                                Routes.PERFORMANCE_LIST_REPORT,
+                                arguments: adsDetailModel),
+                            child: Text("Report",
                                 style: TextStyle(
                                     fontFamily: "Gilroy-Medium",
                                     color: colour_yellow,
                                     fontSize: 14)),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 16,
+                        ),
+                        GestureDetector(
+                          onTap: () async {
+                            var result = await Get.toNamed(Routes.ADS_DETAILS,
+                                arguments: [
+                                  adsDetailModel,
+                                  report ? true : false,
+                                ]);
+                            if (result) {
+                              onTabChangeIndex(1);
+                            }
+                          },
+                          child: Text("View Details",
+                              style: TextStyle(
+                                  fontFamily: "Gilroy-Medium",
+                                  color: colour_yellow,
+                                  fontSize: 14)),
+                        )
+                      ],
+                    ),
+                  ],
                 ),
-              )
-            ],
-          ),
+              ),
+            ),
+          ],
         ),
       ),
-    ],
+    ),
   );
 }
 
@@ -195,9 +209,10 @@ _buildSocialMediaIcons(AdsDetailModel adsDetailModel) {
           overflow: Overflow.visible,
           children: List.generate(listWidgets.length, (index) {
             return Padding(
-              padding: EdgeInsets.only(left: index * 30.0),
-              child:
-                  SvgPicture.asset("assets/svg/" + listWidgets[index].iconName),
+              padding: EdgeInsets.only(left: index * 26.0),
+              child: SvgPicture.asset(
+                "assets/svg/" + listWidgets[index].iconName,
+              ),
             );
           }),
         );

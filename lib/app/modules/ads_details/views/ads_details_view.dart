@@ -97,7 +97,7 @@ class AdsDetailsView extends GetView<AdsDetailsController> {
             child: Row(
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width / 1.7,
+                  width: Get.width / 1.75,
                   child: Row(
                     children: [
                       SvgPicture.asset("assets/svg/duration.svg"),
@@ -114,7 +114,7 @@ class AdsDetailsView extends GetView<AdsDetailsController> {
                                   fontSize: 14),
                             ),
                             Container(
-                              width: 150,
+                              width: Get.width / 2.5,
                               child: RichText(
                                 maxLines: 2,
                                 text: TextSpan(
@@ -146,7 +146,7 @@ class AdsDetailsView extends GetView<AdsDetailsController> {
                       SvgPicture.asset("assets/svg/anouncement.svg"),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.only(left: 8, right: 8),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

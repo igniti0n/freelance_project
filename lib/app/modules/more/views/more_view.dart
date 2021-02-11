@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test_project_one/app/modules/more/controllers/more_controller.dart';
 import 'package:test_project_one/app/routes/app_pages.dart';
+import 'package:test_project_one/app/widgets/textfield_dialog.dart';
 
 class MoreView extends GetView<MoreController> {
+  final controller = Get.put(MoreController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,12 +77,31 @@ class MoreView extends GetView<MoreController> {
             Spacer(),
             Align(
                 alignment: Alignment.bottomRight,
-                child: Text(
-                  "Delete Account",
-                  style: TextStyle(
-                      fontFamily: "Gilroy",
-                      fontSize: 15,
-                      color: Color(0xffFF0000)),
+                child: InkWell(
+                  onTap: () {
+                    showPopupDialogWithTextField(
+                      context: context,
+                      heading: 'Delete Account',
+                      subTitle: 'Enter Current Password',
+                      hintText: 'Enter Password',
+                      leftButtonTitle: 'Cancel',
+                      isPasswordEntry: true,
+                      onPressedLeftButton: () {
+                        Get.back();
+                      },
+                      rightButtonTitle: 'Submit',
+                      onPressedRightButton: (password) {
+                        controller.deleteAccount(password: password);
+                      },
+                    );
+                  },
+                  child: Text(
+                    "Delete Account",
+                    style: TextStyle(
+                        fontFamily: "Gilroy",
+                        fontSize: 15,
+                        color: Color(0xffFF0000)),
+                  ),
                 )),
             Text("")
           ],

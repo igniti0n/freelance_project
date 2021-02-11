@@ -1,53 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:test_project_one/app/data/models/register.dart';
 import 'package:test_project_one/app/modules/sign_up/provider/signUp.dart';
+import 'package:test_project_one/app/routes/app_pages.dart';
 import 'package:test_project_one/app/widgets/colours.dart';
+import 'package:test_project_one/app/widgets/constants.dart';
 
 class SignUpMediaController extends GetxController with StateMixin {
   //TODO: Implement SignUpController
 
-  final count = 0.obs;
-  final value = "Select Gender".obs;
-
   @override
   void onInit() {
     super.onInit();
-   
   }
 
   @override
-  void onReady() {}
+  void onReady() {
+    super.onReady();
+  }
 
   @override
   void onClose() {}
 
-  void increment() => count.value++;
-   register({
-      String firtname,
-      String lastname,
-      String gender,
-      String phone,
-      String date_of_birth,
-      String religion,
-      String level_of_education,
-      String country,
-      String address,
-      String email,
-      String password,
-      String facebook,
-      String twitter,
-      String instagram,
-      String youtube,
-    }) {
-      RegisterProvider()
-          .register(
+  register({
+    String firtname,
+    String lastname,
+    String gender,
+    String phone,
+    String dateOfBirth,
+    String religion,
+    String levelOfEducation,
+    String country,
+    String address,
+    String email,
+    String password,
+    String facebook,
+    String twitter,
+    String instagram,
+    String youtube,
+  }) async {
+    try {
+      RegisterProvider registerProvider = RegisterProvider();
+      RegisterModel registerModel = await registerProvider.register(
         firstname: firtname,
         lastname: lastname,
         gender: gender,
         phone: phone,
-        date_of_birth: date_of_birth,
+        dateOfBirth: dateOfBirth,
         religion: religion,
-        level_of_education: level_of_education,
+        levelOfEducation: levelOfEducation,
         country: country,
         address: address,
         email: email,
@@ -56,12 +57,28 @@ class SignUpMediaController extends GetxController with StateMixin {
         twitter: twitter,
         instagram: instagram,
         youtube: youtube,
-      )
-          .then((value) {
-        change(value, status: RxStatus.success());
-        
-      }, onError: (err) {
-        change(null, status: RxStatus.error());
+      );
+      change(registerModel, status: RxStatus.success());
+      // Get.snackbar(
+      //   Strings.SUCCESS,
+      //   value.message ?? Strings.SOMETHING_WRONG,
+      //   duration: Duration(milliseconds: 3000),
+      //   backgroundColor: colour_time,
+      //   colorText: Colors.white,
+      // );
+      Future.delayed(Duration(milliseconds: 100), () {
+        Get.offAllNamed(Routes.SIGN_UP_INTEREST,
+            arguments: registerModel.token);
       });
+    } catch (onError) {
+      change(onError.message, status: RxStatus.error());
+      Get.snackbar(
+        Strings.ERROR,
+        onError.message,
+        duration: Duration(milliseconds: 5000),
+        backgroundColor: colour_time,
+        colorText: Colors.white,
+      );
     }
+  }
 }

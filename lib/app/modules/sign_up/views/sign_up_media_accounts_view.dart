@@ -6,6 +6,7 @@ import 'package:test_project_one/app/widgets/text_fields.dart';
 
 class SignUpMediaAccountsView extends GetView<SignUpMediaController> {
   final String country,
+      countryId,
       address,
       phone,
       email,
@@ -19,6 +20,7 @@ class SignUpMediaAccountsView extends GetView<SignUpMediaController> {
 
   SignUpMediaAccountsView(
       {this.country,
+      this.countryId,
       this.address,
       this.phone,
       this.email,
@@ -31,11 +33,12 @@ class SignUpMediaAccountsView extends GetView<SignUpMediaController> {
       this.levelOfEducation});
 
   final _formKey = GlobalKey<FormState>();
-  TextEditingController facebook = new TextEditingController();
-  TextEditingController twitter = new TextEditingController();
-  TextEditingController instagram = new TextEditingController();
-  TextEditingController youtube = new TextEditingController();
-  SignUpMediaController mediaController = Get.put(SignUpMediaController());
+  final TextEditingController facebook = new TextEditingController();
+  final TextEditingController twitter = new TextEditingController();
+  final TextEditingController instagram = new TextEditingController();
+  final TextEditingController youtube = new TextEditingController();
+  final SignUpMediaController mediaController =
+      Get.put(SignUpMediaController());
 
   @override
   Widget build(BuildContext context) {
@@ -97,9 +100,9 @@ class SignUpMediaAccountsView extends GetView<SignUpMediaController> {
                         lastname: lastname,
                         gender: gender,
                         phone: phone,
-                        date_of_birth: dOB,
+                        dateOfBirth: dOB,
                         religion: religion,
-                        level_of_education: levelOfEducation,
+                        levelOfEducation: levelOfEducation,
                         country: country,
                         address: address,
                         email: email,

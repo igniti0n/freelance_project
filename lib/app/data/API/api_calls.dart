@@ -14,6 +14,10 @@ const String AD_DETAIL = "/ad/";
 const String PERFORMANCE_LIST_REPORTS = "/reports";
 const String FILE_UPLOAD = "/files";
 const String POST_REPORT = "/reports";
+const String INTERESTS = "/interests";
+const String POST_INTERESTS = "/interests/user";
+const String TRANSACTION = "/transaction";
+const String WALLET_BAL = "/transaction/balance";
 
 ///Params
 const String EMAIL_PARAM = 'email';
@@ -22,6 +26,21 @@ const String DESC_PARAM = 'description';
 const String SOCIAL_MEDIA_PARAM = 'social_media';
 const String ATTACH_PARAM = 'attach';
 const String AD_ID_PARAM = 'ad_id';
+const String FIRST_NAME_PARAM = 'firstname';
+const String LAST_NAME_PARAM = 'lastname';
+const String GENDER_PARAM = 'gender';
+const String DOB_PARAM = 'date_of_birth';
+const String RELIGION_PARAM = 'religion';
+const String LEVEL_OF_EDU_PARAM = 'level_of_education';
+const String COUNTRY_PARAM = 'country';
+const String COUNTRY_ID_PARAM = 'country_id';
+const String ADDRESS_PARAM = 'address';
+const String PHONE_PARAM = 'phone';
+const String FB_PARAM = 'facebook';
+const String TWITTER_PARAM = 'twitter';
+const String INSTA_PARAM = 'instagram';
+const String YT_PARAM = 'youtube';
+const String INTEREST_IDS_PARAM = 'interest_ids';
 
 ///Keys
 const String kMessage = 'message';

@@ -5,6 +5,8 @@ import 'package:test_project_one/app/data/models/country.dart';
 import 'package:test_project_one/app/modules/sign_up/controllers/signUP2.dart';
 import 'package:test_project_one/app/modules/sign_up/views/sign_up_media_accounts_view.dart';
 import 'package:test_project_one/app/widgets/button_widget.dart';
+import 'package:test_project_one/app/widgets/colours.dart';
+import 'package:test_project_one/app/widgets/constants.dart';
 import 'package:test_project_one/app/widgets/text_fields.dart';
 
 class SignUp2View extends GetView<SignUp2Controller> {
@@ -171,10 +173,22 @@ class SignUp2View extends GetView<SignUp2Controller> {
               buttonWidget(
                   name: "Next",
                   onTap: () {
+                    if (_controller.country.value.isNullOrBlank) {
+                      Get.snackbar(
+                        Strings.ERROR,
+                        Strings.NO_COUNTRY_SEL,
+                        duration: Duration(milliseconds: 5000),
+                        backgroundColor: colour_time,
+                        colorText: Colors.white,
+                      );
+                      return;
+                    }
+
                     if (_formKey.currentState.validate()) {
                       Get.to(SignUpMediaAccountsView(
                         address: address.text,
-                        country: _controller.countryID.value,
+                        country: _controller.country.value,
+                        countryId: _controller.countryID.value,
                         email: email.text,
                         password: password.text,
                         firstName: firstName,

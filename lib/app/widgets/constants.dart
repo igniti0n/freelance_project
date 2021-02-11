@@ -8,8 +8,15 @@ class Strings {
   static const String SOMETHING_WRONG =
       'Something went wrong. Please try again later';
   static const String FILE_ATTACHED = 'File Attached Successfully';
+  static const String TAGS_NOT_SEL = 'Interest cannot be empty';
+  static const String TAGS_VALIDATION_MSG =
+      'Make sure you select atleast five Interest';
 
   //Home
   static const String NO_ADS_MSG = 'No Ads Found';
   static const String NO_REPORTS_MSG = 'No Reports Found';
+  static const String NO_TRANSACTION_MSG = 'No Transactions Found';
+
+  //Create Account
+  static const String NO_COUNTRY_SEL = 'Please Select Country.';
 }

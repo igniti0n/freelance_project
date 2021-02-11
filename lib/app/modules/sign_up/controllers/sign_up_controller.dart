@@ -30,7 +30,7 @@ class SignUpController extends GetxController {
         initialDate: currentDate.value,
         firstDate: DateTime(1970),
         lastDate: DateTime(2050));
-    if (pickedDate != null && pickedDate != currentDate)
+    if (pickedDate != null && pickedDate != currentDate.value)
       currentDate.value = pickedDate;
     dOB.value = pickedDate.toString();
   }
