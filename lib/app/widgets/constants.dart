@@ -10,7 +10,7 @@ class Strings {
   static const String FILE_ATTACHED = 'File Attached Successfully';
   static const String TAGS_NOT_SEL = 'Interest cannot be empty';
   static const String TAGS_VALIDATION_MSG =
-      'Make sure you select atleast five Interest';
+      'Maximum five Interests are allowed for Selection.';
 
   //Home
   static const String NO_ADS_MSG = 'No Ads Found';

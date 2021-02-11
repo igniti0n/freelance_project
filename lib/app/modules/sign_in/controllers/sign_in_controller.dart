@@ -38,7 +38,7 @@ class SignInController extends GetxController with StateMixin<LoginModel> {
         Get.offAllNamed(Routes.HOME);
       });
     } catch (onError) {
-      change(onError.message, status: RxStatus.error());
+      change(null, status: RxStatus.error());
       Get.snackbar(
         Strings.ERROR,
         onError.message,

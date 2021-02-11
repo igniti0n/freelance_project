@@ -54,7 +54,7 @@ class SignUpInterestController extends GetxController
         Get.back(result: true);
       });
       return false;
-    } else if (selectedTags.length < 5) {
+    } else if (selectedTags.length > 5) {
       Get.snackbar(Strings.ERROR, Strings.TAGS_VALIDATION_MSG,
           duration: Duration(milliseconds: 2000),
           backgroundColor: colour_time,

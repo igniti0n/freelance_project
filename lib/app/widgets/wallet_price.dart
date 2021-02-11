@@ -5,22 +5,13 @@ transactionDetailCard({String amount, String type, String date}) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 12.0),
     child: Container(
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: new BoxDecoration(
           color: Color(0xFFFCCDA3), borderRadius: new BorderRadius.circular(8)),
       margin: EdgeInsets.symmetric(horizontal: 16),
-      height: 55,
+      // height: 55,
       child: Row(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: ClipOval(
-                child: Container(
-              height: 30,
-              width: 30,
-              color: Colors.white,
-              child: Icon(Icons.keyboard_arrow_down),
-            )),
-          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -42,12 +33,8 @@ transactionDetailCard({String amount, String type, String date}) {
           Spacer(),
           Text(
             amount,
-            style:
-                GoogleFonts.questrial(fontSize: 16, color: Color(0xffEA2224)),
+            style: GoogleFonts.questrial(fontSize: 16, color: Colors.black),
           ),
-          SizedBox(
-            width: 12,
-          )
         ],
       ),
     ),
