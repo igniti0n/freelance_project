@@ -104,6 +104,7 @@ class SignUpMediaAccountsView extends GetView<SignUpMediaController> {
                         religion: religion,
                         levelOfEducation: levelOfEducation,
                         country: country,
+                        countryID: countryId,
                         address: address,
                         email: email,
                         password: password,

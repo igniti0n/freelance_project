@@ -19,6 +19,7 @@ class RegisterProvider extends GetConnect {
     String religion,
     String levelOfEducation,
     String country,
+    String countryID,
     String address,
     String email,
     String password,
@@ -52,7 +53,7 @@ class RegisterProvider extends GetConnect {
       TWITTER_PARAM: twitter,
       INSTA_PARAM: instagram,
       YT_PARAM: youtube,
-      COUNTRY_ID_PARAM: country,
+      COUNTRY_ID_PARAM: countryID,
     };
 
 //     {
