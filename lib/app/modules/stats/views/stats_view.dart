@@ -3,23 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:bezier_chart/bezier_chart.dart';
+import 'package:test_project_one/app/data/models/statsDataModel.dart';
 import 'package:test_project_one/app/modules/stats/controllers/stats_controller.dart';
-import 'package:test_project_one/app/widgets/header.dart';
+import 'package:intl/intl.dart';
+import 'package:test_project_one/app/widgets/error_page.dart';
+import 'package:test_project_one/app/widgets/progress_dialog.dart';
 
 class StatsView extends GetView<StatsController> {
-  final _value = 1.obs;
-  List<_SalesData> data = [
-    _SalesData(year: "Jan", sales: 23),
-    _SalesData(year: "Feb", sales: 30),
-    _SalesData(year: "Mar", sales: 50),
-    _SalesData(year: "Apr", sales: 50),
-    _SalesData(year: "May", sales: 23),
-    _SalesData(year: "Jun", sales: 50),
-    _SalesData(year: "Jul", sales: 70),
-    _SalesData(year: "Aug", sales: 50),
-    _SalesData(year: "Sep", sales: 50),
-    _SalesData(year: "Oct", sales: 50),
-  ];
+  final controller = Get.put(StatsController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,365 +19,271 @@ class StatsView extends GetView<StatsController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
+            Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+              child: Row(
+                children: [
+                  Text(
                     "Tier 1x",
                     style: TextStyle(
                         fontFamily: "Gilroy",
                         fontSize: 20,
                         color: Color(0xff010101)),
                   ),
-                ),
-                Spacer(),
-                Obx(() => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: DropdownButton(
-                        value: _value.value,
+                  Spacer(),
+                  Obx(() => DropdownButton(
+                        value: controller.selectedYear.value,
                         onChanged: (val) {
-                          _value.value = val;
+                          controller.setYear(value: val);
                         },
                         items: [
                           DropdownMenuItem(
-                            child: Text("2020"),
-                            value: 1,
-                            onTap: () {},
+                            child: Text("2021"),
+                            value: 2021,
                           ),
                           DropdownMenuItem(
-                            child: Text("2019"),
-                            value: 2,
-                            onTap: () {
-                              _value.value = 2;
-                            },
+                            child: Text("2022"),
+                            value: 2022,
+                          ),
+                          DropdownMenuItem(
+                            child: Text("2023"),
+                            value: 2023,
                           )
                         ],
-                      ),
-                    ))
-              ],
-            ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: 280,
-                  decoration: BoxDecoration(
-                      color: Color(0xffFFFFFF),
-                      // backgroundBlendMode: BlendMode.dstATop,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                            blurRadius: 2,
-                            offset: Offset(0, 2),
-                            color: Color(0xff939393))
-                      ]),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 250,
-                        width: 384,
-                        child: BezierChart(
-                          bezierChartScale: BezierChartScale.CUSTOM,
-                          xAxisCustomValues: const [
-                            0,
-                            3,
-                            10,
-                            15,
-                            20,
-                            25,
-                            30,
-                            35
-                          ],
-                          series: const [
-                            BezierLine(
-                              label: "Custom 1",
-                              lineColor: Color(0xff4099FF),
-                              lineStrokeWidth: 2.0,
-                              data: const [
-                                DataPoint<double>(value: 10, xAxis: 0),
-                                DataPoint<double>(value: 130, xAxis: 5),
-                                DataPoint<double>(value: 50, xAxis: 10),
-                                DataPoint<double>(value: 150, xAxis: 15),
-                                DataPoint<double>(value: 75, xAxis: 20),
-                                DataPoint<double>(value: 0, xAxis: 25),
-                                DataPoint<double>(value: 5, xAxis: 30),
-                                DataPoint<double>(value: 45, xAxis: 35),
-                              ],
-                            ),
-                            BezierLine(
-                              lineColor: Color(0xffFAAB3F),
-                              lineStrokeWidth: 2.0,
-                              label: "Custom 2",
-                              data: const [
-                                DataPoint<double>(value: 5, xAxis: 0),
-                                DataPoint<double>(value: 50, xAxis: 5),
-                                DataPoint<double>(value: 30, xAxis: 10),
-                                DataPoint<double>(value: 30, xAxis: 15),
-                                DataPoint<double>(value: 50, xAxis: 20),
-                                DataPoint<double>(value: 40, xAxis: 25),
-                                DataPoint<double>(value: 10, xAxis: 30),
-                                DataPoint<double>(value: 30, xAxis: 35),
-                              ],
-                            ),
-                            BezierLine(
-                              lineColor: Color(0xffFF0000),
-                              lineStrokeWidth: 2.0,
-                              label: "Custom 3",
-                              data: const [
-                                DataPoint<double>(value: 5, xAxis: 0),
-                                DataPoint<double>(value: 10, xAxis: 5),
-                                DataPoint<double>(value: 35, xAxis: 10),
-                                DataPoint<double>(value: 40, xAxis: 15),
-                                DataPoint<double>(value: 40, xAxis: 20),
-                                DataPoint<double>(value: 40, xAxis: 25),
-                                DataPoint<double>(value: 9, xAxis: 30),
-                                DataPoint<double>(value: 11, xAxis: 35),
-                              ],
-                            ),
-                          ],
-                          config: BezierChartConfig(
-                            updatePositionOnTap: true,
-                            displayYAxis: true,
-                            xAxisTextStyle: TextStyle(
-                                fontFamily: "Gilroy",
-                                fontSize: 10,
-                                color: Colors.white),
-                            yAxisTextStyle: TextStyle(
-                                fontFamily: "Gilroy",
-                                fontSize: 10,
-                                color: Color(0xff282828)),
-                            showDataPoints: true,
-                            verticalIndicatorStrokeWidth: 2.0,
-                            verticalIndicatorColor: Colors.yellow,
-                            showVerticalIndicator: true,
-                            contentWidth: MediaQuery.of(context).size.width * 2,
-                            backgroundColor: Colors.white,
-                          ),
-                        ),
-                      ),
-                      Center(
-                        child: SvgPicture.asset("assets/svg/stat.svg"),
-                      )
-                    ],
-                  ),
-                ),
+                      ))
+                ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Container(
-                height: 280,
-                decoration: BoxDecoration(
-                    color: Color(0xffFFFFFF),
-                    // backgroundBlendMode: BlendMode.dstATop,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                          blurRadius: 2,
-                          offset: Offset(0, 2),
-                          color: Color(0xff939393))
-                    ]),
-                child: Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Table(
-                    defaultColumnWidth: FlexColumnWidth(20),
-                    children: [
-                      TableRow(decoration: BoxDecoration(), children: [
-                        Text(
-                          "Periods",
-                          style: TextStyle(
-                              fontFamily: "Gilroy",
-                              fontSize: 13,
-                              color: Color(0xff575757)),
-                        ),
-                        Text(
-                          "Available Ads",
-                          style: TextStyle(
-                              fontFamily: "Gilroy",
-                              fontSize: 13,
-                              color: Color(0xff575757)),
-                        ),
-                        Text(
-                          "Completed Ads",
-                          style: TextStyle(
-                              fontFamily: "Gilroy",
-                              fontSize: 13,
-                              color: Color(0xff575757)),
-                        ),
-                        Text(
-                          "Avg. Comp",
-                          style: TextStyle(
-                              fontFamily: "Gilroy",
-                              fontSize: 13,
-                              color: Color(0xff575757)),
-                        ),
-                      ]),
-                      TableRow(children: [
-                        Text(
-                          "Jan",
-                          style: TextStyle(
-                              fontFamily: "Gilroy",
-                              fontSize: 13,
-                              color: Color(0xff575757)),
-                        ),
-                        Text(
-                          "22",
-                          style: TextStyle(
-                              fontFamily: "Gilroy-Medium",
-                              fontSize: 10,
-                              color: Color(0xff282828)),
-                        ),
-                        Text(
-                          "22",
-                          style: TextStyle(
-                              fontFamily: "Gilroy-Medium",
-                              fontSize: 10,
-                              color: Color(0xff282828)),
-                        ),
-                        Text(
-                          "22",
-                          style: TextStyle(
-                              fontFamily: "Gilroy-Medium",
-                              fontSize: 10,
-                              color: Color(0xff282828)),
-                        ),
-                      ]),
-                      TableRow(children: [
-                        Text(
-                          "Feb",
-                          style: TextStyle(
-                              fontFamily: "Gilroy",
-                              fontSize: 13,
-                              color: Color(0xff575757)),
-                        ),
-                        Text(
-                          "22",
-                          style: TextStyle(
-                              fontFamily: "Gilroy-Medium",
-                              fontSize: 10,
-                              color: Color(0xff282828)),
-                        ),
-                        Text(
-                          "22",
-                          style: TextStyle(
-                              fontFamily: "Gilroy-Medium",
-                              fontSize: 10,
-                              color: Color(0xff282828)),
-                        ),
-                        Text(
-                          "22",
-                          style: TextStyle(
-                              fontFamily: "Gilroy-Medium",
-                              fontSize: 10,
-                              color: Color(0xff282828)),
-                        ),
-                      ]),
-                      TableRow(children: [
-                        Text(
-                          "Mar",
-                          style: TextStyle(
-                              fontFamily: "Gilroy",
-                              fontSize: 13,
-                              color: Color(0xff575757)),
-                        ),
-                        Text(
-                          "22",
-                          style: TextStyle(
-                              fontFamily: "Gilroy-Medium",
-                              fontSize: 10,
-                              color: Color(0xff282828)),
-                        ),
-                        Text(
-                          "22",
-                          style: TextStyle(
-                              fontFamily: "Gilroy-Medium",
-                              fontSize: 10,
-                              color: Color(0xff282828)),
-                        ),
-                        Text(
-                          "22",
-                          style: TextStyle(
-                              fontFamily: "Gilroy-Medium",
-                              fontSize: 10,
-                              color: Color(0xff282828)),
-                        ),
-                      ]),
-                      TableRow(children: [
-                        Text(
-                          "Apr",
-                          style: TextStyle(
-                              fontFamily: "Gilroy",
-                              fontSize: 13,
-                              color: Color(0xff575757)),
-                        ),
-                        Text(
-                          "22",
-                          style: TextStyle(
-                              fontFamily: "Gilroy-Medium",
-                              fontSize: 10,
-                              color: Color(0xff282828)),
-                        ),
-                        Text(
-                          "22",
-                          style: TextStyle(
-                              fontFamily: "Gilroy-Medium",
-                              fontSize: 10,
-                              color: Color(0xff282828)),
-                        ),
-                        Text(
-                          "22",
-                          style: TextStyle(
-                              fontFamily: "Gilroy-Medium",
-                              fontSize: 10,
-                              color: Color(0xff282828)),
-                        ),
-                      ]),
-                      TableRow(children: [
-                        Text(
-                          "May",
-                          style: TextStyle(
-                              fontFamily: "Gilroy",
-                              fontSize: 13,
-                              color: Color(0xff575757)),
-                        ),
-                        Text(
-                          "22",
-                          style: TextStyle(
-                              fontFamily: "Gilroy-Medium",
-                              fontSize: 10,
-                              color: Color(0xff282828)),
-                        ),
-                        Text(
-                          "22",
-                          style: TextStyle(
-                              fontFamily: "Gilroy-Medium",
-                              fontSize: 10,
-                              color: Color(0xff282828)),
-                        ),
-                        Text(
-                          "22",
-                          style: TextStyle(
-                              fontFamily: "Gilroy-Medium",
-                              fontSize: 10,
-                              color: Color(0xff282828)),
-                        ),
-                      ]),
-                    ],
-                  ),
-                ),
+            controller.obx(
+              (data) {
+                return Column(
+                  children: [
+                    _buildChart(context, data: data),
+                    _buildChartTable(data: data)
+                  ],
+                );
+              },
+              onLoading: Container(
+                height: Get.height * 0.6,
+                child: Loader(),
               ),
-            )
+              onError: (error) {
+                return ErrorView(
+                  errorMsg: error,
+                  onTapReload: () {
+                    controller.getStatsData();
+                  },
+                );
+              },
+            ),
           ],
         ),
       ),
     );
   }
-}
 
-class _SalesData {
-  _SalesData({this.year, this.sales});
-  final String year;
-  final int sales;
+  _buildChartTable({StatsDetailDataModel data}) {
+    var _rowLists = List<TableRow>();
+    _rowLists.add(
+      TableRow(
+        children: [
+          Text("Periods",
+              style: TextStyle(
+                  fontFamily: "Gilroy",
+                  fontSize: 13,
+                  color: Color(0xff575757))),
+          Text("Available Ads",
+              style: TextStyle(
+                  fontFamily: "Gilroy",
+                  fontSize: 13,
+                  color: Color(0xff575757))),
+          Text("Completed Ads",
+              style: TextStyle(
+                  fontFamily: "Gilroy",
+                  fontSize: 13,
+                  color: Color(0xff575757))),
+          Text("Avg. Comp",
+              style: TextStyle(
+                  fontFamily: "Gilroy",
+                  fontSize: 13,
+                  color: Color(0xff575757))),
+        ],
+      ),
+    );
+    _rowLists.add(
+      TableRow(children: [
+        SizedBox(height: 15),
+        SizedBox(height: 15),
+        SizedBox(height: 15),
+        SizedBox(height: 15),
+      ]),
+    );
+    for (var month = 1; month < 13; month++) {
+      final DateTime date = DateTime(controller.selectedYear.value, month, 1);
+      final DateFormat formatter = DateFormat('LLL');
+      final String formattedMonth = formatter.format(date);
+      Stat stat = data.stats[formattedMonth];
+      _rowLists.add(
+        TableRow(children: [
+          Text(
+            formattedMonth,
+            style: TextStyle(
+                fontFamily: "Gilroy", fontSize: 13, color: Color(0xff575757)),
+          ),
+          Text(
+            stat.availableAds.toString(),
+            style: TextStyle(
+                fontFamily: "Gilroy-Medium",
+                fontSize: 10,
+                color: Color(0xff282828)),
+          ),
+          Text(
+            stat.completedAds.toString(),
+            style: TextStyle(
+                fontFamily: "Gilroy-Medium",
+                fontSize: 10,
+                color: Color(0xff282828)),
+          ),
+          Text(
+            stat.avgComp.toString(),
+            style: TextStyle(
+                fontFamily: "Gilroy-Medium",
+                fontSize: 10,
+                color: Color(0xff282828)),
+          ),
+        ]),
+      );
+      _rowLists.add(
+        TableRow(children: [
+          SizedBox(height: 15),
+          SizedBox(height: 15),
+          SizedBox(height: 15),
+          SizedBox(height: 15),
+        ]),
+      );
+    }
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Container(
+        width: Get.width,
+        decoration: BoxDecoration(
+            color: Color(0xffFFFFFF),
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: 2, offset: Offset(0, 2), color: Color(0xff939393))
+            ]),
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Table(
+            defaultColumnWidth: FixedColumnWidth(Get.width * 0.8 / 4),
+            children: _rowLists,
+          ),
+        ),
+      ),
+    );
+  }
+
+  _buildChart(BuildContext context, {StatsDetailDataModel data}) {
+    var statsData = List<Stat>();
+    var dates = List<DateTime>();
+    for (var month = 1; month < 13; month++) {
+      final DateTime date = DateTime(controller.selectedYear.value, month, 1);
+      final DateFormat formatter = DateFormat('LLL');
+      final String formattedMonth = formatter.format(date);
+      statsData.add(data.stats[formattedMonth]);
+      dates.add(date);
+    }
+    return Container(
+      margin: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(
+            10,
+          ),
+          border: Border.all(
+            color: Colors.blue,
+            width: 2,
+          ),
+          boxShadow: [
+            BoxShadow(
+                blurRadius: 2, offset: Offset(0, 2), color: Color(0xff939393))
+          ]),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 240,
+            child: BezierChart(
+              bezierChartScale: BezierChartScale.MONTHLY,
+              fromDate: DateTime(controller.selectedYear.value, 1, 1),
+              toDate: DateTime(controller.selectedYear.value, 12, 31),
+              footerDateTimeBuilder: (value, scaleType) {
+                final DateTime now = value;
+                DateFormat formatter = DateFormat('LLL');
+                final String formatted = formatter.format(now);
+                return formatted;
+              },
+              series: [
+                BezierLine(
+                  label: "Available Ads",
+                  lineColor: Color(0xff4099FF),
+                  lineStrokeWidth: 2.0,
+                  data: List.generate(dates.length, (index) {
+                    return DataPoint<DateTime>(
+                        value: statsData[index].availableAds.toDouble(),
+                        xAxis: dates[index]);
+                  }),
+                ),
+                BezierLine(
+                  label: "Completed Ads",
+                  lineColor: Colors.red,
+                  lineStrokeWidth: 2.0,
+                  data: List.generate(dates.length, (index) {
+                    return DataPoint<DateTime>(
+                        value: statsData[index].completedAds.toDouble(),
+                        xAxis: dates[index]);
+                  }),
+                ),
+                BezierLine(
+                  label: "Avg Completed Ads",
+                  lineColor: Color(0xfffaab3f),
+                  lineStrokeWidth: 2.0,
+                  data: List.generate(dates.length, (index) {
+                    return DataPoint<DateTime>(
+                        value: statsData[index].availableAds.toDouble(),
+                        xAxis: dates[index]);
+                  }),
+                ),
+              ],
+              config: BezierChartConfig(
+                updatePositionOnTap: true,
+                displayYAxis: true,
+                stepsYAxis: 10,
+                startYAxisFromNonZeroValue: false,
+                xAxisTextStyle: TextStyle(
+                    fontFamily: "Gilroy", fontSize: 10, color: Colors.black),
+                yAxisTextStyle: TextStyle(
+                    fontFamily: "Gilroy", fontSize: 10, color: Colors.black),
+                showDataPoints: false,
+                verticalIndicatorStrokeWidth: 2.0,
+                verticalIndicatorColor: Colors.yellow,
+                showVerticalIndicator: true,
+                verticalIndicatorFixedPosition: false,
+                contentWidth: MediaQuery.of(context).size.width * 2,
+                backgroundColor: Colors.white,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Center(
+            child: SvgPicture.asset("assets/svg/stat.svg"),
+          )
+        ],
+      ),
+    );
+  }
 }

@@ -2,17 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:searchable_dropdown/searchable_dropdown.dart';
 import 'package:test_project_one/app/data/models/bankModel.dart';
-import 'package:test_project_one/app/modules/withdrawal/controllers/profileContoller.dart';
 import 'package:test_project_one/app/modules/withdrawal/controllers/withdrawal_controller.dart';
 import 'package:test_project_one/app/widgets/button_widget.dart';
+import 'package:test_project_one/app/widgets/colours.dart';
+import 'package:test_project_one/app/widgets/constants.dart';
+import 'package:test_project_one/app/widgets/progress_dialog.dart';
 import 'package:test_project_one/app/widgets/text_fields.dart';
+import 'package:test_project_one/main.dart';
 
+// ignore: must_be_immutable
 class WithdrawalView extends GetView<WithdrawalController> {
-  WithdrawalController _controller = Get.put(WithdrawalController());
-  WithdrawalController2 _controller2 = Get.put(WithdrawalController2());
-  TextEditingController bank = new TextEditingController();
-  TextEditingController accountName;
-  TextEditingController accountNumber;
+  final WithdrawalController controller = Get.put(WithdrawalController());
+  final TextEditingController accountName =
+      new TextEditingController(text: loginModel.user.accountName);
+  final TextEditingController accountNumber =
+      new TextEditingController(text: loginModel.user.accountNumber);
+
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -25,7 +30,7 @@ class WithdrawalView extends GetView<WithdrawalController> {
         body: SingleChildScrollView(
             child: Form(
           key: _formKey,
-          child: _controller2.obx(
+          child: controller.obx(
             (profile) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -54,46 +59,38 @@ class WithdrawalView extends GetView<WithdrawalController> {
                         SizedBox(
                           height: 10,
                         ),
-                        _controller.obx(
+                        controller.obx(
                           (data) => Container(
-                            height: 60,
+                            height:
+                                controller.selectedBank.isNullOrBlank ? 60 : 70,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(color: Colors.grey)),
-                            child: Center(
-                              child: SearchableDropdown.single(
-                                validator: (value) {
-                                  if (value.toString().isEmpty) {
-                                    return "Can't be empty";
-                                  }
-                                },
-                                displayClearIcon: false,
-                                isExpanded: true,
-                                hint: "Select bank",
-                                items: data.map((BankModel bank) {
-                                  //Done now hot restart
-                                  return new DropdownMenuItem<String>(
-                                    value: bank.bankName,
-                                    child: new Text(
-                                      bank.bankName,
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                  );
-                                }).toList(),
-                                value: _controller.selectedBank.value,
-                                onClear: () {},
-                                onChanged: (value) {
-                                  _controller.selectedBank.value;
-
-                                  for (var i in controller.banks) {
-                                    if (i.bankName ==
-                                        _controller.selectedBank.value) {
-                                      _controller.bankID.value = i.id;
-                                      print(_controller.selectedBank.value);
-                                    }
-                                  }
-                                },
+                            child: SearchableDropdown.single(
+                              displayClearIcon: false,
+                              isExpanded: true,
+                              underline: Container(),
+                              label: Container(
+                                height: controller.selectedBank.isNullOrBlank
+                                    ? 8
+                                    : 0,
                               ),
+                              hint: "Select bank",
+                              items: data.map((BankModel bank) {
+                                //Done now hot restart
+                                return new DropdownMenuItem<String>(
+                                  value: bank.bankName,
+                                  child: new Text(
+                                    bank.bankName,
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                );
+                              }).toList(),
+                              value: controller.selectedBank,
+                              onClear: () {},
+                              onChanged: (value) {
+                                controller.setSelectedBank(value: value);
+                              },
                             ),
                           ),
 
@@ -110,8 +107,7 @@ class WithdrawalView extends GetView<WithdrawalController> {
                   height: 20,
                 ),
                 textField(
-                    controller: accountName = TextEditingController(
-                        text: profile[0]["account_name"].toString()),
+                    controller: accountName,
                     signup: true,
                     name: "Account Name",
                     // placeholder: "Please Enter Here",
@@ -126,8 +122,7 @@ class WithdrawalView extends GetView<WithdrawalController> {
                 ),
                 textField(
                     signup: true,
-                    controller: accountNumber = TextEditingController(
-                        text: profile[0]["account_number"].toString()),
+                    controller: accountNumber,
                     name: "Account Number",
                     // placeholder: "Please Enter Here",
                     keyboardType: TextInputType.number,
@@ -142,10 +137,24 @@ class WithdrawalView extends GetView<WithdrawalController> {
                 buttonWidget(
                     name: "Update",
                     onTap: () {
-                      if (_formKey.currentState.validate()) {}
+                      if (controller.selectedBank.isNullOrBlank) {
+                        Get.snackbar(
+                          Strings.ERROR,
+                          Strings.NO_BANK_SEL,
+                          duration: Duration(milliseconds: 5000),
+                          backgroundColor: colour_time,
+                          colorText: Colors.white,
+                        );
+                        return;
+                      }
+                      if (_formKey.currentState.validate()) {
+                        controller.updateBankDetails(
+                            name: accountName.text, number: accountNumber.text);
+                      }
                     })
               ],
             ),
+            onLoading: Container(height: Get.height * 0.8, child: Loader()),
           ),
         )));
   }

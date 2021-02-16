@@ -19,4 +19,7 @@ class Strings {
 
   //Create Account
   static const String NO_COUNTRY_SEL = 'Please Select Country.';
+
+  //Withdrawal Bank Account
+  static const String NO_BANK_SEL = 'Please Select Bank Name.';
 }

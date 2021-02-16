@@ -1,66 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:test_project_one/app/data/API/api_calls.dart';
 import 'package:test_project_one/app/data/models/bankModel.dart';
 import 'package:test_project_one/app/data/models/login.dart';
-import 'package:test_project_one/app/routes/app_pages.dart';
+import 'package:test_project_one/app/data/models/profileUpdateModel.dart';
 import 'package:test_project_one/app/widgets/colours.dart';
+import 'package:test_project_one/app/widgets/progress_dialog.dart';
+import 'package:test_project_one/main.dart';
 
 class BankProvider extends GetConnect {
-  Future<Map<String, dynamic>> updateBank(
-      {String accountName, String accountNumber}) async {
-    final pref = await SharedPreferences.getInstance();
-
+  Future<User> updateBank({Map params}) async {
+    ProgressDialog pr = createProgressDialog();
     String url = BASEURL + PROFILE;
-    Map<String, dynamic> body = {
-      "account_name": accountName,
-      "account_number": accountNumber,
-    };
-    String token = pref.get("token");
-    var response = await get(url, headers: {
+    pr.show();
+
+    var response = await request(url, "PATCH", body: params, headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer $token"
+      "Authorization": "Bearer " + loginModel.token
     });
+
+    pr.hide();
+
     if (response.hasError) {
       Get.snackbar(
         "Error",
-        response.body["message"],
+        "Error Occured",
         duration: Duration(milliseconds: 5000),
         backgroundColor: colour_time,
         colorText: Colors.white,
       );
       return Future.error(response.statusCode);
     } else {
-      pref.setString("token", response.body["token"]);
-      String token = pref.get("token");
-      print(token);
-
-      var res = response.body["data"];
-
+      var result = response.body;
+      ProfileUpdateModel profileUpdateModel =
+          ProfileUpdateModel.fromJson(result);
       Get.snackbar(
         "Successful",
-        LoginModel().message,
-        duration: Duration(milliseconds: 5000),
+        result['message'] ?? "Profile updated",
+        duration: Duration(milliseconds: 3000),
         backgroundColor: colour_time,
         colorText: Colors.white,
       );
-      Future.delayed(Duration(milliseconds: 3000), () {
-        Get.offAllNamed(Routes.HOME);
-      });
-      return res;
+      return profileUpdateModel.data;
     }
   }
 
   Future<dynamic> getbank() async {
-    final pref = await SharedPreferences.getInstance();
-
     String url = BASEURL + BANK;
-
-    String token = pref.get("token");
     var response = await get(url, headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer $token"
+      "Authorization": "Bearer " + loginModel.token
     });
     if (response.hasError) {
       Get.snackbar(
@@ -72,9 +62,6 @@ class BankProvider extends GetConnect {
       );
       return Future.error(response.statusCode);
     } else {
-      pref.setString("token", response.body["token"]);
-      String token = pref.get("token");
-      print(token);
       final list = <BankModel>[];
       var res = response.body["data"];
 
@@ -84,16 +71,7 @@ class BankProvider extends GetConnect {
         abank.bankName = rec["bank_name"];
         abank.id = rec["_id"];
         list.add(abank);
-        print("Listdhdhd $list");
       }
-      Get.snackbar(
-        "Successful",
-        LoginModel().message,
-        duration: Duration(milliseconds: 5000),
-        backgroundColor: colour_time,
-        colorText: Colors.white,
-      );
-
       return list;
     }
   }

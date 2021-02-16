@@ -49,6 +49,7 @@ dependencies:
   data_connection_checker: ^0.3.4
   file_picker: ^2.1.6
   url_launcher: ^5.7.10
+  cached_network_image: ^2.5.0
 
 dev_dependencies:
   flutter_test:

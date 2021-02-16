@@ -9,6 +9,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="Gidi Ads"
+        android:requestLegacyExternalStorage="true"
         android:icon="@mipmap/launcher_icon">
         
         <activity

@@ -18,6 +18,7 @@ const String INTERESTS = "/interests";
 const String POST_INTERESTS = "/interests/user";
 const String TRANSACTION = "/transaction";
 const String WALLET_BAL = "/transaction/balance";
+const String STATS = "/stats/";
 
 ///Params
 const String EMAIL_PARAM = 'email';
@@ -25,6 +26,7 @@ const String PASSWORD_PARAM = 'password';
 const String DESC_PARAM = 'description';
 const String SOCIAL_MEDIA_PARAM = 'social_media';
 const String ATTACH_PARAM = 'attach';
+const String IMAGE_PARAM = 'image';
 const String AD_ID_PARAM = 'ad_id';
 const String FIRST_NAME_PARAM = 'firstname';
 const String LAST_NAME_PARAM = 'lastname';
@@ -41,6 +43,9 @@ const String TWITTER_PARAM = 'twitter';
 const String INSTA_PARAM = 'instagram';
 const String YT_PARAM = 'youtube';
 const String INTEREST_IDS_PARAM = 'interest_ids';
+const String BANK_ID_PARAM = 'bank_id';
+const String BANK_ACC_NAME_PARAM = 'account_name';
+const String BANK_ACC_NUM_PARAM = 'account_number';
 
 ///Keys
 const String kMessage = 'message';
