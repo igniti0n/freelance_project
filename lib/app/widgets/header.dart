@@ -12,26 +12,32 @@ import 'package:test_project_one/main.dart';
 var imageUrl = (loginModel.user.image ?? "").obs;
 final header = AppBar(
   backgroundColor: Colors.white,
-  title: Row(
-    children: [
-      Obx(() {
-        return CachedNetworkImage(
-          imageUrl: imageUrl.value,
-          imageBuilder: (context, imageProvider) => CircleAvatar(
-              backgroundImage: imageProvider, backgroundColor: Colors.white),
-          placeholder: (context, url) =>
-              Center(child: CircularProgressIndicator()),
-          errorWidget: (context, url, error) => Icon(Icons.error),
-        );
-      }),
-      SizedBox(
-        width: 14,
-      ),
-      Text(
-        loginModel.user.firstname,
-        style: TextStyle(fontFamily: "Gilroy"),
-      ),
-    ],
+  title: InkWell(
+    onTap: () {
+      Get.toNamed(Routes.PROFILE);
+    },
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Obx(() {
+          return CachedNetworkImage(
+            imageUrl: imageUrl.value,
+            imageBuilder: (context, imageProvider) => CircleAvatar(
+                backgroundImage: imageProvider, backgroundColor: Colors.white),
+            placeholder: (context, url) =>
+                Center(child: CircularProgressIndicator()),
+            errorWidget: (context, url, error) => Icon(Icons.error),
+          );
+        }),
+        SizedBox(
+          width: 14,
+        ),
+        Text(
+          loginModel.user.firstname,
+          style: TextStyle(fontFamily: "Gilroy"),
+        ),
+      ],
+    ),
   ),
   actions: [
     GestureDetector(

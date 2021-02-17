@@ -194,6 +194,13 @@ class StatsView extends GetView<StatsController> {
       statsData.add(data.stats[formattedMonth]);
       dates.add(date);
     }
+    var listAvailableAds = statsData.map((e) => e.availableAds).toList();
+    var listCompletedAds = statsData.map((e) => e.completedAds).toList();
+    var listAvgCompAds = statsData.map((e) => e.avgComp).toList();
+    var isMoreData = (listAvailableAds + listCompletedAds + listAvgCompAds)
+        .map((e) => e >= 10)
+        .contains(true);
+
     return Container(
       margin: EdgeInsets.all(8.0),
       padding: EdgeInsets.all(8.0),
@@ -214,7 +221,7 @@ class StatsView extends GetView<StatsController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 240,
+            height: 250,
             child: BezierChart(
               bezierChartScale: BezierChartScale.MONTHLY,
               fromDate: DateTime(controller.selectedYear.value, 1, 1),
@@ -260,7 +267,7 @@ class StatsView extends GetView<StatsController> {
               config: BezierChartConfig(
                 updatePositionOnTap: true,
                 displayYAxis: true,
-                stepsYAxis: 10,
+                stepsYAxis: isMoreData ? 5 : 1,
                 startYAxisFromNonZeroValue: false,
                 xAxisTextStyle: TextStyle(
                     fontFamily: "Gilroy", fontSize: 10, color: Colors.black),
