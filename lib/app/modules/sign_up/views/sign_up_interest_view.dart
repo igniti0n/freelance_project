@@ -115,7 +115,7 @@ class SignUpInterestView extends GetView<SignUpInterestController> {
         heading: "Account Pending Approval",
         right_text: "Academy",
         right_text_fn: () {
-          launch('http://vuemastery.com/');
+          launch('https://adsmata.com/academy');
         },
         widget: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
