@@ -13,7 +13,7 @@ class Strings {
       'Maximum five Interests are allowed for Selection.';
 
   //Home
-  static const String NO_ADS_MSG = 'No Ads Found';
+  static const String NO_ADS_MSG = 'No Gidis, please check back';
   static const String NO_REPORTS_MSG = 'No Reports Found';
   static const String NO_TRANSACTION_MSG = 'No Transactions Found';
 

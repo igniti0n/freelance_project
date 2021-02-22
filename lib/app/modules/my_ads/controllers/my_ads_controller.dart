@@ -27,6 +27,8 @@ class MyAdsController extends GetxController with StateMixin<MyAdsModel> {
       MyAdsModel myAdsModel = await _myAdsProvider.getMyAds();
       adsList.clear();
       adsList.addAll(myAdsModel.data);
+      adsList
+          .sort((a, b) => b.ad.first.deadline.compareTo(a.ad.first.deadline));
       change(myAdsModel, status: RxStatus.success());
     } catch (onError) {
       change(null, status: RxStatus.error(onError.message));

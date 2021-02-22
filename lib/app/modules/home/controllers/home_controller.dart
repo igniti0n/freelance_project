@@ -26,6 +26,7 @@ class HomeController extends GetxController with StateMixin<HomeAdsModel> {
       HomeAdsModel _homeAdsModel = await _homeProvider.getAds();
       adsList.clear();
       adsList.addAll(_homeAdsModel.data);
+      adsList.sort((a, b) => b.deadline.compareTo(a.deadline));
       change(_homeAdsModel, status: RxStatus.success());
     } catch (onError) {
       change(null, status: RxStatus.error(onError.message));

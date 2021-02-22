@@ -11,7 +11,8 @@ import 'package:test_project_one/app/widgets/wallet_price.dart';
 import 'package:intl/intl.dart';
 
 class WalletView extends GetView<WalletController> {
-  final controller = Get.put(WalletController());
+  final _walletController = Get.put(WalletController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +58,7 @@ class WalletView extends GetView<WalletController> {
                       children: [
                         Obx(() {
                           return Text(
-                            "G" + controller.balance.string,
+                            "G" + _walletController.balance.string,
                             style: TextStyle(
                                 fontFamily: "Gilroy-Medium",
                                 color: Colors.white),
@@ -99,14 +100,14 @@ class WalletView extends GetView<WalletController> {
                   fontWeight: FontWeight.normal,
                   color: Colors.black)),
         ),
-        controller.obx(
+        _walletController.obx(
           (state) => _buildWithdrawalList(),
           onLoading: Loader(),
           onError: (error) {
             return ErrorView(
               errorMsg: error,
               onTapReload: () {
-                controller.fetchWithdrawalTransactions();
+                _walletController.fetchWithdrawalTransactions();
               },
             );
           },
@@ -116,12 +117,13 @@ class WalletView extends GetView<WalletController> {
   }
 
   _buildWithdrawalList() {
-    return controller.transList.length > 0
+    return _walletController.transList.length > 0
         ? Column(
             children: List.generate(
-              controller.transList.length,
+              _walletController.transList.length,
               (index) {
-                TransactionDetailsModel model = controller.transList[index];
+                TransactionDetailsModel model =
+                    _walletController.transList[index];
                 final DateTime now = model.updatedAt;
                 DateFormat formatter = DateFormat('dd LLL yyyy');
                 final String formatted = formatter.format(now);

@@ -10,9 +10,9 @@ class WalletController extends GetxController with StateMixin {
 
   @override
   void onInit() {
+    super.onInit();
     fetchWithdrawalTransactions();
     fetchWalletBalance();
-    super.onInit();
   }
 
   @override
@@ -31,8 +31,10 @@ class WalletController extends GetxController with StateMixin {
           await walletProvider.fetchTransactions();
       transList.clear();
       transList.addAll(model.data);
+      print("Fetched Transaction");
       change(model, status: RxStatus.success());
     } catch (onError) {
+      print("Error While Fetching Transaction $onError");
       change(null, status: RxStatus.error(onError.message));
     }
   }
@@ -43,7 +45,7 @@ class WalletController extends GetxController with StateMixin {
       WalletBalanceModel model = await walletProvider.fetchBalance();
       balance.value = model.data.balance;
     } catch (onError) {
-      change(null, status: RxStatus.error(onError.message));
+      // change(null, status: RxStatus.error(onError.message));
     }
   }
 }

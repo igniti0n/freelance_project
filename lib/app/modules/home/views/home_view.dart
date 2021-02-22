@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:test_project_one/app/modules/home/controllers/home_controller.dart';
 import 'package:test_project_one/app/modules/more/views/more_view.dart';
 import 'package:test_project_one/app/modules/my_ads/controllers/my_ads_controller.dart';
@@ -43,7 +44,11 @@ class _HomeViewState extends State<HomeView> {
           }
         },
       ),
-      MyAdsView(),
+      MyAdsView(
+        onChangeTabIndex: (index) {
+          _tabBarState.currentState.updateIndex(index);
+        },
+      ),
       WalletView(),
       StatsView(),
       MoreView(),
@@ -105,44 +110,58 @@ class HomeScreen extends GetView<HomeController> {
   }
 
   _buildHomeView() {
-    return controller.adsList.isNotEmpty
-        ? Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: 20, right: 20, top: 16),
-                child: Text(
-                  "Available ads",
-                  style: TextStyle(
-                      fontFamily: "Gilroy-Light",
-                      fontSize: 22,
-                      color: Colors.black),
+    return RefreshIndicator(
+      onRefresh: () async {
+        controller.loadAds();
+        await new Future.delayed(const Duration(seconds: 1));
+      },
+      child: controller.adsList.isNotEmpty
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 20, right: 20, top: 16),
+                  child: Text(
+                    "Available ads",
+                    style: TextStyle(
+                        fontFamily: "Gilroy-Light",
+                        fontSize: 22,
+                        color: Colors.black),
+                  ),
                 ),
+                Expanded(
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      return showAdCard(
+                          adsDetailModel: controller.adsList[index],
+                          report: false,
+                          onTabChangeIndex: (index) {
+                            onChangeTabIndex(index);
+                            controller.loadAds();
+                          });
+                    },
+                    itemCount: controller.adsList.length,
+                  ),
+                )
+              ],
+            )
+          : Center(
+              child: Column(
+                children: [
+                  Container(
+                    height: 300,
+                    child: Lottie.asset("assets/lottie/no_data_lottie.json"),
+                  ),
+                  Text(
+                    Strings.NO_ADS_MSG,
+                    style: TextStyle(
+                        fontFamily: "Gilroy-Light",
+                        fontSize: 22,
+                        color: Colors.black),
+                  ),
+                ],
               ),
-              Expanded(
-                child: ListView.builder(
-                  itemBuilder: (context, index) {
-                    return showAdCard(
-                        adsDetailModel: controller.adsList[index],
-                        report: false,
-                        onTabChangeIndex: (index) {
-                          onChangeTabIndex(index);
-                          controller.loadAds();
-                        });
-                  },
-                  itemCount: controller.adsList.length,
-                ),
-              )
-            ],
-          )
-        : Center(
-            child: Text(
-              Strings.NO_ADS_MSG,
-              style: TextStyle(
-                  fontFamily: "Gilroy-Light",
-                  fontSize: 22,
-                  color: Colors.black),
             ),
-          );
+    );
   }
 }

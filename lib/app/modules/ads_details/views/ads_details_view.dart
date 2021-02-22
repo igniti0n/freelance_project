@@ -280,7 +280,7 @@ class AdsDetailsView extends GetView<AdsDetailsController> {
           SizedBox(
             height: 16,
           ),
-          controller.isMyAds
+          (controller.isMyAds || DateTime.now().difference(deadline).inDays > 0)
               ? Container()
               : buttonWidget(
                   name: "Accept",

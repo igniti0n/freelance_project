@@ -15,6 +15,7 @@ showAdCard(
   final DateTime now = adsDetailModel.deadline;
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
   final String deadlineFormatter = formatter.format(now);
+  final deadlineDays = DateTime.now().difference(now).inDays;
 
   return Padding(
     padding: const EdgeInsets.only(left: 8, right: 8, bottom: 4, top: 12),
@@ -34,7 +35,11 @@ showAdCard(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(8),
                     bottomLeft: Radius.circular(8)),
-                color: colour_yellow,
+                color: report
+                    ? Colors.green
+                    : (deadlineDays > 0)
+                        ? Colors.red
+                        : colour_yellow,
               ),
             ),
             Expanded(
@@ -48,6 +53,7 @@ showAdCard(
                       style: TextStyle(
                         fontFamily: "Gilroy-Medium",
                         fontSize: 14,
+                        fontWeight: FontWeight.bold,
                         color: colour_price,
                       ),
                     ),
@@ -102,6 +108,7 @@ showAdCard(
                                     style: TextStyle(
                                         fontFamily: "Gilroy-Regular",
                                         fontSize: 12,
+                                        fontWeight: FontWeight.bold,
                                         color: colour_time),
                                   )
                                 ]),
