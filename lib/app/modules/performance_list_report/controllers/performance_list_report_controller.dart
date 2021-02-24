@@ -28,7 +28,8 @@ class PerformanceListReportController extends GetxController
     try {
       change(null, status: RxStatus.loading());
       PerformanceListProvider provider = PerformanceListProvider();
-      PerformanceListModel performanceListModel = await provider.getReports();
+      PerformanceListModel performanceListModel =
+          await provider.getReports(id: adsDetailModel.id);
       reportList.clear();
       reportList.addAll(performanceListModel.data);
       reportList.sort((a, b) {

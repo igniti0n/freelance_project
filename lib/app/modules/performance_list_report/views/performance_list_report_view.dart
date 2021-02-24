@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:test_project_one/app/modules/performance_list_report/controllers/performance_list_report_controller.dart';
 import 'package:test_project_one/app/routes/app_pages.dart';
 import 'package:test_project_one/app/widgets/button_widget.dart';
-import 'package:test_project_one/app/widgets/colours.dart';
 import 'package:test_project_one/app/widgets/constants.dart';
 import 'package:test_project_one/app/widgets/error_page.dart';
 import 'package:test_project_one/app/widgets/progress_dialog.dart';
@@ -36,36 +35,35 @@ class PerformanceListReportView
   }
 
   _buildView() {
-    return controller.reportList.isNotEmpty
-        ? Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    height: 40,
-                    width: 150,
-                    child: buttonWidget(
-                        name: 'Submit',
-                        onTap: () async {
-                          final result = await Get.toNamed(
-                              Routes.PERFORMANCE_REPORT,
-                              arguments: controller.adsDetailModel);
-                          if (result) {
-                            controller.loadReports();
-                          }
-                        }),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Expanded(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              height: 40,
+              width: 150,
+              child: buttonWidget(
+                  name: 'Submit',
+                  onTap: () async {
+                    final result = await Get.toNamed(Routes.PERFORMANCE_REPORT,
+                        arguments: controller.adsDetailModel);
+                    if (result) {
+                      controller.loadReports();
+                    }
+                  }),
+            ),
+            SizedBox(
+              width: 10,
+            )
+          ],
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        controller.reportList.isNotEmpty
+            ? Expanded(
                 child: ListView.builder(
                   itemCount: controller.reportList.length,
                   itemBuilder: (context, index) {
@@ -112,8 +110,12 @@ class PerformanceListReportView
                             Padding(
                               padding: EdgeInsets.only(
                                   left: 20, top: 16, bottom: 20),
-                              child: _getImage(
-                                  controller.reportList[index].socialMedia),
+                              child: controller.reportList[index].socialMedia
+                                          .length >
+                                      0
+                                  ? _getImage(controller.reportList[index]
+                                      .socialMedia.first.socialMedia)
+                                  : Container(),
                             )
                           ],
                         ),
@@ -121,22 +123,23 @@ class PerformanceListReportView
                     );
                   },
                 ),
+              )
+            : Container(
+                height: Get.height * 0.6,
+                alignment: Alignment.center,
+                child: Text(
+                  Strings.NO_REPORTS_MSG,
+                  style: TextStyle(
+                      fontFamily: "Gilroy-Light",
+                      fontSize: 22,
+                      color: Colors.black),
+                ),
               ),
-              SizedBox(
-                height: 10,
-              ),
-            ],
-          )
-        : Center(
-            child: Text(
-              Strings.NO_REPORTS_MSG,
-              style: TextStyle(
-                  fontFamily: "Gilroy-Light",
-                  fontSize: 22,
-                  color: Colors.black),
-            ),
-          );
-    ;
+        SizedBox(
+          height: 10,
+        ),
+      ],
+    );
   }
 
   _getImage(String name) {

@@ -6,13 +6,13 @@ import 'package:test_project_one/app/widgets/constants.dart';
 import 'package:test_project_one/main.dart';
 
 class PerformanceListProvider extends GetConnect {
-  Future<PerformanceListModel> getReports() async {
+  Future<PerformanceListModel> getReports({String id}) async {
     var isInternetAvailable = await DataConnectionChecker().hasConnection;
     if (!isInternetAvailable) {
       throw Exception(Strings.NO_INTERNET);
     }
 
-    String url = BASEURL + PERFORMANCE_LIST_REPORTS;
+    String url = BASEURL + PERFORMANCE_LIST_REPORTS + id;
     var response = await get(url, headers: {
       "Authorization": "Bearer " + loginModel.token,
     });

@@ -9,21 +9,21 @@ class ChatView extends GetView<ChatController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 2,
-        title: Row(
-          children: [
-            CircleAvatar(
-              backgroundImage: AssetImage("assets/images/pics.png"),
-            ),
-            SizedBox(
-              width: 14,
-            ),
-            Text(
-              "John",
-              style: TextStyle(fontFamily: "Gilroy"),
-            )
-          ],
-        ),
+        elevation: 0,
+        // title: Row(
+        //   children: [
+        //     CircleAvatar(
+        //       backgroundImage: AssetImage("assets/images/pics.png"),
+        //     ),
+        //     SizedBox(
+        //       width: 14,
+        //     ),
+        //     Text(
+        //       "John",
+        //       style: TextStyle(fontFamily: "Gilroy"),
+        //     )
+        //   ],
+        // ),
         actions: [
           // GestureDetector(
           //     onTap: () => Get.toNamed(Routes.CHAT),
@@ -35,6 +35,7 @@ class ChatView extends GetView<ChatController> {
       body: WebView(
         initialUrl:
             'https://www.tidio.com/talk/0cgcbpa92hbwfyc3fx1rx0ineiouttnm',
+        javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (value) {
           controller.showProgressBar();
         },

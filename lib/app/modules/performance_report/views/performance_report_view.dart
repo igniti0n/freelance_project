@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:path/path.dart';
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -90,26 +94,53 @@ class PerformanceReportView extends GetView<PerformanceReportController> {
                     onTap: () {
                       controller.openFilePicker();
                     },
-                    child: Container(
-                      height: 55,
-                      width: 169,
-                      decoration: BoxDecoration(
-                          color: colour_border,
-                          borderRadius: BorderRadius.circular(30)),
-                      child: Center(
-                        child: Text(
-                          "Attach File",
-                          style: TextStyle(
-                              fontFamily: "Gilroy",
-                              fontSize: 20,
-                              color: Color(0xff010101)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 55,
+                          width: 169,
+                          decoration: BoxDecoration(
+                              color: colour_border,
+                              borderRadius: BorderRadius.circular(30)),
+                          child: Center(
+                            child: Text(
+                              "Attach File",
+                              style: TextStyle(
+                                  fontFamily: "Gilroy",
+                                  fontSize: 20,
+                                  color: Color(0xff010101)),
+                            ),
+                          ),
                         ),
-                      ),
+                        Obx(() {
+                          File file = controller.file.value;
+                          return file.path.isNotEmpty
+                              ? Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12),
+                                  child: Row(
+                                    children: [
+                                      Flexible(
+                                        child: Text(basename(file.path)),
+                                      ),
+                                      IconButton(
+                                        icon: Icon(Icons.cancel),
+                                        onPressed: () {
+                                          controller.file.value = new File('');
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : Container();
+                        })
+                      ],
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 50,
+                  height: 28,
                 ),
                 buttonWidget(
                     name: "Submit",

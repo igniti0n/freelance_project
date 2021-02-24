@@ -13,7 +13,7 @@ import 'package:test_project_one/app/widgets/constants.dart';
 
 class PerformanceReportController extends GetxController {
   //TODO: Implement PerformanceReportController
-  File _file;
+  var file = new File("").obs;
   String _socialMedia = "";
   AdsDetailModel adsDetailModel;
 
@@ -39,7 +39,7 @@ class PerformanceReportController extends GetxController {
     FilePickerResult result = await FilePicker.platform.pickFiles();
 
     if (result != null) {
-      _file = File(result.files.single.path);
+      file.value = File(result.files.single.path);
       Get.snackbar(
         Strings.SUCCESS,
         Strings.FILE_ATTACHED,
@@ -47,6 +47,7 @@ class PerformanceReportController extends GetxController {
         backgroundColor: colour_time,
         colorText: Colors.white,
       );
+      // change(this.state, status: RxStatus.success());
     } else {
       // User canceled the picker
     }
@@ -55,7 +56,7 @@ class PerformanceReportController extends GetxController {
   Future<FileUploadModel> uploadFileToServer() async {
     try {
       PerformanceReportProvider provider = PerformanceReportProvider();
-      return await provider.uploadFileToServer(_file);
+      return await provider.uploadFileToServer(file.value);
     } catch (onError) {
       Get.snackbar(
         Strings.ERROR,
@@ -75,7 +76,7 @@ class PerformanceReportController extends GetxController {
       AD_ID_PARAM: adsDetailModel.id,
     };
 
-    if (_file != null) {
+    if (file != null) {
       FileUploadModel fileUploadModel = await uploadFileToServer();
       params[ATTACH_PARAM] = fileUploadModel.fileUrl;
     }

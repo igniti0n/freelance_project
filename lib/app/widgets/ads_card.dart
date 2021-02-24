@@ -35,11 +35,11 @@ showAdCard(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(8),
                     bottomLeft: Radius.circular(8)),
-                color: report
-                    ? Colors.green
-                    : (deadlineDays > 0)
-                        ? Colors.red
-                        : colour_yellow,
+                color: (deadlineDays > 0)
+                    ? Colors.red
+                    : (adsDetailModel.status == "active"
+                        ? Colors.green
+                        : colour_yellow),
               ),
             ),
             Expanded(
@@ -48,14 +48,27 @@ showAdCard(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "G" + adsDetailModel.amount,
-                      style: TextStyle(
-                        fontFamily: "Gilroy-Medium",
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: colour_price,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          "G" + adsDetailModel.amount,
+                          style: TextStyle(
+                            fontFamily: "Gilroy-Medium",
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: colour_price,
+                          ),
+                        ),
+                        Spacer(),
+                        Text(
+                          adsDetailModel.tag,
+                          style: TextStyle(
+                            fontFamily: "Gilroy-Medium",
+                            fontSize: 14,
+                            color: colour_black1,
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: 8,

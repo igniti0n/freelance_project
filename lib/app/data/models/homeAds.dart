@@ -51,8 +51,10 @@ class AdsDetailModel {
     this.createdAt,
     this.updatedAt,
     this.v,
+    this.tag,
     this.tier,
     this.resources,
+    this.status,
   });
 
   String id;
@@ -70,8 +72,10 @@ class AdsDetailModel {
   DateTime createdAt;
   DateTime updatedAt;
   int v;
+  String tag;
   List<Tier> tier;
   List<Resource> resources;
+  String status;
 
   factory AdsDetailModel.fromJson(Map<String, dynamic> json) => AdsDetailModel(
         id: json["_id"] == null ? null : json["_id"],
@@ -98,6 +102,7 @@ class AdsDetailModel {
             ? null
             : DateTime.parse(json["updatedAt"]),
         v: json["__v"] == null ? null : json["__v"],
+        tag: json["tag"] == null ? null : json["tag"],
         tier: json["tier"] == null
             ? null
             : List<Tier>.from(json["tier"].map((x) => Tier.fromJson(x))),
@@ -105,6 +110,7 @@ class AdsDetailModel {
             ? null
             : List<Resource>.from(
                 json["resources"].map((x) => Resource.fromJson(x))),
+        status: json["status"] == null ? null : json["status"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -123,12 +129,14 @@ class AdsDetailModel {
         "createdAt": createdAt == null ? null : createdAt.toIso8601String(),
         "updatedAt": updatedAt == null ? null : updatedAt.toIso8601String(),
         "__v": v == null ? null : v,
+        "tag": tag == null ? null : tag,
         "tier": tier == null
             ? null
             : List<dynamic>.from(tier.map((x) => x.toJson())),
         "resources": resources == null
             ? null
             : List<dynamic>.from(resources.map((x) => x.toJson())),
+        "status": status == null ? null : status,
       };
 }
 
