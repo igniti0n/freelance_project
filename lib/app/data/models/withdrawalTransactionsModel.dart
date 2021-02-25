@@ -42,7 +42,6 @@ class TransactionDetailsModel {
     this.transactionType,
     this.userId,
     this.amount,
-    this.note,
     this.createdAt,
     this.updatedAt,
     this.v,
@@ -51,8 +50,7 @@ class TransactionDetailsModel {
   String id;
   String transactionType;
   String userId;
-  int amount;
-  String note;
+  double amount;
   DateTime createdAt;
   DateTime updatedAt;
   int v;
@@ -63,8 +61,7 @@ class TransactionDetailsModel {
         transactionType:
             json["transaction_type"] == null ? null : json["transaction_type"],
         userId: json["user_id"] == null ? null : json["user_id"],
-        amount: json["amount"] == null ? null : json["amount"],
-        note: json["note"] == null ? null : json["note"],
+        amount: json["amount"] == null ? null : json["amount"].toDouble(),
         createdAt: json["createdAt"] == null
             ? null
             : DateTime.parse(json["createdAt"]),
@@ -79,7 +76,6 @@ class TransactionDetailsModel {
         "transaction_type": transactionType == null ? null : transactionType,
         "user_id": userId == null ? null : userId,
         "amount": amount == null ? null : amount,
-        "note": note == null ? null : note,
         "createdAt": createdAt == null ? null : createdAt.toIso8601String(),
         "updatedAt": updatedAt == null ? null : updatedAt.toIso8601String(),
         "__v": v == null ? null : v,

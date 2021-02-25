@@ -15,7 +15,8 @@ showPopupDialogWithTextField(
     bool isPasswordEntry = false,
     Function onPressedLeftButton,
     String rightButtonTitle,
-    Function(String) onPressedRightButton}) {
+    Function(String) onPressedRightButton,
+    dynamic keyboardType}) {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController passwordController = new TextEditingController();
   showDialog(
@@ -72,7 +73,8 @@ showPopupDialogWithTextField(
                             return "Fill this field";
                           }
                         },
-                        keyboardType: TextInputType.visiblePassword),
+                        keyboardType:
+                            keyboardType ?? TextInputType.visiblePassword),
                   ),
                 ),
                 Padding(
@@ -95,6 +97,7 @@ showPopupDialogWithTextField(
                         child: buttonWidget(
                           name: rightButtonTitle,
                           onTap: () {
+                            FocusScope.of(context).unfocus();
                             if (_formKey.currentState.validate()) {
                               onPressedRightButton(passwordController.text);
                             }

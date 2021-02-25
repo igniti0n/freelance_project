@@ -18,6 +18,7 @@ const String INTERESTS = "/interests";
 const String POST_INTERESTS = "/interests/user";
 const String TRANSACTION = "/transaction";
 const String WALLET_BAL = "/transaction/balance";
+const String WIDTHDRAWAL_REQ = "/transaction/withdrawal";
 const String STATS = "/stats/";
 
 ///Params
@@ -46,6 +47,7 @@ const String INTEREST_IDS_PARAM = 'interest_ids';
 const String BANK_ID_PARAM = 'bank_id';
 const String BANK_ACC_NAME_PARAM = 'account_name';
 const String BANK_ACC_NUM_PARAM = 'account_number';
+const String AMOUNT = 'amount';
 
 ///Keys
 const String kMessage = 'message';

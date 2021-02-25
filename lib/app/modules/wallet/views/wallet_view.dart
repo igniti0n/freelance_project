@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:test_project_one/app/data/models/withdrawalTransactionsModel.dart';
 import 'package:test_project_one/app/modules/wallet/controllers/wallet_controller.dart';
+import 'package:test_project_one/app/widgets/colours.dart';
 import 'package:test_project_one/app/widgets/constants.dart';
 import 'package:test_project_one/app/widgets/error_page.dart';
 import 'package:test_project_one/app/widgets/progress_dialog.dart';
@@ -76,11 +77,26 @@ class WalletView extends GetView<WalletController> {
                               hintText: 'Please Enter here',
                               subTitle: 'Enter Amount',
                               leftButtonTitle: 'Cancel',
+                              keyboardType: TextInputType.numberWithOptions(
+                                  decimal: true),
                               onPressedLeftButton: () {
                                 Get.back();
                               },
                               rightButtonTitle: 'Request',
-                              onPressedRightButton: (value) {},
+                              onPressedRightButton: (value) {
+                                if (value.isAlphabetOnly) {
+                                  Get.snackbar(Strings.ERROR,
+                                      "Please enter proper number.",
+                                      duration: Duration(milliseconds: 2000),
+                                      backgroundColor: colour_time,
+                                      colorText: Colors.white, onTap: (obj) {
+                                    Get.back(result: true);
+                                  });
+                                } else {
+                                  _walletController.widthdrawalRequest(
+                                      amount: value);
+                                }
+                              },
                             );
                           },
                         ),
