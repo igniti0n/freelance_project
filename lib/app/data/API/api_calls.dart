@@ -23,7 +23,7 @@ const String STATS = "/stats/";
 ///Params
 const String EMAIL_PARAM = 'email';
 const String PASSWORD_PARAM = 'password';
-const String DESC_PARAM = 'description';
+const String DESC_PARAM = 'date_collected';
 const String SOCIAL_MEDIA_PARAM = 'social_media';
 const String ATTACH_PARAM = 'attach';
 const String IMAGE_PARAM = 'image';
