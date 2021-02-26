@@ -4,19 +4,24 @@ import 'package:get/get.dart';
 import 'colours.dart';
 //Define your text fields here
 
-textField({String name, String placeholder, var keyboardType, 
-Function validator,bool signup,
-TextEditingController controller,
-bool readonly=false,
-bool password=false}) {
-
+textField(
+    {String name,
+    String placeholder,
+    var keyboardType,
+    Function validator,
+    bool signup,
+    TextEditingController controller,
+    bool readonly = false,
+    bool password = false,
+    FocusNode focusNode,
+    Function onTapped}) {
   return Padding(
     padding: const EdgeInsets.only(left: 17.0, right: 17.0),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-         name,
+          name,
           style: TextStyle(
               fontFamily: "Gilroy", fontSize: 15, fontWeight: FontWeight.bold),
         ),
@@ -26,25 +31,37 @@ bool password=false}) {
         Container(
           child: TextFormField(
             controller: controller,
-          readOnly: readonly,
+            readOnly: readonly,
             validator: (value) => validator(value),
             obscureText: password,
             keyboardType: keyboardType,
+            focusNode: focusNode,
+            onTap: onTapped,
             decoration: InputDecoration(
-            
                 hintText: placeholder,
-                helperStyle: TextStyle(color:signup==true? colour_black1: colour_text_field_border),
-                hintStyle: TextStyle(color: signup==true? Colors.grey: colour_text_field_border),
-                labelStyle: TextStyle(color:signup==true? colour_black1: colour_text_field_border),
+                helperStyle: TextStyle(
+                    color: signup == true
+                        ? colour_black1
+                        : colour_text_field_border),
+                hintStyle: TextStyle(
+                    color: signup == true
+                        ? Colors.grey
+                        : colour_text_field_border),
+                labelStyle: TextStyle(
+                    color: signup == true
+                        ? colour_black1
+                        : colour_text_field_border),
                 // enabledBorder: OutlineInputBorder(
                 //     borderSide: BorderSide(color: colour_text_field_border)),
-                   
+
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 )),
           ),
         ),
-        SizedBox(height: 20,)
+        SizedBox(
+          height: 20,
+        )
       ],
     ),
   );

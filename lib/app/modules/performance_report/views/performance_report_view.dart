@@ -8,11 +8,13 @@ import 'package:get/get.dart';
 import 'package:test_project_one/app/modules/performance_report/controllers/performance_report_controller.dart';
 import 'package:test_project_one/app/widgets/button_widget.dart';
 import 'package:test_project_one/app/widgets/colours.dart';
+import 'package:test_project_one/app/widgets/constants.dart';
 import 'package:test_project_one/app/widgets/text_fields.dart';
+import 'package:intl/intl.dart';
 
 class PerformanceReportView extends GetView<PerformanceReportController> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController descController = new TextEditingController();
+  TextEditingController descController;
   final controller = Get.put(PerformanceReportController());
 
   @override
@@ -77,17 +79,49 @@ class PerformanceReportView extends GetView<PerformanceReportController> {
                 SizedBox(
                   height: 20,
                 ),
-                textField(
-                    controller: descController,
-                    signup: true,
-                    name: "Date Collected",
-                    placeholder: "Please Enter Here",
-                    keyboardType: TextInputType.name,
-                    validator: (value) {
-                      if (value.toString().isEmpty) {
-                        return "Fill Field";
-                      }
-                    }),
+                Obx(() {
+                  return textField(
+                      controller: descController = new TextEditingController(
+                          text: controller.selectedDate.value),
+                      signup: true,
+                      focusNode: AlwaysDisabledFocusNode(),
+                      name: "Date Collected",
+                      placeholder: "Select Date here",
+                      keyboardType: TextInputType.name,
+                      onTapped: () {
+                        showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2019, 1),
+                            lastDate: DateTime(2021, 12),
+                            builder: (BuildContext context, Widget picker) {
+                              return Theme(
+                                //TODO: change colors
+                                data: ThemeData.light().copyWith(
+                                    colorScheme: ColorScheme.light(
+                                      primary: Colors.orange[800],
+                                      onPrimary: Colors.white,
+                                      surface: Colors.pink,
+                                      onSurface: Colors.black,
+                                    ),
+                                    dialogBackgroundColor: Colors.white),
+                                child: picker,
+                              );
+                            }).then((selectedDate) {
+                          //TODO: handle selected date
+                          if (selectedDate != null) {
+                            var formatter = DateFormat('yyyy-MM-dd');
+                            controller.selectedDate.value =
+                                formatter.format(selectedDate);
+                          }
+                        });
+                      },
+                      validator: (value) {
+                        if (value.toString().isEmpty) {
+                          return "Please select Date";
+                        }
+                      });
+                }),
                 Padding(
                   padding: const EdgeInsets.all(20),
                   child: InkWell(
@@ -147,7 +181,17 @@ class PerformanceReportView extends GetView<PerformanceReportController> {
                     onTap: () {
                       print("Validating");
                       if (_formKey.currentState.validate()) {
-                        controller.postReport(desc: descController.text);
+                        if (controller.file.value.path.isNotEmpty) {
+                          controller.postReport(desc: descController.text);
+                        } else {
+                          Get.snackbar(
+                            Strings.ERROR,
+                            'Please attach file to report',
+                            duration: Duration(milliseconds: 2000),
+                            backgroundColor: colour_time,
+                            colorText: Colors.white,
+                          );
+                        }
                       }
                     })
               ],
@@ -155,4 +199,9 @@ class PerformanceReportView extends GetView<PerformanceReportController> {
           ),
         ));
   }
+}
+
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
 }

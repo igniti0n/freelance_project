@@ -98,7 +98,9 @@ class PerformanceListReportView
                               padding:
                                   const EdgeInsets.only(left: 20, right: 20),
                               child: Text(
-                                controller.reportList[index].description ?? "",
+                                controller.reportList[index].ad.first
+                                        .description ??
+                                    "",
                                 maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(

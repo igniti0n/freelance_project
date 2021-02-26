@@ -14,6 +14,7 @@ import 'package:test_project_one/app/widgets/constants.dart';
 class PerformanceReportController extends GetxController {
   //TODO: Implement PerformanceReportController
   var file = new File("").obs;
+  var selectedDate = "".obs;
   String _socialMedia = "";
   AdsDetailModel adsDetailModel;
 
@@ -76,7 +77,7 @@ class PerformanceReportController extends GetxController {
       AD_ID_PARAM: adsDetailModel.id,
     };
 
-    if (file != null) {
+    if (file.value.path.isNotEmpty) {
       FileUploadModel fileUploadModel = await uploadFileToServer();
       params[ATTACH_PARAM] = fileUploadModel.fileUrl;
     }
