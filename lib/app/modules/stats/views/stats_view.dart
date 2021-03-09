@@ -235,7 +235,7 @@ class StatsView extends GetView<StatsController> {
               series: [
                 BezierLine(
                   label: "Available Ads",
-                  lineColor: Color(0xff4099FF),
+                  lineColor: Color(0xfffaab3f),
                   lineStrokeWidth: 2.0,
                   data: List.generate(dates.length, (index) {
                     return DataPoint<DateTime>(
@@ -255,11 +255,11 @@ class StatsView extends GetView<StatsController> {
                 ),
                 BezierLine(
                   label: "Avg Completed Ads",
-                  lineColor: Color(0xfffaab3f),
+                  lineColor: Color(0xff4099FF),
                   lineStrokeWidth: 2.0,
                   data: List.generate(dates.length, (index) {
                     return DataPoint<DateTime>(
-                        value: statsData[index].availableAds.toDouble(),
+                        value: statsData[index].avgComp.toDouble(),
                         xAxis: dates[index]);
                   }),
                 ),

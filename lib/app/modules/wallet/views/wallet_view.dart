@@ -69,6 +69,7 @@ class WalletView extends GetView<WalletController> {
                         IconButton(
                           icon: Image.asset(
                             "assets/images/withdrawal.png",
+                            color: Colors.black,
                           ),
                           onPressed: () {
                             showPopupDialogWithTextField(

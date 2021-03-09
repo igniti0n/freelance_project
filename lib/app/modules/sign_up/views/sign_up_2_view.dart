@@ -142,8 +142,10 @@ class SignUp2View extends GetView<SignUp2Controller> {
                   validator: (value) {
                     if (value.toString().isEmpty) {
                       return "Fill Field";
-                    } else if (value.toString().length > 14) {
-                      return "Phone number cannot be more than 14 digits.";
+                    } else if (value.toString().length < 10) {
+                      return "Phone number cannot be less than 10 digits.";
+                    } else if (value.toString().length > 13) {
+                      return "Phone number cannot be more than 13 digits.";
                     }
                   }),
               textField(

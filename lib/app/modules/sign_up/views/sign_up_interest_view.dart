@@ -118,7 +118,7 @@ class SignUpInterestView extends GetView<SignUpInterestController> {
           launch('https://adsmata.com/academy');
         },
         widget: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
+          padding: const EdgeInsets.only(left: 8, right: 8),
           child: Text(
             "Kindly complete your course on Gidi Academy to get approved",
             textAlign: TextAlign.center,

@@ -8,17 +8,12 @@ class ChangePasswordController extends GetxController with StateMixin<dynamic> {
 
   @override
   void onInit() {
-    super.onInit();
-    
+    super.onInit(); 
   }
-
-  @override
-  void onReady() {}
 
   @override
   void onClose() {}
 
-  void increment() => count.value++;
   void changePassword(String oldPassword, String newPassword){
     ChangePasswordProvider().changePassword(oldPassword: oldPassword, newPassword: newPassword).then((value) {
       change(value, status: RxStatus.success());

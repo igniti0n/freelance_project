@@ -28,8 +28,8 @@ class SignUpController extends GetxController {
     final DateTime pickedDate = await showDatePicker(
         context: context,
         initialDate: currentDate.value,
-        firstDate: DateTime(1970),
-        lastDate: DateTime(2050));
+        firstDate: DateTime(1980),
+        lastDate: DateTime(2005));
     if (pickedDate != null && pickedDate != currentDate.value)
       currentDate.value = pickedDate;
     dOB.value = pickedDate.toString();

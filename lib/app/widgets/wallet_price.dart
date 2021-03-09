@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 transactionDetailCard({String amount, String type, String date}) {
+  String tType = (type ?? "").toLowerCase();
+  Color color = tType == "debit"
+      ? Colors.red
+      : (tType == "credit" ? Colors.green : Colors.black);
   return Padding(
     padding: const EdgeInsets.only(bottom: 12.0),
     child: Container(
@@ -16,9 +20,9 @@ transactionDetailCard({String amount, String type, String date}) {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(type,
+              Text(type ?? "",
                   style: GoogleFonts.telex(
-                      fontSize: 16, color: Color(0xff3E3939))),
+                      fontSize: 16, color: color)),
               Padding(
                 padding: const EdgeInsets.only(top: 4.0),
                 child: Text(
@@ -26,7 +30,7 @@ transactionDetailCard({String amount, String type, String date}) {
                     //     .format(DateTime.parse(transaction.createdAt)),
                     date,
                     style: GoogleFonts.questrial(
-                        fontSize: 12, color: Color(0xff919191))),
+                        fontSize: 12, color: color)),
               )
             ],
           ),

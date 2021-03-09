@@ -4,8 +4,8 @@ import 'package:progress_dialog/progress_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test_project_one/app/data/API/api_calls.dart';
 import 'package:test_project_one/app/data/models/login.dart';
-import 'package:test_project_one/app/routes/app_pages.dart';
 import 'package:test_project_one/app/widgets/colours.dart';
+import 'package:test_project_one/main.dart';
 
 class ChangePasswordProvider extends GetConnect {
   Future<Map<String, dynamic>>changePassword({String oldPassword, newPassword}) async {
@@ -27,12 +27,11 @@ class ChangePasswordProvider extends GetConnect {
         message: 'Please wait...');
     pr.show();
 
-    String token = pref.get("token");
     String url = BASEURL + CHANGEPASSWORD;
     Map body = {"oldpassword": oldPassword, "newpassword": newPassword};
     var response = await post(url, body, headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer $token"
+      "Authorization": "Bearer ${loginModel.token}"
     });
     if (response.hasError) {
       pr.hide();

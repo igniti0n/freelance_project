@@ -57,7 +57,7 @@ show_dialog(
                     height: 55,
                     child: Center(
                       child: Container(
-                        width: 100,
+                        width: 130,
                         child: RaisedButton(
                           onPressed: () => right_text_fn(),
                           color: colour_black1,
