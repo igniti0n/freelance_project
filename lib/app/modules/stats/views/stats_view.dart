@@ -92,12 +92,12 @@ class StatsView extends GetView<StatsController> {
                   fontFamily: "Gilroy",
                   fontSize: 13,
                   color: Color(0xff575757))),
-          Text("Available Ads",
+          Text("Available Gids",
               style: TextStyle(
                   fontFamily: "Gilroy",
                   fontSize: 13,
                   color: Color(0xff575757))),
-          Text("Completed Ads",
+          Text("Completed Gids",
               style: TextStyle(
                   fontFamily: "Gilroy",
                   fontSize: 13,
@@ -234,7 +234,7 @@ class StatsView extends GetView<StatsController> {
               },
               series: [
                 BezierLine(
-                  label: "Available Ads",
+                  label: "Available Gids",
                   lineColor: Color(0xfffaab3f),
                   lineStrokeWidth: 2.0,
                   data: List.generate(dates.length, (index) {
@@ -244,8 +244,8 @@ class StatsView extends GetView<StatsController> {
                   }),
                 ),
                 BezierLine(
-                  label: "Completed Ads",
-                  lineColor: Colors.red,
+                  label: "Completed Gids",
+                  lineColor: Colors.green,
                   lineStrokeWidth: 2.0,
                   data: List.generate(dates.length, (index) {
                     return DataPoint<DateTime>(
@@ -254,7 +254,7 @@ class StatsView extends GetView<StatsController> {
                   }),
                 ),
                 BezierLine(
-                  label: "Avg Completed Ads",
+                  label: "Avg Completed Gids",
                   lineColor: Color(0xff4099FF),
                   lineStrokeWidth: 2.0,
                   data: List.generate(dates.length, (index) {

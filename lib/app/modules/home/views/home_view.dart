@@ -74,7 +74,7 @@ class _HomeViewState extends State<HomeView> {
         notchedShape: CircularNotchedRectangle(),
         items: [
           FABBottomAppBarItem(iconData: Icons.home, text: "Home"),
-          FABBottomAppBarItem(iconData: Icons.campaign, text: "My Ads"),
+          FABBottomAppBarItem(iconData: Icons.campaign, text: "My Gids"),
           FABBottomAppBarItem(
               iconData: Icons.account_balance_wallet, text: "Wallet"),
           FABBottomAppBarItem(iconData: Icons.bar_chart, text: "Stat"),
@@ -122,7 +122,7 @@ class HomeScreen extends GetView<HomeController> {
                 Padding(
                   padding: EdgeInsets.only(left: 20, right: 20, top: 16),
                   child: Text(
-                    "Available ads",
+                    "Available Gids",
                     style: TextStyle(
                         fontFamily: "Gilroy-Light",
                         fontSize: 22,

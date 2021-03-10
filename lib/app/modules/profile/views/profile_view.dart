@@ -161,7 +161,7 @@ class ProfileView extends GetView<ProfileController> {
                                       }
                                       return null;
                                     },
-                                    items: ["Christianity", "Islamic"],
+                                    items: ["Christianity", "Islam", "Others"],
                                   ),
                                 ],
                               )),

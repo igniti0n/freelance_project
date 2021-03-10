@@ -35,9 +35,7 @@ showAdCard(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(8),
                     bottomLeft: Radius.circular(8)),
-                color: (deadlineDays > 0)
-                    ? Colors.red
-                    : (adsDetailModel.status == "completed"
+                color: (adsDetailModel.status == "completed"
                         ? Colors.green
                         : colour_yellow),
               ),

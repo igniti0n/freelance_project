@@ -151,7 +151,7 @@ class AdsDetailsView extends GetView<AdsDetailsController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Ads Type",
+                                "Gids Type",
                                 style: TextStyle(
                                     color: colour_yellow,
                                     fontFamily: "Gilroy",

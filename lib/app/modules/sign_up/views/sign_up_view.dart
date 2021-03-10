@@ -166,7 +166,7 @@ class SignUpView extends GetView<SignUpController> {
                         height: 10,
                       ),
                       DropdownSearch(
-                        maxHeight: 100,
+                        maxHeight: 170,
                         hint: 'Select Religion',
                         label: _controller.religion.value.isEmpty
                             ? null
@@ -181,7 +181,7 @@ class SignUpView extends GetView<SignUpController> {
                           }
                           return null;
                         },
-                        items: ["Christianity", "Islamic"],
+                        items: ["Christianity", "Islam", "Others"],
                       ),
                     ],
                   )),

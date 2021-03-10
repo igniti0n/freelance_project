@@ -67,7 +67,7 @@ class MyAdsView extends GetView<MyAdsController> {
                     height: 16,
                   ),
                   buttonWidget(
-                      name: 'Add Ads',
+                      name: 'Add Gids',
                       onTap: () {
                         onChangeTabIndex(0);
                       }),
