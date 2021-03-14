@@ -59,7 +59,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: header,
+      // appBar: activeIndex.value == (_widgetOptions.length - 1) ? header : Container(),
       body: Obx(() {
         return Center(
           child: _widgetOptions.elementAt(activeIndex.value),
@@ -94,6 +94,7 @@ class HomeScreen extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: header,
       body: controller.obx(
         (state) => _buildHomeView(),
         onLoading: Loader(),

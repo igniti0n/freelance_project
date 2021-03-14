@@ -7,6 +7,7 @@ import 'package:test_project_one/app/data/models/statsDataModel.dart';
 import 'package:test_project_one/app/modules/stats/controllers/stats_controller.dart';
 import 'package:intl/intl.dart';
 import 'package:test_project_one/app/widgets/error_page.dart';
+import 'package:test_project_one/app/widgets/header.dart';
 import 'package:test_project_one/app/widgets/progress_dialog.dart';
 
 class StatsView extends GetView<StatsController> {
@@ -15,6 +16,7 @@ class StatsView extends GetView<StatsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: header,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -6,7 +6,7 @@ class SignUpController extends GetxController {
   Rx<DateTime> currentDate = DateTime.now().obs;
   final gender = "".obs;
   final religion = "".obs;
-  RxString dOB = "23-09-1998 :7778".obs;
+  RxString dOB = "01-01-2005".obs;
   final value = "Select Gender".obs;
 
   @override
@@ -27,7 +27,7 @@ class SignUpController extends GetxController {
   Future<void> selectDate(BuildContext context) async {
     final DateTime pickedDate = await showDatePicker(
         context: context,
-        initialDate: currentDate.value,
+        initialDate: DateTime(2005, 1, 1),
         firstDate: DateTime(1980),
         lastDate: DateTime(2005));
     if (pickedDate != null && pickedDate != currentDate.value)

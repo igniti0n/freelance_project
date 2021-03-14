@@ -6,6 +6,7 @@ import 'package:test_project_one/app/modules/wallet/controllers/wallet_controlle
 import 'package:test_project_one/app/widgets/colours.dart';
 import 'package:test_project_one/app/widgets/constants.dart';
 import 'package:test_project_one/app/widgets/error_page.dart';
+import 'package:test_project_one/app/widgets/header.dart';
 import 'package:test_project_one/app/widgets/progress_dialog.dart';
 import 'package:test_project_one/app/widgets/textfield_dialog.dart';
 import 'package:test_project_one/app/widgets/wallet_price.dart';
@@ -17,6 +18,7 @@ class WalletView extends GetView<WalletController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: header,
         body: SingleChildScrollView(
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(

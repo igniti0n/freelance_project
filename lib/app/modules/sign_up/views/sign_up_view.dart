@@ -123,9 +123,11 @@ class SignUpView extends GetView<SignUpController> {
                               padding: const EdgeInsets.only(left: 8.0),
                               child: Obx(() => TextFormField(
                                     controller: dOB = TextEditingController(
-                                        text: controller.dOB.value
-                                            .toString()
-                                            .substring(0, 10)),
+                                        text: (controller.dOB.value == "null")
+                                            ? "01-01-2005"
+                                            : controller.dOB.value
+                                                .toString()
+                                                .substring(0, 10)),
                                     decoration: InputDecoration(
                                         border: InputBorder.none,
                                         suffixIcon: GestureDetector(

@@ -6,6 +6,7 @@ import 'package:test_project_one/app/widgets/ads_card.dart';
 import 'package:test_project_one/app/widgets/button_widget.dart';
 import 'package:test_project_one/app/widgets/constants.dart';
 import 'package:test_project_one/app/widgets/error_page.dart';
+import 'package:test_project_one/app/widgets/header.dart';
 import 'package:test_project_one/app/widgets/progress_dialog.dart';
 
 class MyAdsView extends GetView<MyAdsController> {
@@ -18,6 +19,7 @@ class MyAdsView extends GetView<MyAdsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: header,
       backgroundColor: Colors.white,
       body: controller.obx(
         (state) => _buildMyAdsView(),
