@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:searchable_dropdown/searchable_dropdown.dart';
@@ -65,50 +67,53 @@ class SignUp2View extends GetView<SignUp2Controller> {
                         height: 10,
                       ),
                       controller.obx(
-                        (data) => Container(
-                          height: 60,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Colors.grey)),
-                          child: Center(
-                            child: SingleChildScrollView(
-                              child: SearchableDropdown.single(
-                                validator: (value) {
-                                  if (value.toString().isEmpty) {
-                                    return "Can't be empty";
-                                  }
-                                },
-                                displayClearIcon: false,
-                                isExpanded: true,
-                                hint: "Select Country",
-                                items: data.map((Country value) {
-                                  //Done now hot restart
-                                  _controller.countryID.value = value.id;
-                                  return new DropdownMenuItem<String>(
-                                    value: value.name,
-                                    child: new Text(
-                                      value.name,
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 14),
-                                    ),
-                                  );
-                                }).toList(),
-                                value: _controller.country.value,
-                                onClear: () {},
-                                onChanged: (value) {
-                                  _controller.country.value = value;
-                                  _controller.countryID.value = value;
-                                  for (var i in _controller.countries) {
-                                    if (i.name == _controller.country.value) {
-                                      _controller.countryID.value = i.id;
-                                      print(_controller.countryID.value);
+                        (data) {
+                          log("countries list: ${data.toString()}");
+                          return Container(
+                            height: 60,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: Colors.grey)),
+                            child: Center(
+                              child: SingleChildScrollView(
+                                child: SearchableDropdown.single(
+                                  validator: (value) {
+                                    if (value.toString().isEmpty) {
+                                      return "Can't be empty";
                                     }
-                                  }
-                                },
+                                  },
+                                  displayClearIcon: false,
+                                  isExpanded: true,
+                                  hint: "Select Country",
+                                  items: data.map((Country value) {
+                                    //Done now hot restart
+                                    _controller.countryID.value = value.id;
+                                    return new DropdownMenuItem<String>(
+                                      value: value.name,
+                                      child: new Text(
+                                        value.name,
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 14),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  value: _controller.country.value,
+                                  onClear: () {},
+                                  onChanged: (value) {
+                                    _controller.country.value = value;
+                                    _controller.countryID.value = value;
+                                    for (var i in _controller.countries) {
+                                      if (i.name == _controller.country.value) {
+                                        _controller.countryID.value = i.id;
+                                        print(_controller.countryID.value);
+                                      }
+                                    }
+                                  },
+                                ),
                               ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
 
                         ///These two are not mandatory without these two you will still get the loading and the error
                         ///Are you clear now?
@@ -116,6 +121,10 @@ class SignUp2View extends GetView<SignUp2Controller> {
                         ///
                         onLoading: Text(
                             'Loading'), //You can use any custom loaders here show when the status = RxStatus.loading()
+                        onError: (text) {
+                          log("Error wtf $text");
+                          return Container();
+                        },
                       )
                     ],
                   )),

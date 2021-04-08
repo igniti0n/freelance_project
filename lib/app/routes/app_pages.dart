@@ -38,108 +38,103 @@ import 'package:test_project_one/splash_screen.dart';
 part 'app_routes.dart';
 
 class AppPages {
-  
-static const INITIAL = Routes.SPLASH;
+  static const INITIAL = Routes.SPLASH;
 
   static final routes = [
     GetPage(
-      name: Routes.HOME, 
-      page:()=> HomeView(), 
+      name: Routes.HOME,
+      page: () => HomeView(),
       binding: HomeBinding(),
     ),
     GetPage(
-      name: Routes.SPLASH, 
-      page:()=> SplashScreen(), 
+      name: Routes.SPLASH,
+      page: () => SplashScreen(),
     ),
-    
     GetPage(
-      name: Routes.SIGN_IN, 
-      page:()=> SignInView(), 
+      name: Routes.SIGN_IN,
+      page: () => SignInView(),
       binding: SignInBinding(),
     ),
     GetPage(
-      name: Routes.SIGN_UP, 
-      page:()=> SignUpView(), 
+      name: Routes.SIGN_UP,
+      page: () => SignUpView(),
       binding: SignUpBinding(),
     ),
     GetPage(
-      name: Routes.SIGN_UP_2, 
-      page:()=> SignUp2View(), 
+      name: Routes.SIGN_UP_2,
+      page: () => SignUp2View(),
     ),
     GetPage(
-      name: Routes.ADS_DETAILS, 
-      page:()=> AdsDetailsView(), 
+      name: Routes.ADS_DETAILS,
+      page: () => AdsDetailsView(),
       binding: AdsDetailsBinding(),
     ),
     GetPage(
-      name: Routes.MY_ADS, 
-      page:()=> MyAdsView(), 
+      name: Routes.MY_ADS,
+      page: () => MyAdsView(),
       binding: MyAdsBinding(),
     ),
     GetPage(
-      name: Routes.PERFORMANCE_REPORT, 
-      page:()=> PerformanceReportView(), 
+      name: Routes.PERFORMANCE_REPORT,
+      page: () => PerformanceReportView(),
       binding: PerformanceReportBinding(),
     ),
     GetPage(
-      name: Routes.PERFORMANCE_LIST_REPORT, 
-      page:()=> PerformanceListReportView(), 
+      name: Routes.PERFORMANCE_LIST_REPORT,
+      page: () => PerformanceListReportView(),
       binding: PerformanceListReportBinding(),
     ),
     GetPage(
-      name: Routes.STATS, 
-      page:()=> StatsView(), 
+      name: Routes.STATS,
+      page: () => StatsView(),
       binding: StatsBinding(),
     ),
     GetPage(
-      name: Routes.WALLET, 
-      page:()=> WalletView(), 
+      name: Routes.WALLET,
+      page: () => WalletView(),
       binding: WalletBinding(),
     ),
     GetPage(
-      name: Routes.CHAT, 
-      page:()=> ChatView(), 
+      name: Routes.CHAT,
+      page: () => ChatView(),
       binding: ChatBinding(),
     ),
     GetPage(
-      name: Routes.MORE, 
-      page:()=> MoreView(), 
+      name: Routes.MORE,
+      page: () => MoreView(),
       binding: MoreBinding(),
     ),
     GetPage(
-      name: Routes.PROFILE, 
-      page:()=> ProfileView(), 
+      name: Routes.PROFILE,
+      page: () => ProfileView(),
       binding: ProfileBinding(),
     ),
     GetPage(
-      name: Routes.CHANGE_PASSWORD, 
-      page:()=> ChangePasswordView(), 
+      name: Routes.CHANGE_PASSWORD,
+      page: () => ChangePasswordView(),
       binding: ChangePasswordBinding(),
     ),
     GetPage(
-      name: Routes.WITHDRAWAL, 
-      page:()=> WithdrawalView(), 
+      name: Routes.WITHDRAWAL,
+      page: () => WithdrawalView(),
       binding: WithdrawalBinding(),
     ),
     GetPage(
-      name: Routes.POLICY, 
-      page:()=> PolicyView(), 
+      name: Routes.POLICY,
+      page: () => PolicyView(),
       binding: PolicyBinding(),
     ),
     GetPage(
-      name: Routes.SIGN_UP_INTEREST, 
-      page:()=> SignUpInterestView(), 
-      
+      name: Routes.SIGN_UP_INTEREST,
+      page: () => SignUpInterestView(),
     ),
     GetPage(
-      name: Routes.SIGN_UP_MEDIA_ACCOUNTS, 
-      page:()=> SignUpMediaAccountsView(), 
-      
+      name: Routes.SIGN_UP_MEDIA_ACCOUNTS,
+      page: () => SignUpMediaAccountsView(),
     ),
-    
     GetPage(
-      name: Routes.FORGOT_PASSWORD, 
-      page:()=> ForgotPasswordView(), 
+      name: Routes.FORGOT_PASSWORD,
+      page: () => ForgotPasswordView(),
       binding: ForgotPasswordBinding(),
     ),
   ];

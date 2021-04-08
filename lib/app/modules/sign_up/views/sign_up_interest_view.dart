@@ -84,7 +84,7 @@ class SignUpInterestView extends GetView<SignUpInterestController> {
                 borderColor: colour_border),
             padding: EdgeInsets.only(top: 40, bottom: 10, right: 10, left: 10),
             choiceActiveStyle: C2ChoiceStyle(
-                color: colour_yellow,
+                color: Colors.blue, //colour_yellow,
                 labelStyle: TextStyle(
                     fontFamily: "Gilroy-Medium",
                     fontSize: 13,

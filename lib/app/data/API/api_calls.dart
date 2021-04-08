@@ -1,5 +1,6 @@
 ///API's
-const String BASEURL = "https://api.uatdrive.com:1042/api/v1";
+const String BASEURL =
+    "http://10.0.2.2:5000/api/v1"; // API BASE URL WILL BE HERE //this 10.0.0 is flutter for localhost
 const String LOGIN = "/users/login";
 const String REGISTER = "/users";
 const String PROFILE = "/users/profile";
@@ -14,12 +15,16 @@ const String AD_DETAIL = "/ad/";
 const String PERFORMANCE_LIST_REPORTS = "/reports/";
 const String FILE_UPLOAD = "/files";
 const String POST_REPORT = "/reports";
-const String INTERESTS = "/interests";
+const String INTERESTS = "/inte rests";
 const String POST_INTERESTS = "/interests/user";
 const String TRANSACTION = "/transaction";
 const String WALLET_BAL = "/transaction/balance";
 const String WIDTHDRAWAL_REQ = "/transaction/withdrawal";
 const String STATS = "/stats/";
+const String AVAILABLE_ADS = "/user/ads/my";
+const String RUNNING_ADS = "/user/ads/my?status=running";
+const String COMPLETED_ADS = "/user/ads/my?status=completed";
+const String BALANCE = "/transaction/balance";
 
 ///Params
 const String EMAIL_PARAM = 'email';

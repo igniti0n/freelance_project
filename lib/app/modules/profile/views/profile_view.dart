@@ -15,7 +15,6 @@ import 'package:image_picker/image_picker.dart';
 class ProfileView extends GetView<ProfileController> {
   TextEditingController firstname = new TextEditingController();
   TextEditingController lastname = new TextEditingController();
-  TextEditingController phone = new TextEditingController();
   TextEditingController education = new TextEditingController();
   TextEditingController country = new TextEditingController();
   TextEditingController address = new TextEditingController();
@@ -23,6 +22,8 @@ class ProfileView extends GetView<ProfileController> {
   TextEditingController twitter = new TextEditingController();
   TextEditingController instagram = new TextEditingController();
   TextEditingController youtube = new TextEditingController();
+  TextEditingController phone = new TextEditingController();
+  String gender;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +53,7 @@ class ProfileView extends GetView<ProfileController> {
                         ? CachedNetworkImage(
                             width: 100,
                             height: 100,
-                            imageUrl: data.image,
+                            imageUrl: data.image ?? '',
                             imageBuilder: (context, imageProvider) =>
                                 CircleAvatar(
                                     radius: 50,
@@ -113,6 +114,40 @@ class ProfileView extends GetView<ProfileController> {
                               return "Fill Field";
                             }
                           }),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 17.0, right: 17.0),
+                        child: Text(
+                          "Gender",
+                          style: TextStyle(
+                              fontFamily: "Gilroy",
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 17.0, right: 17.0),
+                        child: DropdownSearch(
+                          hint: 'Select Gender',
+                          maxHeight: 100,
+                          mode: Mode.MENU,
+                          onChanged: (value) {
+                            controller.setGender(value: value);
+                          },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Set Gender";
+                            }
+                            return null;
+                          },
+                          items: ["Male", "Female"],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
                       textField(
                           signup: true,
                           controller: phone =
@@ -309,6 +344,7 @@ class ProfileView extends GetView<ProfileController> {
                                   firstname: firstname.text ?? data.firstname,
                                   lastname: lastname.text ?? data.lastname,
                                   phone: phone.text ?? data.phone,
+                                  gender: controller.gender ?? data.gender,
                                   religion:
                                       controller.religion ?? data.religion,
                                   education:

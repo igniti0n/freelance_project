@@ -18,121 +18,124 @@ class WalletView extends GetView<WalletController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: header,
+        appBar: userHeader,
         body: SingleChildScrollView(
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Padding(
-          padding: const EdgeInsets.all(10),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Stack(
-              children: [
-                GestureDetector(
-                  onTap: () => () {},
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50.0),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Color(0xFFE3534D).withOpacity(0.3),
-                            offset: Offset(0.0, 10.0), //(x,y)
-                            blurRadius: 16.0,
-                            spreadRadius: 0),
-                      ],
-                    ),
-                    child: Image.asset("assets/images/wallet.png"),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 20, top: 16),
-                  child: Text(
-                    "Wallet Balance",
-                    style: TextStyle(
-                        fontFamily: "Gilroy-Medium", color: Colors.white),
-                    textScaleFactor: 1.1,
-                  ),
-                ),
-                Positioned.fill(
-                  child: Container(
-                    padding: EdgeInsets.only(left: 20, bottom: 8, right: 8),
-                    alignment: Alignment.bottomLeft,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Obx(() {
-                          return Text(
-                            "G" + _walletController.balance.string,
-                            style: TextStyle(
-                                fontFamily: "Gilroy-Medium",
-                                color: Colors.white),
-                            textScaleFactor: 1.5,
-                          );
-                        }),
-                        IconButton(
-                          icon: Image.asset(
-                            "assets/images/withdrawal.png",
-                            color: Colors.black,
-                          ),
-                          onPressed: () {
-                            showPopupDialogWithTextField(
-                              context: context,
-                              heading: 'Withdrawal Request',
-                              hintText: 'Please Enter here',
-                              subTitle: 'Enter Amount',
-                              leftButtonTitle: 'Cancel',
-                              keyboardType: TextInputType.numberWithOptions(
-                                  decimal: true),
-                              onPressedLeftButton: () {
-                                Get.back();
-                              },
-                              rightButtonTitle: 'Request',
-                              onPressedRightButton: (value) {
-                                if (value.isAlphabetOnly) {
-                                  Get.snackbar(Strings.ERROR,
-                                      "Please enter proper number.",
-                                      duration: Duration(milliseconds: 2000),
-                                      backgroundColor: colour_time,
-                                      colorText: Colors.white, onTap: (obj) {
-                                    Get.back(result: true);
-                                  });
-                                } else {
-                                  _walletController.widthdrawalRequest(
-                                      amount: value);
-                                }
-                              },
-                            );
-                          },
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Stack(
+                  children: [
+                    GestureDetector(
+                      onTap: () => () {},
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50.0),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Color(0xFFE3534D).withOpacity(0.3),
+                                offset: Offset(0.0, 10.0), //(x,y)
+                                blurRadius: 16.0,
+                                spreadRadius: 0),
+                          ],
                         ),
-                      ],
+                        child: Image.asset("assets/images/wallet.png"),
+                      ),
                     ),
-                  ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20, top: 16),
+                      child: Text(
+                        "Wallet Balance",
+                        style: TextStyle(
+                            fontFamily: "Gilroy-Medium", color: Colors.white),
+                        textScaleFactor: 1.1,
+                      ),
+                    ),
+                    Positioned.fill(
+                      child: Container(
+                        padding: EdgeInsets.only(left: 20, bottom: 8, right: 8),
+                        alignment: Alignment.bottomLeft,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Obx(() {
+                              return Text(
+                                "G" + _walletController.balance.string,
+                                style: TextStyle(
+                                    fontFamily: "Gilroy-Medium",
+                                    color: Colors.white),
+                                textScaleFactor: 1.5,
+                              );
+                            }),
+                            IconButton(
+                              icon: Image.asset(
+                                "assets/images/withdrawal.png",
+                                color: Colors.black,
+                              ),
+                              onPressed: () {
+                                showPopupDialogWithTextField(
+                                  context: context,
+                                  heading: 'Withdrawal Request',
+                                  hintText: 'Please Enter here',
+                                  subTitle: 'Enter Amount',
+                                  leftButtonTitle: 'Cancel',
+                                  keyboardType: TextInputType.numberWithOptions(
+                                      decimal: true),
+                                  onPressedLeftButton: () {
+                                    Get.back();
+                                  },
+                                  rightButtonTitle: 'Request',
+                                  onPressedRightButton: (value) {
+                                    if (value.isAlphabetOnly) {
+                                      Get.snackbar(Strings.ERROR,
+                                          "Please enter proper number.",
+                                          duration:
+                                              Duration(milliseconds: 2000),
+                                          backgroundColor: colour_time,
+                                          colorText: Colors.white,
+                                          onTap: (obj) {
+                                        Get.back(result: true);
+                                      });
+                                    } else {
+                                      _walletController.widthdrawalRequest(
+                                          amount: value);
+                                    }
+                                  },
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text("Withdrawal History",
-              style: GoogleFonts.telex(
-                  fontSize: 15,
-                  fontWeight: FontWeight.normal,
-                  color: Colors.black)),
-        ),
-        _walletController.obx(
-          (state) => _buildWithdrawalList(),
-          onLoading: Loader(),
-          onError: (error) {
-            return ErrorView(
-              errorMsg: error,
-              onTapReload: () {
-                _walletController.fetchWithdrawalTransactions();
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text("Withdrawal History",
+                  style: GoogleFonts.telex(
+                      fontSize: 15,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.black)),
+            ),
+            _walletController.obx(
+              (state) => _buildWithdrawalList(),
+              onLoading: Loader(),
+              onError: (error) {
+                return ErrorView(
+                  errorMsg: error,
+                  onTapReload: () {
+                    _walletController.fetchWithdrawalTransactions();
+                  },
+                );
               },
-            );
-          },
-        ),
-      ]),
-    ));
+            ),
+          ]),
+        ));
   }
 
   _buildWithdrawalList() {

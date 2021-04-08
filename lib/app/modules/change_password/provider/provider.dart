@@ -8,7 +8,8 @@ import 'package:test_project_one/app/widgets/colours.dart';
 import 'package:test_project_one/main.dart';
 
 class ChangePasswordProvider extends GetConnect {
-  Future<Map<String, dynamic>>changePassword({String oldPassword, newPassword}) async {
+  Future<Map<String, dynamic>> changePassword(
+      {String oldPassword, newPassword}) async {
     final pref = await SharedPreferences.getInstance();
     ProgressDialog pr;
     BuildContext context = Get.context;
@@ -29,10 +30,12 @@ class ChangePasswordProvider extends GetConnect {
 
     String url = BASEURL + CHANGEPASSWORD;
     Map body = {"oldpassword": oldPassword, "newpassword": newPassword};
+
     var response = await post(url, body, headers: {
       "Content-Type": "application/json",
       "Authorization": "Bearer ${loginModel.token}"
     });
+
     if (response.hasError) {
       pr.hide();
       Get.snackbar(

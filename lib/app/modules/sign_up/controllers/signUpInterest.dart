@@ -35,8 +35,19 @@ class SignUpInterestController extends GetxController
     try {
       change(null, status: RxStatus.loading());
       SignUpInterestProvider provider = SignUpInterestProvider();
-      InterestModel interestModel =
-          await provider.fetchInterests(token: _token);
+      //TODO: REMOVE MOCK
+      InterestModel interestModel = InterestModel(
+        statusCode: 200,
+        data: [
+          InterestDetails(
+            createdAt: DateTime.now(),
+            id: "dummyId",
+            interest: "dummyInteres",
+            updatedAt: DateTime.now(),
+            v: 1,
+          )
+        ],
+      ); //await provider.fetchInterests(token: _token);
       intersts.clear();
       intersts.addAll(interestModel.data);
       change(interestModel, status: RxStatus.success());
@@ -73,8 +84,9 @@ class SignUpInterestController extends GetxController
     });
     try {
       SignUpInterestProvider provider = SignUpInterestProvider();
+      //TODO: REMOVE MOCK
       bool isSuccess =
-          await provider.postInterests(interests: ids, token: _token);
+          true; //await provider.postInterests(interests: ids, token: _token);
       return isSuccess;
     } catch (onError) {
       Get.snackbar(Strings.ERROR, onError.message,

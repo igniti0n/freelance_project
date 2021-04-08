@@ -39,14 +39,17 @@ class MoreView extends GetView<MoreController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        loginModel.user.accountName,
+                        loginModel.user.accountName ??
+                            (loginModel.user.firstname ??
+                                "" + loginModel.user.lastname ??
+                                ""),
                         style: TextStyle(fontFamily: "Gilroy", fontSize: 20),
                       ),
                       SizedBox(
                         height: 4,
                       ),
                       Text(
-                        loginModel.user.email,
+                        loginModel.user.email ?? '',
                         style: TextStyle(
                             fontFamily: "Gilroy-Medium", fontSize: 15),
                       ),
@@ -55,6 +58,8 @@ class MoreView extends GetView<MoreController> {
                   CachedNetworkImage(
                     imageUrl: imageUrl.value,
                     imageBuilder: (context, imageProvider) => CircleAvatar(
+                        maxRadius: 40,
+                        minRadius: 20,
                         backgroundImage: imageProvider,
                         backgroundColor: Colors.white),
                     placeholder: (context, url) =>
@@ -142,7 +147,7 @@ class MoreView extends GetView<MoreController> {
                         icon: SvgPicture.asset("assets/svg/more-people.svg"),
                         title: "Resources",
                         onPressed: () {
-                          launch("https://uatdrive.com/resources");
+                          launch("https://adsmata.com/academy");
                         },
                       ),
                       createTitle(
@@ -150,7 +155,7 @@ class MoreView extends GetView<MoreController> {
                             SvgPicture.asset("assets/svg/more-description.svg"),
                         title: "Privacy Policy",
                         onPressed: () {
-                          launch("https://uatdrive.com/privacy");
+                          launch("https://adsmata.com/academy");
                         },
                       ),
                     ],

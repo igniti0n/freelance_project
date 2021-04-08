@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="26.103" height="27.245" viewBox="0 0 26.103 27.245">
+  <g id="completed-tasks" transform="translate(-0.985)">
+    <g id="Layer_1_2_" transform="translate(0.985)">
+      <g id="Group_3191" data-name="Group 3191">
+        <path id="Path_6953" data-name="Path 6953" d="M3.962,22.329V2.977H19.591V19.23l2.978-2.46V1.489A1.488,1.488,0,0,0,21.081,0H2.473A1.488,1.488,0,0,0,.985,1.489V23.817a1.488,1.488,0,0,0,1.488,1.489h12.99l-2.1-2.977Z" transform="translate(-0.985)" fill="#f89900"/>
+        <path id="Path_6954" data-name="Path 6954" d="M35.832,27.462a.744.744,0,0,0-.984-.033L28.02,33.071l-4.55-2.73a.744.744,0,0,0-.991,1.068l4.931,6.978a.746.746,0,0,0,.6.315h.007a.741.741,0,0,0,.6-.3l7.3-9.955A.746.746,0,0,0,35.832,27.462Z" transform="translate(-9.962 -11.457)" fill="#3fd600"/>
+        <path id="Path_6955" data-name="Path 6955" d="M19.75,8.988H10.818a1.489,1.489,0,0,0,0,2.977H19.75a1.489,1.489,0,0,0,0-2.977Z" transform="translate(-4.493 -3.778)" fill="#f89900"/>
+        <path id="Path_6956" data-name="Path 6956" d="M19.75,16.691H10.818a1.489,1.489,0,0,0,0,2.977H19.75a1.489,1.489,0,0,0,0-2.977Z" transform="translate(-4.493 -7.016)" fill="#f89900"/>
+        <path id="Path_6957" data-name="Path 6957" d="M19.75,24.4H10.818a1.489,1.489,0,0,0,0,2.977H19.75a1.489,1.489,0,0,0,0-2.977Z" transform="translate(-4.493 -10.254)" fill="#f89900"/>
+      </g>
+    </g>
+  </g>
+</svg>

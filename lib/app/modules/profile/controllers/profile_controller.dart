@@ -20,6 +20,7 @@ class ProfileController extends GetxController
   final count = 0.obs;
   File file;
   String religion;
+  String gender;
 
   @override
   void onInit() {
@@ -42,6 +43,10 @@ class ProfileController extends GetxController
 
   setReligion({String value}) {
     religion = value;
+  }
+
+  setGender({String value}) {
+    this.gender = value;
   }
 
   getProfile() {
@@ -72,6 +77,8 @@ class ProfileController extends GetxController
     String lastname,
     String phone,
     String religion,
+    String gender,
+    String age,
     String education,
     String country,
     String address,
@@ -84,6 +91,7 @@ class ProfileController extends GetxController
       FIRST_NAME_PARAM: firstname,
       LAST_NAME_PARAM: lastname,
       PHONE_PARAM: phone,
+      GENDER_PARAM: gender,
       RELIGION_PARAM: religion,
       LEVEL_OF_EDU_PARAM: education,
       COUNTRY_PARAM: country,

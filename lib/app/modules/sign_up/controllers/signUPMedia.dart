@@ -26,7 +26,7 @@ class SignUpMediaController extends GetxController with StateMixin {
     String firtname,
     String lastname,
     String gender,
-    String phone,
+    String phone = "",
     String dateOfBirth,
     String religion,
     String levelOfEducation,

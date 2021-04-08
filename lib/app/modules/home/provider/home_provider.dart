@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:get/get_connect/connect.dart';
 import 'package:test_project_one/app/data/API/api_calls.dart';
@@ -14,6 +16,7 @@ class HomeProvider extends GetConnect {
 
     LoginModel loginModel = await LoginModel.fromPrefs();
     String url = BASEURL + HOME_ADS;
+
     var response = await get(url, headers: {
       "Authorization": "Bearer " + loginModel.token,
     });

@@ -16,7 +16,7 @@ class StatsView extends GetView<StatsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: header,
+      appBar: userHeader,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
